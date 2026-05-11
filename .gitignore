@@ -1,0 +1,23 @@
+
+# === LARGE FILES (>100MB GitHub limit) ===
+state.db
+state.db-shm
+state.db-wal
+kanban.db
+*.db
+*.db-shm
+*.db-wal
+
+# === BINARY CACHE (audio, images) ===
+audio_cache/
+cache/
+image_cache/
+images/
+
+# === STATE SNAPSHOTS ===
+state-snapshots/
+
+# === DOTFILES ===
+.env
+.hermes_history
+.update_check

@@ -1,0 +1,113 @@
+
+=== hermes update started 2026-04-18T13:00:49 ===
+⚕ Updating Hermes Agent...
+
+→ Fetching updates...
+→ Local changes detected — stashing before update...
+→ Found 10 new commit(s)
+→ Pulling updates...
+
+⚠ Local changes were stashed before updating.
+  Restoring them may reapply local customizations onto the updated codebase.
+  Review the result afterward if Hermes behaves unexpectedly.
+Restore local changes now? [Y/n]
+→ Restoring local changes...
+⚠ Local changes were restored on top of the updated codebase.
+  Review `git diff` / `git status` if Hermes behaves unexpectedly.
+  ✓ Cleared 15 stale __pycache__ directories
+→ Updating Python dependencies...
+→ Updating Node.js dependencies...
+  ✓ repo root
+  ✓ ui-tui
+→ Building web UI...
+  ✓ Web UI built
+
+✓ Code updated!
+
+→ Syncing bundled skills...
+  ✓ Skills are up to date
+
+→ Checking configuration for new options...
+  ✓ Configuration is up to date
+
+✓ Update complete!
+
+  ✓ Restarted hermes-gateway
+
+Tip: You can now select a provider and model:
+  hermes model              # Select provider and model
+
+=== hermes update started 2026-05-03T03:38:25 ===
+⚕ Updating Hermes Agent...
+
+→ Fetching updates...
+→ Found 1320 new commit(s)
+→ Pulling updates...
+  ✓ Cleared 18 stale __pycache__ directories
+→ Updating Python dependencies...
+→ Updating Node.js dependencies...
+  ✓ repo root
+  ✓ ui-tui
+→ Building web UI...
+  ✓ Web UI built
+
+✓ Code updated!
+
+→ Syncing bundled skills...
+  + 17 new: kanban-orchestrator, kanban-worker, humanizer, pretext, claude-design, sketch, design-md, touchdesigner-mcp, comfyui, spotify, airtable, yuanbao, python-debugpy, spike, node-inspect-debugger, hermes-agent-skill-authoring, debugging-hermes-tui-commands
+  ↑ 68 updated: xurl, himalaya, polymarket, research-paper-writing, llm-wiki, arxiv, blogwatcher, findmy, apple-notes, apple-reminders, godmode, openhue, webhook-subscriptions, jupyter-live-kernel, native-mcp, axolotl, fine-tuning-with-trl, unsloth, dspy, huggingface-hub, weights-and-biases, evaluating-llms-harness, serving-llms-vllm, outlines, obliteratus, audiocraft-audio-generation, segment-anything-model, opencode, codex, hermes-agent, claude-code, github-pr-workflow, codebase-inspection, github-repo-management, github-auth, github-issues, github-code-review, ideation, ascii-video, popular-web-designs, manim-video, excalidraw, songwriting-and-ai-music, architecture-diagram, baoyu-infographic, p5js, pixel-art, ascii-art, baoyu-comic, gif-search, songsee, youtube-content, heartmula, dogfood, ocr-and-documents, linear, powerpoint, maps, nano-pdf, notion, minecraft-modpack-server, pokemon-player, test-driven-development, requesting-code-review, plan, writing-plans, subagent-driven-development, systematic-debugging
+  ~ 1 user-modified (kept)
+
+→ Checking configuration for new options...
+  ✓ Configuration is up to date
+
+✓ Update complete!
+
+Tip: You can now select a provider and model:
+  hermes model              # Select provider and model
+
+=== hermes update started 2026-05-08T14:09:39 ===
+⚕ Updating Hermes Agent...
+
+→ Fetching updates...
+→ Local changes detected — stashing before update...
+→ Found 737 new commit(s)
+  ✓ Pre-update snapshot: 20260508-140951-pre-update
+→ Pulling updates...
+
+⚠ Local changes were stashed before updating.
+  Restoring them may reapply local customizations onto the updated codebase.
+  Review the result afterward if Hermes behaves unexpectedly.
+Restore local changes now? [Y/n]
+→ Restoring local changes...
+⚠ Local changes were restored on top of the updated codebase.
+  Review `git diff` / `git status` if Hermes behaves unexpectedly.
+  ✓ Cleared 20 stale __pycache__ directories
+→ Updating Python dependencies...
+→ Updating Node.js dependencies...
+  ✓ repo root
+  ✓ ui-tui
+→ Building web UI...
+  ✓ Web UI built
+
+✓ Code updated!
+
+→ Syncing bundled skills...
+  ↑ 6 updated: himalaya, kanban-orchestrator, kanban-worker, codex, linear, obsidian
+  ~ 2 user-modified (kept)
+
+→ Checking configuration for new options...
+
+
+  ℹ Non-interactive session — skipping config migration prompt.
+    Run 'hermes config migrate' later to apply any new config/env options.
+
+Skipped. Run 'hermes config migrate' later to configure.
+
+✓ Update complete!
+  → hermes-gateway: draining (up to 75s)...
+
+  ✓ Restarted hermes-gateway
+
+Tip: You can now select a provider and model:
+  hermes model              # Select provider and model

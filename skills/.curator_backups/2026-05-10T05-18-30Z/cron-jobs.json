@@ -1,0 +1,81 @@
+{
+  "jobs": [
+    {
+      "id": "bfa0b5c4fd56",
+      "name": "\ud83d\udce7 B\u00e1o c\u00e1o Email Daily - Th\u0103ng Long",
+      "prompt": "D\u01b0\u1edbi \u0111\u00e2y l\u00e0 d\u1eef li\u1ec7u email th\u00f4 (JSON) t\u1eeb t\u00e0i kho\u1ea3n pcccthanglong.tlc@gmail.com h\u00f4m nay.\n\nH\u00e3y \u0111\u1ecbnh d\u1ea1ng th\u00e0nh b\u00e1o c\u00e1o Markdown \u0111\u1eb9p, r\u00f5 r\u00e0ng b\u1eb1ng ti\u1ebfng Vi\u1ec7t theo c\u1ea5u tr\u00fac sau:\n\n---\n\n\ud83d\udce7 **B\u00c1O C\u00c1O EMAIL H\u00c0NG NG\u00c0Y**\n**T\u00e0i kho\u1ea3n:** pcccthanglong.tlc@gmail.com\n**\ud83d\udcc5 {day}, {date} | C\u1eadp nh\u1eadt l\u00fac {time} (GMT+7)**\n**\ud83d\udcca T\u1ed5ng quan:** {inbox_count} th\u01b0 \u0111\u1ebfn \u00b7 {sent_count} th\u01b0 \u0111\u00e3 g\u1eedi\n\n---\n\n## I. \ud83d\udce5 H\u1ed9p th\u01b0 \u0111\u1ebfn ({inbox_count} email)\n\n**1. [Ti\u00eau \u0111\u1ec1 \u2014 d\u1ecbch sang ti\u1ebfng Vi\u1ec7t n\u1ebfu l\u00e0 ti\u1ebfng Anh/Trung]**\n- **T\u1eeb:** ...\n- **Th\u1eddi gian:** ...\n- **N\u1ed9i dung:** [T\u00f3m t\u1eaft/tr\u00edch n\u1ed9i dung ch\u00ednh \u2014 n\u1ebfu l\u00e0 ti\u1ebfng Anh ho\u1eb7c ti\u1ebfng Trung th\u00ec d\u1ecbch sang ti\u1ebfng Vi\u1ec7t. B\u1ecf qua link, ch\u1eef k\u00fd, footer]\n- **T\u1ec7p \u0111\u00ednh k\u00e8m:**\n  - `[T\u00ean file g\u1ed1c]` \u2192 **[D\u1ecbch ngh\u0129a t\u00ean file sang ti\u1ebfng Vi\u1ec7t]** \u00b7 **L\u01b0u Drive:** [\u0110\u00e3 l\u01b0u: link Drive / ho\u1eb7c Ch\u01b0a l\u01b0u \u0111\u01b0\u1ee3c: l\u00fd do ng\u1eafn g\u1ecdn]\n  - N\u1ebfu l\u00e0 PDF v\u00e0 c\u00f3 `pdf_text_for_summary`: **T\u00f3m t\u1eaft PDF:** [3-5 g\u1ea1ch \u0111\u1ea7u d\u00f2ng n\u1ed9i dung ch\u00ednh b\u1eb1ng ti\u1ebfng Vi\u1ec7t]\n\n**2. ...**\n\n---\n\n## II. \ud83d\udce4 Th\u01b0 \u0111\u00e3 g\u1eedi ({sent_count} email)\n\n**1. [Ti\u00eau \u0111\u1ec1 \u2014 d\u1ecbch sang ti\u1ebfng Vi\u1ec7t n\u1ebfu l\u00e0 ti\u1ebfng Anh/Trung]**\n- **\u0110\u1ebfn:** ...\n- **Th\u1eddi gian:** ...\n- **N\u1ed9i dung:** [T\u00f3m t\u1eaft/tr\u00edch n\u1ed9i dung ch\u00ednh \u2014 n\u1ebfu l\u00e0 ti\u1ebfng Anh ho\u1eb7c ti\u1ebfng Trung th\u00ec d\u1ecbch sang ti\u1ebfng Vi\u1ec7t. B\u1ecf qua link, ch\u1eef k\u00fd, footer]\n- **T\u1ec7p \u0111\u00ednh k\u00e8m:** [\u00e1p d\u1ee5ng c\u00f9ng quy t\u1eafc nh\u01b0 tr\u00ean n\u1ebfu c\u00f3]\n\n---\n\n**Quy t\u1eafc quan tr\u1ecdng:**\n- D\u00f9ng Markdown chu\u1ea9n (bold, heading, dash list)\n- Ti\u00eau \u0111\u1ec1 email, n\u1ed9i dung email, v\u00e0 t\u00ean file \u0111\u00ednh k\u00e8m PH\u1ea2I d\u1ecbch sang ti\u1ebfng Vi\u1ec7t n\u1ebfu l\u00e0 ti\u1ebfng Anh ho\u1eb7c ti\u1ebfng Trung\n- V\u1edbi m\u1ed7i t\u1ec7p \u0111\u00ednh k\u00e8m: lu\u00f4n n\u00eau t\u00ean file g\u1ed1c + b\u1ea3n d\u1ecbch ngh\u0129a ti\u1ebfng Vi\u1ec7t c\u1ee7a t\u00ean file\n- V\u1edbi file PDF: t\u00f3m t\u1eaft n\u1ed9i dung ch\u00ednh c\u1ee7a PDF t\u1eeb `pdf_text_for_summary`; n\u1ebfu kh\u00f4ng tr\u00edch xu\u1ea5t \u0111\u01b0\u1ee3c text th\u00ec ghi ng\u1eafn g\u1ecdn: \"Kh\u00f4ng tr\u00edch xu\u1ea5t \u0111\u01b0\u1ee3c n\u1ed9i dung PDF\"\n- V\u1edbi Drive: n\u1ebfu `status` l\u00e0 `uploaded`, ghi \"\u0110\u00e3 l\u01b0u\" k\u00e8m `drive_link`; n\u1ebfu upload l\u1ed7i, ghi \"\u0110\u00e3 l\u01b0u c\u1ee5c b\u1ed9, ch\u01b0a t\u1ea3i l\u00ean Drive \u0111\u01b0\u1ee3c\" v\u00e0 l\u00fd do ng\u1eafn g\u1ecdn, kh\u00f4ng hi\u1ec3n th\u1ecb \u0111\u01b0\u1eddng d\u1eabn local\n- KH\u00d4NG hi\u1ec3n th\u1ecb URL/link trong n\u1ed9i dung email; ch\u1ec9 \u0111\u01b0\u1ee3c hi\u1ec3n th\u1ecb link Drive c\u1ee7a t\u1ec7p \u0111\u00ednh k\u00e8m khi upload th\u00e0nh c\u00f4ng\n- KH\u00d4NG hi\u1ec3n th\u1ecb ch\u1eef k\u00fd, footer, cu\u1ed1ng th\u01b0\n- N\u1ed9i dung t\u00f3m t\u1eaft email ng\u1eafn g\u1ecdn, \u0111\u1ee7 \u00fd, t\u1ed1i \u0111a 3-4 d\u00f2ng m\u1ed7i email\n- N\u1ebfu kh\u00f4ng c\u00f3 email n\u00e0o: ghi \"\u2705 Kh\u00f4ng c\u00f3 email trong 24h qua\"\n\nD\u1eef li\u1ec7u JSON:\n{script_output}\n",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": "daily_email_report.py",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 13 * * *",
+        "display": "0 13 * * *"
+      },
+      "schedule_display": "0 13 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 29
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-04-19T00:54:55.103138+00:00",
+      "next_run_at": "2026-05-10T13:00:00+00:00",
+      "last_run_at": "2026-05-09T13:01:29.865761+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "feishu:oc_909e2f33b96a2bfd5da948caf8563d95",
+      "origin": {
+        "platform": "feishu",
+        "chat_id": "oc_e6167ab9a7424fab1a2db2442fd98581",
+        "chat_name": "oc_e6167ab9a7424fab1a2db2442fd98581",
+        "thread_id": null
+      }
+    },
+    {
+      "id": "38d40dadb119",
+      "name": "\ud83d\udccb GOERTEK - B\u00e1o c\u00e1o giao vi\u1ec7c 19:00",
+      "prompt": "D\u01b0\u1edbi \u0111\u00e2y l\u00e0 k\u1ebft qu\u1ea3 qu\u00e9t tin nh\u1eafn giao vi\u1ec7c t\u1eeb nh\u00f3m GOERTEK_TRAO \u0110\u1ed4I C\u00d4NG VI\u1ec6C h\u00f4m nay. H\u00e3y g\u1eedi TO\u00c0N B\u1ed8 n\u1ed9i dung b\u00e1o c\u00e1o d\u01b0\u1edbi d\u1ea1ng tin nh\u1eafn Lark (gi\u1eef nguy\u00ean format emoji, b\u1ea3ng). Kh\u00f4ng t\u00f3m t\u1eaft, kh\u00f4ng b\u1ecf s\u00f3t b\u1ea5t k\u1ef3 vi\u1ec7c n\u00e0o.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": "goertek_task_sync.py",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 12 * * *",
+        "display": "0 12 * * *"
+      },
+      "schedule_display": "0 12 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 21
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-04-19T02:09:19.414561+00:00",
+      "next_run_at": "2026-05-10T12:00:00+00:00",
+      "last_run_at": "2026-05-09T12:00:34.060753+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "feishu:oc_e6167ab9a7424fab1a2db2442fd98581",
+      "origin": {
+        "platform": "feishu",
+        "chat_id": "oc_e6167ab9a7424fab1a2db2442fd98581",
+        "chat_name": "oc_e6167ab9a7424fab1a2db2442fd98581",
+        "thread_id": null
+      }
+    }
+  ],
+  "updated_at": "2026-05-09T13:01:29.866766+00:00"
+}
