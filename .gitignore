@@ -14,10 +14,18 @@ cache/
 image_cache/
 images/
 
-# === STATE SNAPSHOTS ===
+# === STATE SNAPSHOTS & MIGRATION ===
 state-snapshots/
+migration/
+
+# === AUTH SUBFOLDER ===
+auth/
+
+# === EMAIL ATTACHMENTS ===
+email_attachments/
 
 # === DOTFILES ===
 .env
 .hermes_history
 .update_check
+.skills_prompt_snapshot.json
