@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-11T14:03:33.703591",
+  "updated_at": "2026-05-12T15:10:20.712084",
   "platforms": {
     "slack": [
       {
@@ -25,6 +25,11 @@
       {
         "id": "C0B30LF5REC",
         "name": "convert-to-markdown",
+        "type": "channel"
+      },
+      {
+        "id": "C0B33N47F8D",
+        "name": "công-việc",
         "type": "channel"
       },
       {
@@ -170,6 +175,54 @@
         "name": "C0AKCBL3CR4 / topic 1778422314.845239",
         "type": "group",
         "thread_id": "1778422314.845239"
+      },
+      {
+        "id": "C0AKCBL3CR4:1778509337.807199",
+        "name": "C0AKCBL3CR4 / topic 1778509337.807199",
+        "type": "group",
+        "thread_id": "1778509337.807199"
+      },
+      {
+        "id": "C0B25QXMR8Q:1778512353.434449",
+        "name": "C0B25QXMR8Q / topic 1778512353.434449",
+        "type": "group",
+        "thread_id": "1778512353.434449"
+      },
+      {
+        "id": "C0B30LF5REC:1778549896.041379",
+        "name": "C0B30LF5REC / topic 1778549896.041379",
+        "type": "group",
+        "thread_id": "1778549896.041379"
+      },
+      {
+        "id": "C0B25QXMR8Q:1778551765.722399",
+        "name": "C0B25QXMR8Q / topic 1778551765.722399",
+        "type": "group",
+        "thread_id": "1778551765.722399"
+      },
+      {
+        "id": "C0B33N47F8D:1778568165.772039",
+        "name": "C0B33N47F8D / topic 1778568165.772039",
+        "type": "group",
+        "thread_id": "1778568165.772039"
+      },
+      {
+        "id": "C0B33N47F8D:1778576123.184179",
+        "name": "C0B33N47F8D / topic 1778576123.184179",
+        "type": "group",
+        "thread_id": "1778576123.184179"
+      },
+      {
+        "id": "C0B25QXMR8Q:1778593381.790669",
+        "name": "C0B25QXMR8Q / topic 1778593381.790669",
+        "type": "group",
+        "thread_id": "1778593381.790669"
+      },
+      {
+        "id": "C0B25QXMR8Q:1778595537.998719",
+        "name": "C0B25QXMR8Q / topic 1778595537.998719",
+        "type": "group",
+        "thread_id": "1778595537.998719"
       }
     ],
     "telegram": [
@@ -177,6 +230,12 @@
         "id": "1886909704",
         "name": "HAHVAC",
         "type": "dm",
+        "thread_id": null
+      },
+      {
+        "id": "-5246899874",
+        "name": "Hermes Text To Speech",
+        "type": "group",
         "thread_id": null
       }
     ],
