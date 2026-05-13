@@ -245,6 +245,7 @@ Quick checks to ensure formulas work correctly:
 - [ ] **Division by zero**: Check denominators before using `/` in formulas (#DIV/0!)
 - [ ] **Wrong references**: Verify all cell references point to intended cells (#REF!)
 - [ ] **Cross-sheet references**: Use correct format (Sheet1!A1) for linking sheets
+- [ ] **Environment-specific import failures**: If `openpyxl`/`pandas` fails because NumPy was built for unsupported CPU optimizations (e.g. `RuntimeError: NumPy was built with baseline optimizations: (X86_V2)`), do not stop. For read-only inspection, parse the `.xlsx` as a ZIP of XML files (`xl/workbook.xml`, `xl/_rels/workbook.xml.rels`, `xl/sharedStrings.xml`, `xl/worksheets/sheet*.xml`) using only the Python standard library. LibreOffice `--convert-to csv` can also preview a workbook but may only export the active sheet and may produce encoding issues, so XML parsing is more reliable for multi-sheet extraction.
 
 ### Formula Testing Strategy
 - [ ] **Start small**: Test formulas on 2-3 cells before applying broadly

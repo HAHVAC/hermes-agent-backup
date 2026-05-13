@@ -269,6 +269,7 @@ All commands return JSON. Parse with `jq` or read directly. Key fields:
 | `HttpError 403: Insufficient Permission` | Missing API scope — `$GSETUP --revoke` then redo Steps 3-5 |
 | `HttpError 403: Access Not Configured` | API not enabled — user needs to enable it in Google Cloud Console |
 | `ModuleNotFoundError` | Run `$GSETUP --install-deps` |
+| `gws: /lib/.../libc.so.6: version GLIBC_2.39 not found` | Installed `gws` binary is incompatible with host glibc. Bypass `gws` and call Google Python client libraries directly, or set `HERMES_GWS_BIN` to a working binary; `google_api.py` currently exits on broken `gws` instead of falling back. |
 | Advanced Protection blocks auth | Workspace admin must allowlist the OAuth client ID |
 
 ## Revoking Access

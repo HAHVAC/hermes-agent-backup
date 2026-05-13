@@ -190,6 +190,8 @@ hermes cron remove ID       Delete a job
 hermes cron status          Scheduler status
 ```
 
+When debugging a failed cron job, first inspect the job metadata (`hermes cron list` or cronjob tool), then read the latest output artifact under `~/.hermes/cron/output/<job_id>/`. For `no_agent` script jobs, the output markdown includes the script exit code, stderr, and stdout; this is often faster and more reliable than searching gateway logs. If the cron runs a backup/push script and GitHub rejects the push with `GH001: Large files detected`, check for files over 100 MB in the backup repo and review the backup script for overly broad `rsync` plus missing excludes for runtime/cache/secret paths such as `state.db`, `state-snapshots/`, `.env`, `auth.json`, `auth/`, `cache/`, `audio_cache/`, `email_attachments/`, `logs/`, `sessions/`, and `cron/output/`. Before fixing history or removing files from a backup repo, summarize the cleanup plan for the user because it changes what will be backed up and may require reset/recommit of local Git history.
+
 ### Webhooks
 
 ```
@@ -319,6 +321,10 @@ Type these during an interactive chat session.
 ```
 
 ---
+
+## Boss/Doremon context setup reference
+
+For configuring Boss's global Hermes persona, memory compaction, and workspace `.hermes.md` context precedence, see `references/context-loading-and-boss-persona.md`.
 
 ## Key Paths & Config
 
@@ -610,9 +616,16 @@ terminal(command="tmux new-session -d -s resumed 'hermes --resume 20260225_14305
 ## Troubleshooting
 
 ### Voice not working
-1. Check `stt.enabled: true` in config.yaml
-2. Verify provider: `pip install faster-whisper` or set API key
-3. In gateway: `/restart`. In CLI: exit and relaunch.
+1. Check `stt.enabled: true` in config.yaml for STT, and `tts.provider` for TTS.
+2. Verify provider: `pip install faster-whisper` or set API key for STT; for TTS confirm the configured provider has credentials/quota.
+3. If ElevenLabs TTS fails, test the exact key with a direct short `/v1/text-to-speech/{voice_id}` call before concluding permissions. ElevenLabs may return `missing_permissions` for `user_read`/`voices_read` while `text_to_speech` is allowed; Hermes can still work if `voice_id` is already configured. A `quota_exceeded` response like “quota of 2… 8 credits required” means the key works but credits/quota are insufficient.
+4. For a reliable Vietnamese default/fallback, set Edge TTS male voice:
+   ```bash
+   hermes config set tts.provider edge
+   hermes config set tts.edge.voice vi-VN-NamMinhNeural
+   ```
+   Then verify with the `text_to_speech` tool; it should report provider `edge` and produce an `.ogg` voice-compatible file.
+5. In gateway: `/restart`. In CLI: exit and relaunch.
 
 ### Tool not available
 1. `hermes tools` — check if toolset is enabled for your platform
@@ -645,6 +658,15 @@ Common gateway problems:
 - **Gateway dies on SSH logout**: Enable linger: `sudo loginctl enable-linger $USER`
 - **Gateway dies on WSL2 close**: WSL2 requires `systemd=true` in `/etc/wsl.conf` for systemd services to work. Without it, gateway falls back to `nohup` (dies when session closes).
 - **Gateway crash loop**: Reset the failed state: `systemctl --user reset-failed hermes-gateway`
+
+#### Telegram group auto-reply/debug checklist
+
+When a Telegram group invite/link is reported as not auto-replying:
+1. Check if the gateway has learned the group target: use the messaging target list if available, and search `~/.hermes/logs/gateway.log` for inbound Telegram group/chat IDs. If only the DM target appears and logs show no group inbound, the bot has not received any group updates yet.
+2. Inspect Telegram env/config without leaking tokens: `TELEGRAM_ALLOWED_USERS`, `TELEGRAM_GROUP_ALLOWED_USERS`, `TELEGRAM_GROUP_ALLOWED_CHATS`, `TELEGRAM_ALLOWED_CHATS`, `TELEGRAM_REQUIRE_MENTION`, `TELEGRAM_FREE_RESPONSE_CHATS`, and `TELEGRAM_MENTION_PATTERNS` may gate group messages. `TELEGRAM_ALLOWED_USERS` alone only proves the DM/user is allowed, not that a group chat is allowed.
+3. Use Bot API `getMe` to verify bot identity and privacy-relevant fields. `can_join_groups: true` means the bot can be added; `can_read_all_group_messages: false` means BotFather Privacy Mode is still restricting normal group messages, so the bot only receives commands, explicit mentions, or replies to the bot.
+4. Ask the user to test in the group with `@<bot_username> ping` or `/help@<bot_username>`. If that works but normal messages do not, the issue is privacy/mention gating rather than gateway connectivity.
+5. If full auto-reply to all group messages is desired, instruct disabling privacy in BotFather (`/setprivacy` → bot → Disable), then have someone send a fresh group message so the gateway can log the `chat_id`. Add the chat ID to the correct allowlist (`TELEGRAM_GROUP_ALLOWED_CHATS` for authorization; Telegram adapter `allowed_chats`/`TELEGRAM_ALLOWED_CHATS` is a hard pre-filter) only after the ID is known.
 
 ### Platform-specific issues
 - **Discord bot silent**: Must enable **Message Content Intent** in Bot → Privileged Gateway Intents.
