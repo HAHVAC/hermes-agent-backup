@@ -142,6 +142,7 @@ lark-cli config show
 - **chat-id**: Dùng `lark-cli im +chat-search --query "TÊN_NHÓM"` để tìm chat_id (flag là `--query`, KHÔNG phải `--keyword`).
 - **sheets +create**: Không có `--format` flag và không có `--sheet-title`. Dùng `--title` cho tên file, `--headers` cho header row.
 - **Base shortcuts may not accept --format**: Một số `lark-cli base +...` shortcut không nhận `--format`; mặc định đã trả JSON, bỏ flag này nếu gặp `unknown flag: --format`.
+- **drive +download output path**: `lark-cli drive +download --output` không cho absolute path; phải `cd` vào thư mục đích rồi dùng relative path, ví dụ `mkdir -p /tmp/lark_file && cd /tmp/lark_file && lark-cli drive +download --file-token <token> --output ./downloaded --overwrite`. Link dạng `/file/<token>` có thể tải trực tiếp bằng `drive +download --file-token <token>`; nếu thiếu tên/đuôi file, dùng `file ./downloaded` để xác định loại.
 - **im +chat-messages-list**: Không có `--limit` flag. Dùng `--page-size` (max 50).
 - **Dry run**: Dùng `--dry-run` để preview trước khi thực thi các lệnh có side effect.
 - **23 Skills location**: Cài tại `~/.agents/skills/lark-*`. Đọc skill tương ứng trước khi dùng API (`cat ~/.agents/skills/lark-im/SKILL.md`).

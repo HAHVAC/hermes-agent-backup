@@ -226,6 +226,19 @@ $GAPI contacts list --max 20
 # Read
 $GAPI sheets get SHEET_ID "Sheet1!A1:D10"
 
+# If gws is installed but broken/incompatible, bypass it for read-only Sheets access:
+python - <<'PY'
+import sys, json
+sys.path.insert(0, '/root/.hermes/skills/productivity/google-workspace/scripts')
+import google_api
+svc = google_api.build_service('sheets', 'v4')
+res = svc.spreadsheets().values().get(
+    spreadsheetId='SHEET_ID',
+    range="'Sheet Name'!A:AH",
+).execute()
+print(json.dumps(res.get('values', []), ensure_ascii=False))
+PY
+
 # Write
 $GAPI sheets update SHEET_ID "Sheet1!A1:B2" --values '[["Name","Score"],["Alice","95"]]'
 
@@ -269,7 +282,7 @@ All commands return JSON. Parse with `jq` or read directly. Key fields:
 | `HttpError 403: Insufficient Permission` | Missing API scope — `$GSETUP --revoke` then redo Steps 3-5 |
 | `HttpError 403: Access Not Configured` | API not enabled — user needs to enable it in Google Cloud Console |
 | `ModuleNotFoundError` | Run `$GSETUP --install-deps` |
-| `gws: /lib/.../libc.so.6: version GLIBC_2.39 not found` | Installed `gws` binary is incompatible with host glibc. Bypass `gws` and call Google Python client libraries directly, or set `HERMES_GWS_BIN` to a working binary; `google_api.py` currently exits on broken `gws` instead of falling back. |
+| `gws: /lib/.../libc.so.6: version GLIBC_2.39 not found` | Installed `gws` binary is incompatible with host glibc. Bypass `gws` and call Google Python client libraries directly, or set `HERMES_GWS_BIN` to a working binary; `google_api.py` currently exits on broken `gws` instead of falling back. For Sheets reads, import `google_api` and call `build_service('sheets','v4')` directly; see snippet below. |
 | Advanced Protection blocks auth | Workspace admin must allowlist the OAuth client ID |
 
 ## Revoking Access

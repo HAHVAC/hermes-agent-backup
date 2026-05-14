@@ -101,6 +101,10 @@ df.to_excel('output.xlsx', index=False)
 
 ## Excel File Workflows
 
+### Google Drive Office `.xlsx` links and environment workarounds
+
+When a Google Docs/Sheets URL is actually an Office Excel file, Sheets API calls can fail with `This operation is not supported for this document. The document must not be an Office file.` Use the direct export URL, edit/download as `.xlsx`, and return the modified workbook rather than trying to patch it as a native Google Sheet. If `openpyxl` is unavailable due to NumPy CPU baseline errors, edit the workbook ZIP/XML with the Python standard library and recalculate with LibreOffice. See `references/google-drive-office-xlsx-workaround.md` for the tested workflow and verification pattern.
+
 ## CRITICAL: Use Formulas, Not Hardcoded Values
 
 **Always use Excel formulas instead of calculating values in Python and hardcoding them.** This ensures the spreadsheet remains dynamic and updateable.
@@ -245,12 +249,47 @@ Quick checks to ensure formulas work correctly:
 - [ ] **Division by zero**: Check denominators before using `/` in formulas (#DIV/0!)
 - [ ] **Wrong references**: Verify all cell references point to intended cells (#REF!)
 - [ ] **Cross-sheet references**: Use correct format (Sheet1!A1) for linking sheets
-- [ ] **Environment-specific import failures**: If `openpyxl`/`pandas` fails because NumPy was built for unsupported CPU optimizations (e.g. `RuntimeError: NumPy was built with baseline optimizations: (X86_V2)`), do not stop. For read-only inspection, parse the `.xlsx` as a ZIP of XML files (`xl/workbook.xml`, `xl/_rels/workbook.xml.rels`, `xl/sharedStrings.xml`, `xl/worksheets/sheet*.xml`) using only the Python standard library. LibreOffice `--convert-to csv` can also preview a workbook but may only export the active sheet and may produce encoding issues, so XML parsing is more reliable for multi-sheet extraction.
+### Environment-specific import failures: If `openpyxl`/`pandas` fails because NumPy was built for unsupported CPU optimizations (e.g. `RuntimeError: NumPy was built with baseline optimizations: (X86_V2)`), do not stop. For read-only inspection, parse the `.xlsx` as a ZIP of XML files (`xl/workbook.xml`, `xl/_rels/workbook.xml.rels`, `xl/sharedStrings.xml`, `xl/worksheets/sheet*.xml`) using only the Python standard library. LibreOffice `--convert-to csv` can also preview a workbook but may only export the active sheet and may produce encoding issues, so XML parsing is more reliable for multi-sheet extraction.
+
+Minimal ZIP/XML read-only extraction pattern:
+```python
+import zipfile, xml.etree.ElementTree as ET
+ns={'a':'http://schemas.openxmlformats.org/spreadsheetml/2006/main','r':'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
+z=zipfile.ZipFile('input.xlsx')
+shared=[]
+if 'xl/sharedStrings.xml' in z.namelist():
+    root=ET.fromstring(z.read('xl/sharedStrings.xml'))
+    for si in root.findall('a:si', ns):
+        shared.append(''.join(t.text or '' for t in si.findall('.//a:t', ns)))
+wb=ET.fromstring(z.read('xl/workbook.xml'))
+rels=ET.fromstring(z.read('xl/_rels/workbook.xml.rels'))
+relmap={rel.attrib['Id']: rel.attrib['Target'] for rel in rels}
+for sh in wb.findall('.//a:sheet', ns):
+    name=sh.attrib['name']; rid=sh.attrib['{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id']
+    target=relmap[rid]; sheetfile='xl/'+target.lstrip('/') if not target.startswith('xl/') else target
+    root=ET.fromstring(z.read(sheetfile))
+    for row in root.findall('.//a:row', ns):
+        values=[]
+        for c in row.findall('a:c', ns):
+            v=c.find('a:v', ns); val=''
+            if c.attrib.get('t')=='s' and v is not None:
+                val=shared[int(v.text)]
+            elif v is not None:
+                val=v.text or ''
+            if val: values.append((c.attrib.get('r',''), val))
+        # filter/search values as needed
+```
 
 ### Formula Testing Strategy
 - [ ] **Start small**: Test formulas on 2-3 cells before applying broadly
 - [ ] **Verify dependencies**: Check all cells referenced in formulas exist
 - [ ] **Test edge cases**: Include zero, negative, and very large values
+
+### Comparing an Excel request sheet to another workbook/sheet
+- For YCVT-style workbooks, parse the source sheet by stable columns when present: `B` mã vật tư, `C` tên, `E` model/mã hiệu, `F` hãng/xuất xứ, `K` = `SL đề nghị đợt này`.
+- When the comparison target is Google Sheets, prefer matching by `Mã vật tư` over fuzzy names; names/models may differ slightly while codes remain stable.
+- If a requested Google Sheets range is too short and many codes are "not found", expand to the full columns (for example `A:AH`) before reporting missing items.
+- Normalize Vietnamese numeric strings before comparison: trim spaces, treat `-` as zero, remove thousand dots, and convert decimal commas to dots (`15,8` → `15.8`).
 
 ### Interpreting scripts/recalc.py Output
 The script returns JSON with error details:

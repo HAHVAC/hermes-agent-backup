@@ -249,6 +249,28 @@ for i, image in enumerate(images):
 print(text)
 ```
 
+### Scanned/table PDFs when text extraction returns empty
+
+If `pypdf`, `pdfplumber`, or `fitz.get_text()` returns little/empty text, treat the PDF as scanned/rotated image pages and inspect visually before concluding data is missing:
+
+1. Check metadata/pages/rotation:
+   ```bash
+   pdfinfo input.pdf | head -30
+   ```
+2. Render pages to images with Poppler:
+   ```bash
+   mkdir -p /tmp/pdf_pages
+   pdftoppm -png -r 200 input.pdf /tmp/pdf_pages/page
+   # outputs /tmp/pdf_pages/page-1.png, page-2.png, ...
+   ```
+3. Use image/vision OCR for key pages, prompting specifically to read every line and table fields. For Vietnamese procurement tables, ask for: `STT, tên vật tư, model/mã hiệu/quy cách, nhãn hiệu/hãng, xuất xứ`.
+4. When comparing a spreadsheet against a scanned PDF, match by model first, then brand/origin, because PDF row numbers may differ from the request sheet.
+
+Pitfalls:
+- A scanned PDF can have valid pages but zero extractable text; do not report “not found” until rendering pages or OCR/vision inspection is attempted.
+- Some PDFs are rotated (e.g. `Page rot: 270`); `pdftoppm` still renders usable page images, while text extractors may fail.
+- For table continuation pages, columns like brand/origin may appear only on the first visible row; inspect surrounding pages if a row is cut off.
+
 ### Add Watermark
 ```python
 from pypdf import PdfReader, PdfWriter
