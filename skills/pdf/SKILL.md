@@ -120,6 +120,8 @@ if all_tables:
 
 ### reportlab - Create PDFs
 
+⚠️ PITFALL: As of reportlab >= 4.5.0 `TableOfContents` is imported from `reportlab.platypus.tableofcontents` NOT directly from platypus. Previous imports will fail.
+
 #### Basic PDF Creation
 ```python
 from reportlab.lib.pagesizes import letter
@@ -230,6 +232,9 @@ pdftk input.pdf rotate 1east output rotated.pdf
 
 ## Common Tasks
 
+### Extracting docs from Git repositories
+⚠️ PITFALL: Almost all international documentation repositories use **full locale codes** not 2 letter language codes. Example: `vi-vn/` not `vi/`, `zh-cn/` not `zh/`, `en-us/` not `en/`. Always first list the actual directory names with `ls docs/` before trying to load content.
+
 ### Extract Text from Scanned PDFs
 ```python
 # Requires: pip install pytesseract pdf2image
@@ -330,15 +335,30 @@ with open("encrypted.pdf", "wb") as output:
 
 ## Google Drive PDF Downloads (Public Links)
 
-For public Google Drive PDFs, the standard `drive.google.com/file/d/ID/view` URL will show a virus-scan warning page. Extract the file ID and use the direct download URL:
+For public Google Drive PDFs, the standard `drive.google.com/file/d/ID/view` URL may show a viewer page, login prompt, or virus-scan warning. Extract the file ID and try direct unauthenticated download before using Google Drive API OAuth, especially when OAuth only has `drive.file` scope:
 
 ```bash
 # Given: https://drive.google.com/file/d/FILE_ID/view
-# Download via:
-curl -L -o "output.pdf" "https://drive.usercontent.google.com/download?id=FILE_ID&export=download&confirm=t" -H "User-Agent: Mozilla/5.0"
+FILE_ID="..."
+python3 - <<'PY'
+import os, requests
+fid=os.environ['FILE_ID']
+for url in [
+    f'https://drive.google.com/uc?export=download&id={fid}',
+    f'https://drive.usercontent.google.com/download?id={fid}&export=download&confirm=t',
+]:
+    r=requests.get(url, headers={'User-Agent':'Mozilla/5.0'}, allow_redirects=True, timeout=60)
+    print(r.status_code, r.headers.get('content-type'), len(r.content), r.url)
+    if r.status_code == 200 and 'html' not in (r.headers.get('content-type') or ''):
+        open('/tmp/drive_pdf_download','wb').write(r.content)
+        break
+PY
+file /tmp/drive_pdf_download
 ```
 
 For very large files (>20MB), the `confirm=t` parameter bypasses the virus-scan interstitial. If that fails, try `confirm=t&uuid=random_string`.
+
+⚠️ Exact-file pitfall: If the user gives a specific Drive file ID, do not search Drive by keywords and summarize a similar-looking file as a substitute. Verify the downloaded file corresponds to the exact ID, or clearly state that the exact file is inaccessible.
 
 ## Large Vietnamese / CJK Document Search
 
@@ -364,11 +384,20 @@ For multi-hundred-page Vietnamese government documents (quy hoạch, dự án, e
 
 ### Module Installation Pitfall
 
-`pymupdf` must be importable as `fitz`. On Hermes, the venv Python (`/root/.hermes/hermes-agent/venv/bin/python3`) is the `python3` in PATH. Install with:
+`pypdf` must be importable as `fitz`. On Hermes, the venv Python (`/root/.hermes/hermes-agent/venv/bin/python3`) is the `python3` in PATH. Install with:
 ```bash
 python3 -m pip install pymupdf
 ```
 **Do NOT use `pip install pymupdf`** (may install to system Python, invisible to the venv). The `execute_code` sandbox may not share the same environment as `python3 -c` — if `import fitz` fails in sandbox, use `terminal` with `python3 -c` instead.
+
+### VitePress / Docsify Markdown Cleaning
+When generating PDFs from documentation repositories, use this cleaning pattern before rendering:
+```python
+content = re.sub(r'<[^>]+>', '', content)
+content = re.sub(r':::.*', '', content)
+content = re.sub(r'^---.*?---', '', content, flags=re.DOTALL)
+```
+This removes frontmatter, custom markdown directives, and component tags which break PDF rendering.
 
 ## Next Steps
 

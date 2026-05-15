@@ -18,6 +18,7 @@ Gmail, Calendar, Drive, Contacts, Sheets, and Docs — through Hermes-managed OA
 ## References
 
 - `references/gmail-search-syntax.md` — Gmail search operators (is:unread, from:, newer_than:, etc.)
+- `references/drive-account-and-gws-fallback.md` — Drive download/search fallback when `gdown` fails, exact file ID is inaccessible, or `gws` is broken.
 
 ## Scripts
 
@@ -214,6 +215,23 @@ $GAPI drive search "mimeType='application/pdf'" --raw-query --max 5
 
 OAuth scope note: Drive integration now uses `https://www.googleapis.com/auth/drive.file` so automations can create/upload files they manage. Existing tokens that were authorized with `drive.readonly` must be re-authorized before Drive uploads will work.
 
+⚠️ Drive access pitfall: `drive.file` cannot reliably read arbitrary files shared by link or files the app did not create/open, even if the signed-in user can see them in a browser. `files().get(fileId=...)` may return `404 File not found`. If the user provides a Google Drive public/"Anyone with the link" file URL, prefer direct unauthenticated download first:
+
+```bash
+FILE_ID="..."
+python3 - <<'PY'
+import requests, os
+fid=os.environ['FILE_ID']
+url=f'https://drive.google.com/uc?export=download&id={fid}'
+r=requests.get(url, headers={'User-Agent':'Mozilla/5.0'}, allow_redirects=True, timeout=60)
+print(r.status_code, r.headers.get('content-type'), len(r.content), r.url)
+open('/tmp/drive_download.bin','wb').write(r.content)
+PY
+file /tmp/drive_download.bin
+```
+
+Only fall back to Drive API when the file is in the app-authorized scope. Do not substitute keyword-search results for the exact requested file ID unless the user explicitly approves; if exact ID is inaccessible, report that and ask for share/public access.
+
 ### Contacts
 
 ```bash
@@ -283,6 +301,7 @@ All commands return JSON. Parse with `jq` or read directly. Key fields:
 | `HttpError 403: Access Not Configured` | API not enabled — user needs to enable it in Google Cloud Console |
 | `ModuleNotFoundError` | Run `$GSETUP --install-deps` |
 | `gws: /lib/.../libc.so.6: version GLIBC_2.39 not found` | Installed `gws` binary is incompatible with host glibc. Bypass `gws` and call Google Python client libraries directly, or set `HERMES_GWS_BIN` to a working binary; `google_api.py` currently exits on broken `gws` instead of falling back. For Sheets reads, import `google_api` and call `build_service('sheets','v4')` directly; see snippet below. |
+| Drive link returns sign-in page / `gdown` cannot retrieve public link / Drive API `File not found` | Confirm which Google account owns/has access. On Boss's Hermes instance, Google Workspace/gws OAuth may be `pcccthanglong.tlc@gmail.com` even when the message sender/account label is `hahvac`; do not assume `hahvac@gmail.com` for Drive. Use Python API fallback and, if exact file ID is inaccessible, search Drive by distinctive text or filename. |
 | Advanced Protection blocks auth | Workspace admin must allowlist the OAuth client ID |
 
 ## Revoking Access

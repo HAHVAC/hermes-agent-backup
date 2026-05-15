@@ -2,14 +2,16 @@ Boss uses Lark international (larksuite.com / pccctruongan.sg.larksuite.com), no
 §
 NotebookLM integration for Boss should use the Google account hahvac@gmail.com unless changed.
 §
-AnyGen v0.1.0: working command is `anygen task create --data '{"operation":"<type>","prompt":"..."}'` (NOT `anygen generate`). API_KEY must be exported as env var, `anygen auth login` doesn't work headless. 9 skills + anygen-suite installed.
+AnyGen v0.1.0 command pattern: `anygen task create --data '{"operation":"<type>","prompt":"..."}'`; avoid `anygen generate`. API_KEY must be exported; `anygen auth login` does not work headless.
 §
-AnyGen full 9 skills + anygen-suite are installed on this Hermes instance (84 total skills after May 2026 cleanup). Deleted categories: all MLOps (entire category), gaming, red-teaming, smart-home, leisure; plus individual creative/media/social skills unused by Boss (comfyui, p5js, pixel-art, manim-video, ascii-art/video, baoyu-comic/infographic, songwriting, pretext, touchdesigner, spotify, heartmula, songsee, xitter, xurl, godmode, openhue, find-nearby, polymarket, llm-wiki, research-paper-writing)
+AnyGen suite is installed on this Hermes instance; Boss intentionally removed unused categories/skills including MLOps, gaming, red-teaming, smart-home, leisure, and many creative/media/social skills.
 §
-Obsidian skills installed from kepano/obsidian-skills (category: obsidian): obsidian-markdown, obsidian-bases, defuddle CLI v0.18.1. User chose skills 1,2,5 — NOT json-canvas or obsidian-cli. Existing note-taking/obsidian umbrella patched to cross-reference them.
+Obsidian skills installed from kepano/obsidian-skills: obsidian-markdown, obsidian-bases, defuddle CLI v0.18.1. Boss did not choose json-canvas or obsidian-cli.
 §
-Boss's Obsidian vault path is unknown — ask when saving .md files to vault. Check ~/Obsidian* or common vault locations first.
+Boss's Obsidian vault path is unknown; when saving .md files to vault, check common vault locations first then ask if still unknown.
 §
-gdown reliable download pattern: `gdown 'https://drive.google.com/uc?id={FILE_ID}' -O /tmp/output`. The `--fuzzy` flag is NOT supported in all versions — avoid it. Always use the full `uc?id=` URL format.
+gdown reliable download pattern: `gdown 'https://drive.google.com/uc?id={FILE_ID}' -O /tmp/output`; avoid `--fuzzy` because not all versions support it.
 §
-Vision analysis: for infographics/charts/lists, always use specific prompts like "read every line of text" — generic "describe everything" prompts produce structural descriptions instead of actual text content.
+Vision analysis for infographics/charts/lists should ask specifically to "read every line of text"; generic description prompts miss text content.
+§
+Google Workspace/gws OAuth on this Hermes instance is tied to pcccthanglong.tlc@gmail.com; use that account context for Drive/Gmail/Sheets unless changed.
