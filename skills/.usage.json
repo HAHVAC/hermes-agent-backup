@@ -17,13 +17,26 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-05-15T13:01:02.584265+00:00",
-    "last_viewed_at": "2026-05-15T13:01:02.571123+00:00",
+    "last_used_at": "2026-05-16T13:00:29.766084+00:00",
+    "last_viewed_at": "2026-05-16T13:00:29.713178+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 4,
-    "view_count": 4
+    "use_count": 5,
+    "view_count": 5
+  },
+  "docx": {
+    "archived_at": null,
+    "created_at": "2026-05-16T06:54:22.270380+00:00",
+    "created_by": null,
+    "last_patched_at": "2026-05-16T06:59:22.070355+00:00",
+    "last_used_at": "2026-05-16T06:54:22.282745+00:00",
+    "last_viewed_at": "2026-05-16T06:54:22.270426+00:00",
+    "patch_count": 1,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "google-my-maps-scraper": {
     "archived_at": null,
@@ -42,14 +55,14 @@
     "archived_at": null,
     "created_at": "2026-05-11T12:05:49.254620+00:00",
     "created_by": null,
-    "last_patched_at": "2026-05-14T06:58:09.266474+00:00",
-    "last_used_at": "2026-05-14T08:38:48.176291+00:00",
-    "last_viewed_at": "2026-05-14T08:38:48.162453+00:00",
-    "patch_count": 4,
+    "last_patched_at": "2026-05-16T14:46:26.808306+00:00",
+    "last_used_at": "2026-05-16T14:42:52.744220+00:00",
+    "last_viewed_at": "2026-05-16T14:42:52.734222+00:00",
+    "patch_count": 6,
     "pinned": false,
     "state": "active",
-    "use_count": 3,
-    "view_count": 3
+    "use_count": 6,
+    "view_count": 6
   },
   "lark-goertek-task-tracker": {
     "archived_at": null,

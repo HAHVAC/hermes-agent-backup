@@ -77,6 +77,17 @@ After creating the file, validate it. If validation fails, unpack, fix the XML, 
 python3 /root/.hermes/skills/docx/scripts/office/validate.py doc.docx
 ```
 
+### Python `python-docx` fallback
+
+Prefer `docx-js` for rich new documents, but `python-docx` is acceptable for straightforward training manuals/checklists when Node `docx` is unavailable. After generating with `python-docx`, still run the validator. Two common validator issues and fixes:
+
+- Missing validator dependency: install `defusedxml` in the active environment if `validate.py` errors with `ModuleNotFoundError: No module named 'defusedxml'`.
+- Invalid XML from `python-docx` defaults/custom shading:
+  - Table shading must include `w:val="clear"`, `w:color="auto"`, and `w:fill="..."`.
+  - If `word/settings.xml` contains `<w:zoom w:val="bestFit"/>`, patch it to `<w:zoom w:val="bestFit" w:percent="100"/>` before final validation.
+
+Always re-open the resulting file with `python-docx.Document(path)` or an equivalent reader after validation to confirm the file is readable and contains expected paragraph/table counts.
+
 ### Page Size
 
 ```javascript

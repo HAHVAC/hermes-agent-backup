@@ -18,15 +18,15 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 35
+        "completed": 36
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-19T00:54:55.103138+00:00",
-      "next_run_at": "2026-05-16T13:00:00+00:00",
-      "last_run_at": "2026-05-15T13:01:35.593125+00:00",
+      "next_run_at": "2026-05-17T13:00:00+00:00",
+      "last_run_at": "2026-05-16T13:00:50.015920+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -96,15 +96,15 @@
       "schedule_display": "0 19 * * *",
       "repeat": {
         "times": null,
-        "completed": 5
+        "completed": 6
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-05-11T14:15:45.794520+00:00",
-      "next_run_at": "2026-05-16T19:00:00+00:00",
-      "last_run_at": "2026-05-14T19:00:08.190163+00:00",
+      "next_run_at": "2026-05-17T19:00:00+00:00",
+      "last_run_at": "2026-05-15T19:00:11.959779+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -117,7 +117,49 @@
       },
       "enabled_toolsets": null,
       "workdir": null
+    },
+    {
+      "id": "10105153cbd6",
+      "name": "Nh\u1eafc ki\u1ec3m tra \u0111\u1ea7u phun d\u01b0\u1edbi \u1ed1ng gi\u00f3 C3-X3",
+      "prompt": "Nh\u1eafc Anh ki\u1ec3m tra h\u1ea1ng m\u1ee5c trong bi\u00ean b\u1ea3n h\u1ecdp 13/05/2026 - ti\u1ebfn \u0111\u1ed9 ch\u1eefa ch\u00e1y nh\u00e0 C3-X3: \u0110\u1ea7u phun d\u01b0\u1edbi \u1ed1ng gi\u00f3 t\u1ea7ng 1, 2 d\u1ef1 ki\u1ebfn ho\u00e0n th\u00e0nh h\u00f4m nay (22/05/2026). N\u1ed9i dung nh\u1eafc: \"Anh ki\u1ec3m tra gi\u00fap h\u1ea1ng m\u1ee5c \u0111\u1ea7u phun d\u01b0\u1edbi \u1ed1ng gi\u00f3 t\u1ea7ng 1, 2 nh\u00e0 C3-X3 \u0111\u00e3 thi c\u00f4ng xong ch\u01b0a. H\u1ea1ng m\u1ee5c n\u00e0y d\u1ef1 ki\u1ebfn ho\u00e0n th\u00e0nh ng\u00e0y 22/05/2026 v\u00e0 c\u00f3 ph\u1ee5 thu\u1ed9c ti\u1ebfn \u0111\u1ed9 thi c\u00f4ng \u1ed1ng gi\u00f3 t\u1ea1i hi\u1ec7n tr\u01b0\u1eddng.\"",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "once",
+        "run_at": "2026-05-22T08:00:00+07:00",
+        "display": "once at 2026-05-22 08:00"
+      },
+      "schedule_display": "once at 2026-05-22 08:00",
+      "repeat": {
+        "times": 1,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-05-16T01:18:17.870664+00:00",
+      "next_run_at": "2026-05-22T08:00:00+07:00",
+      "last_run_at": null,
+      "last_status": null,
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "feishu",
+        "chat_id": "oc_e6167ab9a7424fab1a2db2442fd98581",
+        "chat_name": "oc_e6167ab9a7424fab1a2db2442fd98581",
+        "thread_id": "omt_196249e11316d987"
+      },
+      "enabled_toolsets": null,
+      "workdir": null
     }
   ],
-  "updated_at": "2026-05-15T19:00:08.082305+00:00"
+  "updated_at": "2026-05-16T19:00:34.250707+00:00"
 }

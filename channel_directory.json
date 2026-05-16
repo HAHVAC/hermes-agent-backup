@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-15T18:58:08.064430",
+  "updated_at": "2026-05-16T18:56:34.228456",
   "platforms": {
     "slack": [
       {
@@ -301,6 +301,24 @@
         "name": "C0B33N47F8D / topic 1778834066.305629",
         "type": "group",
         "thread_id": "1778834066.305629"
+      },
+      {
+        "id": "C0B33N47F8D:1778907063.510019",
+        "name": "C0B33N47F8D / topic 1778907063.510019",
+        "type": "group",
+        "thread_id": "1778907063.510019"
+      },
+      {
+        "id": "C0AKCBL3CR4:1778908517.323209",
+        "name": "C0AKCBL3CR4 / topic 1778908517.323209",
+        "type": "group",
+        "thread_id": "1778908517.323209"
+      },
+      {
+        "id": "C0B25QXMR8Q:1778919525.806419",
+        "name": "C0B25QXMR8Q / topic 1778919525.806419",
+        "type": "group",
+        "thread_id": "1778919525.806419"
       }
     ],
     "telegram": [
@@ -368,6 +386,12 @@
         "name": "oc_e6167ab9a7424fab1a2db2442fd98581 / topic omt_1a8f6b1f6dcf99bc",
         "type": "dm",
         "thread_id": "omt_1a8f6b1f6dcf99bc"
+      },
+      {
+        "id": "oc_e6167ab9a7424fab1a2db2442fd98581:omt_196249e11316d987",
+        "name": "oc_e6167ab9a7424fab1a2db2442fd98581 / topic omt_196249e11316d987",
+        "type": "dm",
+        "thread_id": "omt_196249e11316d987"
       }
     ],
     "wecom": [],

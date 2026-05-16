@@ -326,6 +326,8 @@ Type these during an interactive chat session.
 
 For configuring Boss's global Hermes persona, memory compaction, and workspace `.hermes.md` context precedence, see `references/context-loading-and-boss-persona.md`.
 
+For a reusable outline/checklist for Windows 11 + WSL2 + Google Gemini + gateway level-3 employee training manuals, see `references/windows11-wsl2-gemini-training-guide.md`.
+
 ## Key Paths & Config
 
 ```
