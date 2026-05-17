@@ -1,8 +1,8 @@
 {
-  "last_report_path": "/root/.hermes/logs/curator/20260510-051830",
-  "last_run_at": "2026-05-10T05:18:30.905182+00:00",
-  "last_run_duration_seconds": 1.243817,
-  "last_run_summary": "auto: no changes; llm: skipped (no candidates)",
+  "last_report_path": "/root/.hermes/logs/curator/20260517-061303",
+  "last_run_at": "2026-05-17T06:13:03.541950+00:00",
+  "last_run_duration_seconds": 17.597642,
+  "last_run_summary": "auto: no changes; llm: Scanned the full candidate list. There is only one agent-created, unpinned skill:\n\n- `google-my-maps-scraper`\n\nI loaded and reviewed it. It is already a class-level skill for a coherent workflow: extracting public Google My Maps data into o…",
   "paused": false,
-  "run_count": 1
+  "run_count": 2
 }
