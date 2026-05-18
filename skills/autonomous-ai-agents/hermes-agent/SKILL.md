@@ -224,6 +224,34 @@ hermes auth remove P INDEX  Remove by provider + index
 hermes auth reset PROVIDER  Clear exhaustion status
 ```
 
+### Fallback Providers
+
+Fallbacks are stored in top-level `fallback_providers` in `~/.hermes/config.yaml` as an ordered list of `{provider, model, base_url?, api_mode?}`. Verify with:
+
+```bash
+hermes fallback list
+```
+
+Interactive management:
+
+```bash
+hermes fallback add      # TTY picker; appends selected provider/model
+hermes fallback remove   # remove one entry
+hermes fallback clear    # clear all entries, with confirmation
+```
+
+Non-interactive/manual setup pattern for an already-configured custom provider:
+
+```yaml
+fallback_providers:
+- provider: custom:glm
+  model: glm-5.1
+  base_url: https://api.z.ai/api/coding/paas/v4
+```
+
+When manually editing, de-duplicate same provider/model, insert at index 0 for “fallback #1”, remove any legacy `fallback_model`, then run `hermes fallback list`. Gateway sessions may need `/restart` or a fresh Hermes process to apply the config.
+
+
 ### Other
 
 ```

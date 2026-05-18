@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-17T18:55:19.378528",
+  "updated_at": "2026-05-18T18:56:44.321249",
   "platforms": {
     "slack": [
       {
@@ -325,6 +325,36 @@
         "name": "C0B33N47F8D / topic 1779025742.356069",
         "type": "group",
         "thread_id": "1779025742.356069"
+      },
+      {
+        "id": "C0B25QXMR8Q:1779092993.255059",
+        "name": "C0B25QXMR8Q / topic 1779092993.255059",
+        "type": "group",
+        "thread_id": "1779092993.255059"
+      },
+      {
+        "id": "C0AKCBL3CR4:1779095929.765749",
+        "name": "C0AKCBL3CR4 / topic 1779095929.765749",
+        "type": "group",
+        "thread_id": "1779095929.765749"
+      },
+      {
+        "id": "C0B33N47F8D:1779102919.594459",
+        "name": "C0B33N47F8D / topic 1779102919.594459",
+        "type": "group",
+        "thread_id": "1779102919.594459"
+      },
+      {
+        "id": "C0AKCBL3CR4:1779108638.852959",
+        "name": "C0AKCBL3CR4 / topic 1779108638.852959",
+        "type": "group",
+        "thread_id": "1779108638.852959"
+      },
+      {
+        "id": "C0B25QXMR8Q:1779114912.184339",
+        "name": "C0B25QXMR8Q / topic 1779114912.184339",
+        "type": "group",
+        "thread_id": "1779114912.184339"
       }
     ],
     "telegram": [
@@ -398,6 +428,18 @@
         "name": "oc_e6167ab9a7424fab1a2db2442fd98581 / topic omt_196249e11316d987",
         "type": "dm",
         "thread_id": "omt_196249e11316d987"
+      },
+      {
+        "id": "oc_e6167ab9a7424fab1a2db2442fd98581:om_x100b6f98774d8cb0e2e1dc1b2373fcd",
+        "name": "oc_e6167ab9a7424fab1a2db2442fd98581 / topic om_x100b6f98774d8cb0e2e1dc1b2373fcd",
+        "type": "dm",
+        "thread_id": "om_x100b6f98774d8cb0e2e1dc1b2373fcd"
+      },
+      {
+        "id": "oc_e6167ab9a7424fab1a2db2442fd98581:om_x100b6f98226b9ca4e2b39d6fe7f976e",
+        "name": "oc_e6167ab9a7424fab1a2db2442fd98581 / topic om_x100b6f98226b9ca4e2b39d6fe7f976e",
+        "type": "dm",
+        "thread_id": "om_x100b6f98226b9ca4e2b39d6fe7f976e"
       }
     ],
     "wecom": [],

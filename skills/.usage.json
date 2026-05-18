@@ -17,26 +17,26 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-05-17T13:01:09.918810+00:00",
-    "last_viewed_at": "2026-05-17T13:01:09.903871+00:00",
+    "last_used_at": "2026-05-18T13:00:41.042911+00:00",
+    "last_viewed_at": "2026-05-18T13:00:41.031856+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 6,
-    "view_count": 6
+    "use_count": 7,
+    "view_count": 7
   },
   "docx": {
     "archived_at": null,
     "created_at": "2026-05-16T06:54:22.270380+00:00",
     "created_by": null,
     "last_patched_at": "2026-05-16T06:59:22.070355+00:00",
-    "last_used_at": "2026-05-16T06:54:22.282745+00:00",
-    "last_viewed_at": "2026-05-16T06:54:22.270426+00:00",
+    "last_used_at": "2026-05-18T09:13:09.521025+00:00",
+    "last_viewed_at": "2026-05-18T09:13:09.510085+00:00",
     "patch_count": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 2,
+    "view_count": 2
   },
   "google-my-maps-scraper": {
     "archived_at": null,
@@ -51,18 +51,31 @@
     "use_count": 1,
     "view_count": 1
   },
+  "hermes-provider-debug": {
+    "archived_at": null,
+    "created_at": "2026-05-18T11:05:38.112144+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-05-18T11:05:38.277681+00:00",
+    "last_viewed_at": "2026-05-18T11:05:38.112216+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
+  },
   "lark-cli": {
     "archived_at": null,
     "created_at": "2026-05-11T12:05:49.254620+00:00",
     "created_by": null,
-    "last_patched_at": "2026-05-17T09:11:59.583117+00:00",
-    "last_used_at": "2026-05-17T09:10:59.257219+00:00",
-    "last_viewed_at": "2026-05-17T09:10:59.246048+00:00",
-    "patch_count": 9,
+    "last_patched_at": "2026-05-18T08:10:35.137039+00:00",
+    "last_used_at": "2026-05-18T08:10:20.359611+00:00",
+    "last_viewed_at": "2026-05-18T08:10:20.347827+00:00",
+    "patch_count": 11,
     "pinned": false,
     "state": "active",
-    "use_count": 8,
-    "view_count": 8
+    "use_count": 11,
+    "view_count": 11
   },
   "lark-goertek-task-tracker": {
     "archived_at": null,
