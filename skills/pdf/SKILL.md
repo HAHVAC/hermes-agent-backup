@@ -269,12 +269,38 @@ If `pypdf`, `pdfplumber`, or `fitz.get_text()` returns little/empty text, treat 
    # outputs /tmp/pdf_pages/page-1.png, page-2.png, ...
    ```
 3. Use image/vision OCR for key pages, prompting specifically to read every line and table fields. For Vietnamese procurement tables, ask for: `STT, tên vật tư, model/mã hiệu/quy cách, nhãn hiệu/hãng, xuất xứ`.
-4. When comparing a spreadsheet against a scanned PDF, match by model first, then brand/origin, because PDF row numbers may differ from the request sheet.
+4. For scanned Vietnamese government/legal PDFs, first read the main text pages individually with vision, then render appendix pages and create a contact sheet to map structure before doing detailed OCR. This is much faster for multi-appendix documents and prevents missing the parts relevant to the user's business domain.
+   ```bash
+   mkdir -p /tmp/pdf_pages
+   pdftoppm -png -r 180 input.pdf /tmp/pdf_pages/page
+   python3 - <<'PY'
+   from PIL import Image, ImageDraw
+   import os, math
+   d='/tmp/pdf_pages'
+   files=sorted(f for f in os.listdir(d) if f.endswith('.png'))
+   thumbs=[]
+   for f in files:
+       im=Image.open(os.path.join(d,f)).convert('RGB')
+       im.thumbnail((180,250))
+       thumbs.append((f, im.copy()))
+   cols=5; cell_w=220; cell_h=290
+   out=Image.new('RGB',(cols*cell_w, math.ceil(len(thumbs)/cols)*cell_h),'white')
+   draw=ImageDraw.Draw(out)
+   for i,(fn,im) in enumerate(thumbs):
+       x=(i%cols)*cell_w; y=(i//cols)*cell_h
+       draw.text((x+5,y+5),fn,fill=(255,0,0))
+       out.paste(im,(x,y+25))
+   out.save('/tmp/pdf_contact.jpg')
+   print('/tmp/pdf_contact.jpg')
+   PY
+   ```
+5. When comparing a spreadsheet against a scanned PDF, match by model first, then brand/origin, because PDF row numbers may differ from the request sheet.
 
 Pitfalls:
 - A scanned PDF can have valid pages but zero extractable text; do not report “not found” until rendering pages or OCR/vision inspection is attempted.
 - Some PDFs are rotated (e.g. `Page rot: 270`); `pdftoppm` still renders usable page images, while text extractors may fail.
 - For table continuation pages, columns like brand/origin may appear only on the first visible row; inspect surrounding pages if a row is cut off.
+- Vietnamese legal document packages may arrive as two PDFs: a short signed main resolution/decision and a long signed appendix. Summarize both, verify page counts/hashes, and clearly distinguish “main document” from “appendix” in the final answer.
 
 ### Add Watermark
 ```python
