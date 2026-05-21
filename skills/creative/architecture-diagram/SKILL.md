@@ -30,8 +30,30 @@ Generate professional, dark-themed technical architecture diagrams as standalone
 - Floor plans, narrative journeys, educational / textbook-style visuals
 - Hand-drawn whiteboard sketches (consider `excalidraw`)
 - Animated explainers (consider an animation skill)
+- Construction/MEP/PCCC technical cross-sections and infographics (custom SVG approach below works better)
 
 If a more specialized skill is available for the subject, prefer that. If none fits, this skill can also serve as a general SVG diagram fallback — the output will just carry the dark tech aesthetic described below.
+
+## Custom SVG Infographic (Non-Tech Domains)
+
+For construction, MEP, PCCC, or engineering subjects that need **technical cross-sections, process flows, and risk tables** in a single page, skip the arch-diagram template and write a standalone dark-themed HTML file directly with:
+- Custom SVG for cross-section (layers, pipes, rebar, annotations)
+- CSS grid cards for process steps and risk tables
+- Vietnamese font: `Be Vietnam Pro` from Google Fonts
+
+### Full-Page Screenshot via Playwright
+After writing the HTML file, use Playwright to capture a full-page PNG (not just viewport):
+```python
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page(viewport={"width": 1200, "height": 900})
+    page.goto("file:///path/to/file.html")
+    page.wait_for_timeout(1500)  # wait for fonts to load
+    page.screenshot(path="/tmp/output.png", full_page=True)
+    browser.close()
+```
+Playwright is confirmed installed on this Hermes instance. This produces a complete PNG ready for Slack/Telegram delivery.
 
 Based on [Cocoon AI's architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator) (MIT).
 

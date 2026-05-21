@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-20T18:57:28.798489",
+  "updated_at": "2026-05-21T18:56:14.129897",
   "platforms": {
     "slack": [
       {
@@ -391,6 +391,18 @@
         "name": "C0B33N47F8D / topic 1779255491.970769",
         "type": "group",
         "thread_id": "1779255491.970769"
+      },
+      {
+        "id": "C0B33N47F8D:1779350109.829099",
+        "name": "C0B33N47F8D / topic 1779350109.829099",
+        "type": "group",
+        "thread_id": "1779350109.829099"
+      },
+      {
+        "id": "C0B33N47F8D:1779364240.591599",
+        "name": "C0B33N47F8D / topic 1779364240.591599",
+        "type": "group",
+        "thread_id": "1779364240.591599"
       }
     ],
     "telegram": [
@@ -416,6 +428,7 @@
     "email": [],
     "sms": [],
     "dingtalk": [],
+    "msgraph_webhook": [],
     "feishu": [
       {
         "id": "oc_e6167ab9a7424fab1a2db2442fd98581",
@@ -492,6 +505,8 @@
     "yuanbao": [],
     "google_chat": [],
     "irc": [],
+    "line": [],
+    "simplex": [],
     "teams": []
   }
 }
