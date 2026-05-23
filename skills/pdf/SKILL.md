@@ -425,9 +425,16 @@ content = re.sub(r'^---.*?---', '', content, flags=re.DOTALL)
 ```
 This removes frontmatter, custom markdown directives, and component tags which break PDF rendering.
 
+## Handwritten-Style PDF Generation
+
+When the user asks for a "viết tay" (handwritten) version of a document (attendance sheets, sign-in sheets, etc.), use PIL/Pillow with handwriting Google Fonts (Patrick Hand, Caveat). Render pages as images with jittered text, wobbly grid lines, and cream paper texture, then save as multi-page PDF.
+
+See **references/handwritten-pdf-generation.md** for the full technique including font download, layout guidelines, Goertek attendance file structure, and visual conventions.
+
 ## Next Steps
 
 - For advanced pypdfium2 usage, see REFERENCE.md
 - For JavaScript libraries (pdf-lib), see REFERENCE.md
 - If you need to fill out a PDF form, follow the instructions in FORMS.md
 - For troubleshooting guides, see REFERENCE.md
+- For handwritten-style PDF generation, see references/handwritten-pdf-generation.md

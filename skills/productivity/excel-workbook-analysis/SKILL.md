@@ -55,6 +55,7 @@ for r in range(1, wsf.max_row + 1):
 - Do not trust visible totals blindly. In the Lite On payment workbook, the total cell for advance requests used `SUM(U7:U13)` and omitted later valid rows (`U14`, `U16`), so the workbook total understated the extracted total.
 - A cell can contain text like `Bỏ` in an otherwise numeric column; treat only positive numeric values as monetary requests unless the user says otherwise.
 - Use `data_only=True` for calculated displayed values, but use `data_only=False` to catch formulas/range errors.
+- **Dual-row attendance layout (Goertek pattern)**: Some attendance workbooks use 2 rows per employee — N (ngày công) and OT (overtime) — with merged cells for STT, name, code, role, hire date. Iterate with `step of 2` (`r += 2`). Columns 7–36 are typically daily values for a 30-day period; columns 37–40 are Totals breakdown (Tổng, Thường, CN, Lễ). Cell values may be `1` (full day), `0.5` (half day), `'P'` (phép/leave), or empty. Always read both the N row and the OT row (`r+1`) to get complete data per employee.
 
 ## Vietnamese business summary conventions
 

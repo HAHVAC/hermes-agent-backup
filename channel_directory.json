@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-22T18:59:45.720817",
+  "updated_at": "2026-05-23T18:58:50.757610",
   "platforms": {
     "slack": [
       {
@@ -403,6 +403,36 @@
         "name": "C0B33N47F8D / topic 1779364240.591599",
         "type": "group",
         "thread_id": "1779364240.591599"
+      },
+      {
+        "id": "C0AKCBL3CR4:1779489669.169909",
+        "name": "C0AKCBL3CR4 / topic 1779489669.169909",
+        "type": "group",
+        "thread_id": "1779489669.169909"
+      },
+      {
+        "id": "C0AKCBL3CR4:1779506980.938949",
+        "name": "C0AKCBL3CR4 / topic 1779506980.938949",
+        "type": "group",
+        "thread_id": "1779506980.938949"
+      },
+      {
+        "id": "C0B33N47F8D:1779518476.550119",
+        "name": "C0B33N47F8D / topic 1779518476.550119",
+        "type": "group",
+        "thread_id": "1779518476.550119"
+      },
+      {
+        "id": "C0AKCBL3CR4:1779522015.945359",
+        "name": "C0AKCBL3CR4 / topic 1779522015.945359",
+        "type": "group",
+        "thread_id": "1779522015.945359"
+      },
+      {
+        "id": "C0B33N47F8D:1779552615.045749",
+        "name": "C0B33N47F8D / topic 1779552615.045749",
+        "type": "group",
+        "thread_id": "1779552615.045749"
       }
     ],
     "telegram": [
