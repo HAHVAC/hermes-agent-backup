@@ -1,8 +1,9 @@
 {
-  "last_report_path": "/root/.hermes/logs/curator/20260517-061303",
-  "last_run_at": "2026-05-17T06:13:03.541950+00:00",
-  "last_run_duration_seconds": 17.597642,
-  "last_run_summary": "auto: no changes; llm: Scanned the full candidate list. There is only one agent-created, unpinned skill:\n\n- `google-my-maps-scraper`\n\nI loaded and reviewed it. It is already a class-level skill for a coherent workflow: extracting public Google My Maps data into o…",
+  "last_report_path": "/root/.hermes/logs/curator/20260524-063059",
+  "last_run_at": "2026-05-24T06:30:59.554574+00:00",
+  "last_run_duration_seconds": 24.684119,
+  "last_run_summary": "auto: no changes; llm: ## Curator Analysis\n\nWith only **2 agent-created skills** in the candidate list, I need to assess them honestly:\n\n### Cluster scan\n\n| Skill | Domain | Tags |\n|---|---|---|\n| `google-my-maps-scraper` | Geo/maps scraping | maps, geojson, play…",
+  "last_run_summary_shown_at": null,
   "paused": false,
-  "run_count": 2
+  "run_count": 3
 }
