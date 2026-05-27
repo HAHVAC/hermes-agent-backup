@@ -15,6 +15,40 @@ metadata:
 
 Gmail, Calendar, Drive, Contacts, Sheets, and Docs — through Hermes-managed OAuth and a thin CLI wrapper. When `gws` is installed, the skill uses it as the execution backend for broader Google Workspace coverage; otherwise it falls back to the bundled Python client implementation.
 
+## Google Sheets & IMPORTRANGE Troubleshooting / Common Formula Pitfalls
+
+When users report formula errors (e.g. `#REF!`, `#VALUE!`, `#DIV/0!`, `#NAME?`, `#ERROR!`) in spreadsheets that read/write via the Sheets API, analyze the formula patterns for the following issues:
+
+### 1. IMPORTRANGE Permission Linkage (`#REF!`)
+- **Symptom**: On the user's browser, a cell containing `IMPORTRANGE` displays a `#REF!` error.
+- **Cause**: Google Sheets requires explicit user confirmation to connect a target spreadsheet to a source spreadsheet, even if the user has access to both.
+- **Fix**: The user must hover over or click the cell in a web browser and click the **"Allow access"** (Cho phép truy cập) button. The API cannot bypass this visual gate on a newly duplicated or connected sheet.
+
+### 2. Logic Failures with `SEARCH` in `FILTER` (`#VALUE!`)
+- **Symptom**: Using `SEARCH` inside a `FILTER` expression (e.g., `=FILTER(IMPORTRANGE(...); SEARCH("value"; IMPORTRANGE(...)))`) causes the entire range to show `#VALUE!` or sập.
+- **Cause**: In Google Sheets, `SEARCH` returns a number when a substring is found, but returns a `#VALUE!` error if the substring is **not** found. A single `#VALUE!` error in the criteria array of `FILTER` breaks the entire filter function.
+- **Fix**: Wrap `SEARCH` inside `ISNUMBER(...)` to coerce matches to `TRUE` and non-matches to `FALSE` (instead of error). Alternatively, use `REGEXMATCH(...)` which naturally returns boolean values without throwing errors on missing substrings.
+
+*   *Standard fix:* `=FILTER(IMPORTRANGE(...); ISNUMBER(SEARCH("value"; IMPORTRANGE(...))))`
+*   *Optimal fix:* `=FILTER(IMPORTRANGE(...); REGEXMATCH(IMPORTRANGE(...); "value"))`
+
+### 3. IMPORTRANGE Size Limits & Lỗi `#ERROR!` (Result too large)
+- **Symptom**: An `IMPORTRANGE` formula returns `#ERROR!` with the tooltip "Result too large" or fails due to size limit.
+- **Cause**: Google Sheets has a payload limit of 10MB or ~175,000 cells per individual `IMPORTRANGE` call. Spanning too many columns/rows (e.g. `A1:AJ` over 4,500+ rows) triggers this.
+- **Fix**: 
+    1. **Vertical Splitting**: Divide the fetch range by rows using an array formula `{}` to stack results. E.g., `={IMPORTRANGE("id"; "Sheet!A1:AJ2500"); IMPORTRANGE("id"; "Sheet!A2501:AJ")}`. (Note: standard locales use `;` to stack vertically, while some European/Vietnamese locales with `;` as formula delimiter may require `\` or `,` for horizontal merging if stacking columns).
+    2. **Column Pruning**: Reduce the columns requested if not all are needed (e.g., from `A:AJ` to `A:Z`).
+
+### 4. FILTER Mismatched Range Sizes (`#N/A` or `#VALUE!`)
+- **Symptom**: `FILTER` returns an error stating that the range sizes do not match, usually when using `IMPORTRANGE` for both the data array and the filter criteria.
+- **Cause**: If the source sheet's row count changes, Google Sheets' asynchronous calculation might refresh the data `IMPORTRANGE` and the criteria `IMPORTRANGE` at different times, creating mismatched array heights.
+- **Fix**: 
+    1. **Single-pass QUERY (Best Practice)**: Instead of `FILTER` with multiple `IMPORTRANGE` calls, pull the entire block once via `QUERY` and filter using `ColX` references. 
+       *   *Example:* `=QUERY(IMPORTRANGE("id"; "Data!A1:O"); "select Col1, Col2 where Col15 contains 'K01'")`
+    2. **Hard-coded row bounds**: Force the `IMPORTRANGE` sizes to match by specifying fixed row ranges (e.g., `A1:V10000` and `O1:O10000`) so their shapes are guaranteed to be equal.
+
+---
+
 ## References
 
 - `references/gmail-search-syntax.md` — Gmail search operators (is:unread, from:, newer_than:, etc.)
