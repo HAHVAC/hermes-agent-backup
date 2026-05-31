@@ -51,18 +51,31 @@
     "use_count": 2,
     "view_count": 2
   },
+  "github-repo-review": {
+    "archived_at": null,
+    "created_at": "2026-05-31T06:49:14.059328+00:00",
+    "created_by": "agent",
+    "last_patched_at": "2026-05-31T06:49:39.454885+00:00",
+    "last_used_at": null,
+    "last_viewed_at": null,
+    "patch_count": 2,
+    "pinned": false,
+    "state": "active",
+    "use_count": 0,
+    "view_count": 0
+  },
   "google-my-maps-scraper": {
     "archived_at": null,
     "created_at": "2026-05-12T04:45:51.342110+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-05-12T04:47:07.938763+00:00",
-    "last_used_at": "2026-05-24T06:31:06.532196+00:00",
-    "last_viewed_at": "2026-05-24T06:31:06.520206+00:00",
+    "last_used_at": "2026-05-31T06:36:55.133480+00:00",
+    "last_viewed_at": "2026-05-31T06:36:55.124779+00:00",
     "patch_count": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 2,
-    "view_count": 2
+    "use_count": 3,
+    "view_count": 3
   },
   "hermes-provider-debug": {
     "archived_at": null,
@@ -108,13 +121,13 @@
     "created_at": "2026-05-25T03:36:06.574420+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-05-27T08:10:15.614727+00:00",
-    "last_used_at": "2026-05-27T07:18:32.732931+00:00",
-    "last_viewed_at": "2026-05-27T07:18:32.718990+00:00",
+    "last_used_at": "2026-05-31T06:36:55.114430+00:00",
+    "last_viewed_at": "2026-05-31T06:36:55.101442+00:00",
     "patch_count": 8,
     "pinned": false,
     "state": "active",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 2,
+    "view_count": 2
   },
   "markdown-convert": {
     "archived_at": null,
@@ -127,6 +140,19 @@
     "state": "active",
     "use_count": 3,
     "view_count": 3
+  },
+  "news-aggregator-skill": {
+    "archived_at": null,
+    "created_at": "2026-05-31T06:48:39.804964+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-05-31T06:48:39.922489+00:00",
+    "last_viewed_at": "2026-05-31T06:48:39.804997+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "notebooklm-py-gateway": {
     "archived_at": null,
@@ -172,13 +198,13 @@
     "created_at": "2026-05-23T08:03:55.046286+00:00",
     "created_by": null,
     "last_patched_at": "2026-05-23T08:05:03.336119+00:00",
-    "last_used_at": "2026-05-23T08:05:14.891241+00:00",
-    "last_viewed_at": "2026-05-23T08:05:14.879980+00:00",
+    "last_used_at": "2026-05-31T06:37:21.472016+00:00",
+    "last_viewed_at": "2026-05-31T06:37:21.457805+00:00",
     "patch_count": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 2,
-    "view_count": 2
+    "use_count": 3,
+    "view_count": 3
   },
   "pccc-sales": {
     "archived_at": null,
@@ -198,13 +224,13 @@
     "created_at": "2026-05-21T12:11:07.769033+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-05-21T12:11:47.694793+00:00",
-    "last_used_at": "2026-05-24T06:31:06.464555+00:00",
-    "last_viewed_at": "2026-05-24T06:31:06.450520+00:00",
+    "last_used_at": "2026-05-31T06:36:55.083100+00:00",
+    "last_viewed_at": "2026-05-31T06:36:55.062499+00:00",
     "patch_count": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 3,
-    "view_count": 3
+    "use_count": 4,
+    "view_count": 4
   },
   "pdf": {
     "archived_at": null,
@@ -244,6 +270,19 @@
     "state": "active",
     "use_count": 2,
     "view_count": 2
+  },
+  "vietnam-planning-map-research": {
+    "archived_at": null,
+    "created_at": "2026-05-31T06:37:26.151540+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-05-31T06:37:26.165785+00:00",
+    "last_viewed_at": "2026-05-31T06:37:26.151600+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "xlsx": {
     "archived_at": null,
