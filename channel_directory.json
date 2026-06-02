@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-01T18:57:45.326410",
+  "updated_at": "2026-06-02T18:56:05.918392",
   "platforms": {
     "slack": [
       {
@@ -499,6 +499,18 @@
         "name": "C0B33N47F8D / topic 1780305197.500109",
         "type": "group",
         "thread_id": "1780305197.500109"
+      },
+      {
+        "id": "C0ARAEZ23DX:1780362669.937269",
+        "name": "C0ARAEZ23DX / topic 1780362669.937269",
+        "type": "group",
+        "thread_id": "1780362669.937269"
+      },
+      {
+        "id": "C0AKCBL3CR4:1780411652.660509",
+        "name": "C0AKCBL3CR4 / topic 1780411652.660509",
+        "type": "group",
+        "thread_id": "1780411652.660509"
       }
     ],
     "telegram": [
