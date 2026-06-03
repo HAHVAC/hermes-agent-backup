@@ -17,13 +17,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-05-27T13:00:29.047570+00:00",
-    "last_viewed_at": "2026-05-27T13:00:29.035060+00:00",
+    "last_used_at": "2026-06-03T13:00:26.307218+00:00",
+    "last_viewed_at": "2026-06-03T13:00:26.293015+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 10,
-    "view_count": 10
+    "use_count": 11,
+    "view_count": 11
   },
   "docx": {
     "archived_at": null,
@@ -77,6 +77,19 @@
     "use_count": 3,
     "view_count": 3
   },
+  "hermes-agent": {
+    "archived_at": null,
+    "created_at": "2026-06-03T04:42:14.095398+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-06-03T04:42:14.109199+00:00",
+    "last_viewed_at": "2026-06-03T04:42:14.095445+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
+  },
   "hermes-provider-debug": {
     "archived_at": null,
     "created_at": "2026-05-18T11:05:38.112144+00:00",
@@ -94,14 +107,14 @@
     "archived_at": null,
     "created_at": "2026-05-11T12:05:49.254620+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-02T08:30:57.464463+00:00",
-    "last_used_at": "2026-06-02T08:10:02.554769+00:00",
-    "last_viewed_at": "2026-06-02T08:10:02.535172+00:00",
-    "patch_count": 20,
+    "last_patched_at": "2026-06-03T01:44:57.521484+00:00",
+    "last_used_at": "2026-06-03T01:42:57.677762+00:00",
+    "last_viewed_at": "2026-06-03T01:42:57.665181+00:00",
+    "patch_count": 22,
     "pinned": false,
     "state": "active",
-    "use_count": 23,
-    "view_count": 23
+    "use_count": 24,
+    "view_count": 24
   },
   "lark-goertek-task-tracker": {
     "archived_at": null,

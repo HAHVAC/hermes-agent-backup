@@ -1,7 +1,7 @@
 ---
 name: lark-cli
 description: Official Lark/Feishu CLI tool (larksuite/cli) — 200+ commands covering Messenger, Docs, Base, Sheets, Calendar, Mail, Tasks, Approval, Meetings and more. Use for all Lark/Feishu interactions. 23 AI Agent Skills installed at ~/.agents/skills/lark-*.
-version: 1.0.23
+version: 1.0.46
 tags: [lark, feishu, calendar, base, task, approval, im, mail, sheets, docs]
 ---
 
@@ -13,10 +13,10 @@ CLI chính chủ từ larksuite team. Đã cài và config cho tài khoản **TA
 
 ## Setup Status
 
-- ✅ Installed: `lark-cli v1.0.23` (npm global, latest available: v1.0.27)
+- ✅ Installed: `lark-cli v1.0.46` (npm global)
 - ✅ Config: `/root/.lark-cli/config.json` — App ID `cli_a950ce435521ded1`
 - ✅ Auth: user identity logged in (`lark-cli auth status`)
-- ✅ 23 Agent Skills: `~/.agents/skills/lark-*`
+- ✅ 26 Agent Skills: `~/.agents/skills/lark-*`
 
 ## QUAN TRỌNG — Đọc skill chính chủ trước
 
