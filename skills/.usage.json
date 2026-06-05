@@ -17,13 +17,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-06-03T13:00:26.307218+00:00",
-    "last_viewed_at": "2026-06-03T13:00:26.293015+00:00",
+    "last_used_at": "2026-06-05T13:01:07.433148+00:00",
+    "last_viewed_at": "2026-06-05T13:01:07.420899+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 11,
-    "view_count": 11
+    "use_count": 12,
+    "view_count": 12
   },
   "docx": {
     "archived_at": null,
@@ -116,31 +116,44 @@
     "use_count": 24,
     "view_count": 24
   },
+  "lark-doc": {
+    "archived_at": null,
+    "created_at": "2026-06-05T06:30:29.734360+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-06-05T12:13:54.061703+00:00",
+    "last_viewed_at": "2026-06-05T12:13:54.050259+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 13,
+    "view_count": 13
+  },
   "lark-goertek-task-tracker": {
     "archived_at": null,
     "created_at": "2026-05-11T12:00:34.871572+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-04T09:48:05.890362+00:00",
-    "last_used_at": "2026-06-04T09:46:02.383346+00:00",
-    "last_viewed_at": "2026-06-04T09:46:02.368375+00:00",
-    "patch_count": 8,
+    "last_patched_at": "2026-06-05T12:19:19.333703+00:00",
+    "last_used_at": "2026-06-05T12:19:15.938047+00:00",
+    "last_viewed_at": "2026-06-05T12:19:15.926603+00:00",
+    "patch_count": 15,
     "pinned": false,
     "state": "active",
-    "use_count": 5,
-    "view_count": 5
+    "use_count": 13,
+    "view_count": 13
   },
   "lark-im": {
     "archived_at": null,
     "created_at": "2026-06-04T09:14:00.446731+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-06-04T09:17:57.194059+00:00",
-    "last_viewed_at": "2026-06-04T09:17:57.178931+00:00",
+    "last_used_at": "2026-06-05T12:05:28.398688+00:00",
+    "last_viewed_at": "2026-06-05T12:05:28.387642+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 3,
-    "view_count": 3
+    "use_count": 4,
+    "view_count": 4
   },
   "linux-system-cleanup": {
     "archived_at": null,
@@ -224,13 +237,13 @@
     "created_at": "2026-05-23T08:03:55.046286+00:00",
     "created_by": null,
     "last_patched_at": "2026-05-23T08:05:03.336119+00:00",
-    "last_used_at": "2026-05-31T06:37:21.472016+00:00",
-    "last_viewed_at": "2026-05-31T06:37:21.457805+00:00",
+    "last_used_at": "2026-06-05T12:19:10.143123+00:00",
+    "last_viewed_at": "2026-06-05T12:19:10.131334+00:00",
     "patch_count": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 3,
-    "view_count": 3
+    "use_count": 4,
+    "view_count": 4
   },
   "pccc-sales": {
     "archived_at": null,

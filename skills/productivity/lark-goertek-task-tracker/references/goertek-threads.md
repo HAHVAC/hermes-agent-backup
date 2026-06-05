@@ -52,6 +52,16 @@ print(data['data'].get('has_more',''))
 done
 ```
 
+### Better alternative: +threads-messages-list
+
+For reading thread messages directly, prefer `+threads-messages-list` over paging through the group chat:
+
+```bash
+lark-cli im +threads-messages-list --thread omt_xxx --as user --sort desc --page-size 50 --format json
+```
+
+This returns only messages within the thread, no need to filter by thread_id from group-level listing.
+
 ### ⚠️ Pitfall: Page Token Truncation in Bash
 Lark API page tokens are long strings (e.g., 128 characters or more, e.g. `4cXSlmN7uFAnWWU5yfIGMJjamdL...`). When printing in pipeline commands, ensure no string cutting or truncation happens (like `head` or terminal width truncation), otherwise subsequent API calls will fail with `invalid page_token` API error code `230001`.
 
@@ -71,3 +81,16 @@ Lark API page tokens are long strings (e.g., 128 characters or more, e.g. `4cXSl
   - Zone 1: Floor 1-3 (Trục 1-9/L-P)
   - Zone 4: Floor 2
   - Zone 5: Floor 2
+- **Daily Report**: Xem [ktx-daily-report.md](ktx-daily-report.md) cho sender mapping, keyword phân loại hệ thống, và chi tiết script tự động.
+
+### Resolving sender names from thread messages
+
+`+threads-messages-list` returns messages with `sender.id` (open_id) but no `sender.name`. To resolve names:
+
+1. **Preferred:** Use `+messages-mget` which enriches data including `sender.name` and `thread_replies` containing original thread messages with `mentions[].name`:
+   ```bash
+   lark-cli im +messages-mget --message-ids om_xxx,om_yyy --as user --format json
+   ```
+   The `thread_replies` array in mget output includes the thread root messages which contain `mentions` arrays with `name` fields — these are the source for resolving open_id → real name.
+
+2. **Fallback:** Maintain a static mapping in [ktx-daily-report.md](ktx-daily-report.md) (updated when new participants are discovered).

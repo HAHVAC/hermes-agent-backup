@@ -7,6 +7,9 @@ triggers:
   - nhắc việc feishu
   - báo cáo hiện trường goertek
   - đọc tin nhắn nhóm goertek
+  - báo cáo ktx
+  - báo cáo tiến độ ktx
+  - ktx daily report
 ---
 
 # GOERTEK Task Tracker
@@ -85,3 +88,57 @@ Nhóm external (`"external": true`, cross-tenant) có các hạn chế API:
   - Không dùng `lark im send` (sai lệnh)
   - `--text` thay vì `--content` (content yêu cầu JSON hợp lệ)
 - PATH cần có: `/root/.nvm/versions/node/v24.13.0/bin`
+
+## KTX Daily Report (Báo cáo tiến độ thi công KTX)
+
+Tự động tổng hợp tin nhắn từ thread KTX-Báo cáo, phân loại theo 4 hệ thống (Báo cháy, Chữa cháy, Thông gió, Điện), và cập nhật vào 1 Lark Doc duy nhất mỗi ngày.
+
+Xem chi tiết sender mapping, từ khóa phân loại hệ thống, và hướng dẫn mở rộng tại [ktx-daily-report.md](references/ktx-daily-report.md).
+
+| Mục | Giá trị |
+|-----|---------|
+| Thread KTX | `omt_196c1eaf68cf1981` (trong nhóm GOERTEK_BÁO CÁO CÔNG VIỆC) |
+| Lark Doc ID | `KD8Xd3KUjouzhzxq2xolyWAmgkI` |
+| Doc URL | https://pccctruongan.sg.larksuite.com/docx/KD8Xd3KUjouzhzxq2xolyWAmgkI |
+| Script | `/root/.hermes/scripts/ktx_daily_report.py` |
+| Cron | `0 13 * * *` (UTC) = 20:00 VN |
+| Cron Job ID | `865fd3e18751` |
+
+### ⚠️ Quan trọng: Tránh lỗi phân phối tin nhắn và tin rác từ Cron Job
+- **Cấu hình `deliver` cho KTX Daily Report:** Phải sử dụng Feishu chat ID cụ thể (ví dụ cá nhân của Boss: `feishu:oc_e6167ab9a7424fab1a2db2442fd98581`) thay vì các phương thức chung chung hay bare channel khi chạy cron, nhằm tránh lỗi `delivery error: Feishu send failed: [99992402] field validation failed`.
+- **Tránh spam tin rác:** Prompt của cron job cần quy định rõ điều kiện: "Nếu ngày hôm đó không có bất kỳ báo cáo mới nào (0 báo cáo, 0 ảnh), trả về chính xác chuỗi `[SILENT]`". Điều này giúp hệ thống tự động lọc bỏ và không gửi tin nhắn rác cho Boss.
+
+### Cách đọc thread messages
+
+Dùng `lark-cli im +threads-messages-list` để đọc trực tiếp tin nhắn trong thread:
+```bash
+lark-cli im +threads-messages-list --thread omt_196c1eaf68cf1981 --as user --sort desc --page-size 50 --format json
+```
+
+### Cách resolve tên người gửi
+
+`+threads-messages-list` không trả kèm `sender.name`. Dùng `+messages-mget` để lấy enriched data (bao gồm thread replies gốc có chứa `mentions` với tên):
+```bash
+lark-cli im +messages-mget --message-ids om_xxx,om_yyy --as user --format json
+```
+Trong enriched output, `thread_replies` chứa tin nhắn gốc của thread với `mentions[].name` — đây là nguồn resolve open_id → tên thật.
+
+### Logic phân loại hệ thống
+
+Script dùng keyword matching để phân loại tin nhắn vào 4 hệ. Xem đầy đủ keyword list trong [ktx-daily-report.md](references/ktx-daily-report.md).
+
+### Flow hàng ngày
+
+1. Cron 20:00 VN → chạy script
+2. Script đọc thread messages của ngày hôm nay (VN time)
+3. Phân loại theo hệ, extract Zone/Tầng
+4. Append XML vào Lark Doc
+5. Cron job gửi tóm tắt vào chat cho Boss duyệt
+
+### ⚠️ Pitfall: Thread messages không có thread_id field khi dùng +chat-messages-list
+
+Khi list tin nhắn group bằng `+chat-messages-list`, một số tin nhắn có `thread_id` field, nhưng tin nhắn trong thread (replies) thì không trả field này khi được list từ group-level. Phải dùng `+threads-messages-list` với thread_id hoặc `+messages-mget` để đảm bảo lấy đúng nội dung thread.
+
+### ⚠️ Pitfall: Append tạo duplicate nếu chạy lại cùng ngày
+
+Script hiện không check xem báo cáo ngày đó đã tồn tại trong doc chưa. Nếu cần chạy lại, nên tạo doc mới hoặc manually xóa duplicate. Script nhận tham số ngày: `python3 ktx_daily_report.py 2026-06-04`.

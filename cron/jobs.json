@@ -18,15 +18,15 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 55
+        "completed": 56
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-19T00:54:55.103138+00:00",
-      "next_run_at": "2026-06-05T13:00:00+00:00",
-      "last_run_at": "2026-06-04T13:01:45.349133+00:00",
+      "next_run_at": "2026-06-06T13:00:00+00:00",
+      "last_run_at": "2026-06-05T13:01:31.398577+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -96,15 +96,15 @@
       "schedule_display": "0 19 * * *",
       "repeat": {
         "times": null,
-        "completed": 25
+        "completed": 26
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-05-11T14:15:45.794520+00:00",
-      "next_run_at": "2026-06-05T19:00:00+00:00",
-      "last_run_at": "2026-06-03T19:01:02.625719+00:00",
+      "next_run_at": "2026-06-06T19:00:00+00:00",
+      "last_run_at": "2026-06-04T19:00:27.747439+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -117,7 +117,54 @@
       },
       "enabled_toolsets": null,
       "workdir": null
+    },
+    {
+      "id": "865fd3e18751",
+      "name": "KTX Daily Report",
+      "prompt": "Ch\u1ea1y script b\u00e1o c\u00e1o ti\u1ebfn \u0111\u1ed9 KTX h\u00e0ng ng\u00e0y:\n```\nexport PATH=$PATH:/root/.nvm/versions/node/v24.13.0/bin && python3 /root/.hermes/scripts/ktx_daily_report.py\n```\n\nR\u1ea4T QUAN TR\u1eccNG: \nN\u1ebfu k\u1ebft qu\u1ea3 output c\u1ee7a script c\u00f3 ch\u1ee9a t\u1eeb kh\u00f3a '[SILENT]', ngh\u0129a l\u00e0 ng\u00e0y h\u00f4m nay kh\u00f4ng c\u00f3 b\u00e1o c\u00e1o n\u00e0o t\u1eeb c\u00f4ng tr\u01b0\u1eddng g\u1eedi l\u00ean thread. Khi \u0111\u00f3, em PH\u1ea2I k\u1ebft th\u00fac phi\u00ean l\u00e0m vi\u1ec7c ho\u00e0n to\u00e0n im l\u1eb7ng, kh\u00f4ng g\u1eedi b\u1ea5t k\u1ef3 tin nh\u1eafn n\u00e0o cho Anh \u0111\u1ec3 tr\u00e1nh l\u00e0m phi\u1ec1n (Silent Mode).\n\nNg\u01b0\u1ee3c l\u1ea1i, n\u1ebfu script ch\u1ea1y th\u00e0nh c\u00f4ng v\u00e0 thu th\u1eadp \u0111\u01b0\u1ee3c d\u1eef li\u1ec7u:\n1. \u0110\u1ecdc output k\u1ebft qu\u1ea3 (s\u1ed1 b\u00e1o c\u00e1o, s\u1ed1 \u1ea3nh, URL doc)\n2. G\u1eedi t\u00f3m t\u1eaft cho Anh theo format:\n   \ud83d\udcc5 B\u00e1o c\u00e1o KTX ng\u00e0y [date]\n   \ud83d\udcca [X] b\u00e1o c\u00e1o, [Y] \u1ea3nh\n   \ud83d\udd34 B\u00e1o ch\u00e1y: [tr\u1ea1ng th\u00e1i]\n   \ud83d\udd35 Ch\u1eefa ch\u00e1y: [tr\u1ea1ng th\u00e1i]  \n   \ud83d\udfe2 Th\u00f4ng gi\u00f3: [tr\u1ea1ng th\u00e1i]\n   \ud83d\udfe1 \u0110i\u1ec7n: [tr\u1ea1ng th\u00e1i]\n   \ud83d\udcdd Doc: [URL]\n3. N\u1ebfu c\u00f3 l\u1ed7i x\u1ea3y ra trong qu\u00e1 tr\u00ecnh ch\u1ea1y script, b\u00e1o l\u1ed7i chi ti\u1ebft \u0111\u1ec3 s\u1eeda ch\u1eefa.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 13 * * *",
+        "display": "0 13 * * *"
+      },
+      "schedule_display": "0 13 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 4
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-06-05T06:54:37.279157+00:00",
+      "next_run_at": "2026-06-06T13:00:00+00:00",
+      "last_run_at": "2026-06-05T13:00:43.490500+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "feishu:oc_e6167ab9a7424fab1a2db2442fd98581",
+      "origin": {
+        "platform": "feishu",
+        "chat_id": "oc_e6167ab9a7424fab1a2db2442fd98581",
+        "chat_name": "oc_e6167ab9a7424fab1a2db2442fd98581",
+        "thread_id": "om_x100b6d16d36d48b0e2e8c40c5c2dc50"
+      },
+      "enabled_toolsets": [
+        "terminal",
+        "web",
+        "file"
+      ],
+      "workdir": "/root",
+      "profile": null
     }
   ],
-  "updated_at": "2026-06-04T19:00:22.248533+00:00"
+  "updated_at": "2026-06-05T19:00:37.962100+00:00"
 }
