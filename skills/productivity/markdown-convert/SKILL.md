@@ -9,6 +9,9 @@ triggers:
   - "markitdown"
   - "file này sang md"
   - "sang markdown"
+  - "chuyển file sang md"
+  - "chuyen file sang md"
+  - "chuyen-file-sang-md"
 tools:
   - terminal
   - file

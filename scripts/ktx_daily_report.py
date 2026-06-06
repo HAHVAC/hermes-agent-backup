@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-KTX Daily Report Generator
+KTX Daily Report Generator (Updated version)
 - Đọc tin nhắn từ thread KTX-Báo cáo (GOERTEK)
 - Phân loại theo 4 hệ: Báo cháy, Chữa cháy, Thông gió, Điện
-- Tải hình ảnh hiện trường kèm theo từ thread, upload và chèn trực tiếp dưới nội dung text báo cáo (Phương án 1)
-- Cập nhật vào Lark Doc chung
-- Gửi preview cho Boss duyệt
+- Tải hình ảnh hiện trường kèm theo từ thread, đổi tên theo yyyy-mm-dd-noidung.png
+- Upload các hình ảnh này vào 1 thư mục Lark Drive thay vì chèn trực tiếp vào Lark Doc
+- Tổng hợp báo cáo hàng ngày vào Lark Doc chung:
+  + Mỗi ngày chỉ cần mỗi hệ 1 dòng tóm tắt các hoạt động, không báo theo giờ.
+  + Báo cáo quân số nếu có.
+  + Dẫn link thư mục Drive chứa ảnh của ngày đó hoặc thư mục tổng.
 """
 
 import sys
@@ -13,6 +16,7 @@ import os
 import subprocess
 import json
 import re
+import urllib.parse
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor
 
@@ -23,6 +27,8 @@ os.environ["PATH"] = "/root/.nvm/versions/node/v24.13.0/bin:" + os.environ.get("
 THREAD_ID = "omt_196c1eaf68cf1981"
 CHAT_ID = "oc_c999ede161bd4f500eb83c8dfaf92dd0"
 DOC_ID = "KD8Xd3KUjouzhzxq2xolyWAmgkI"
+# Thư mục gốc chứa ảnh báo cáo KTX trên Lark Drive
+DRIVE_FOLDER_TOKEN = "RgFvfLbrlllgSsdg7VzlZz59ggg"
 
 # Sender mapping (resolved from Lark)
 SENDER_MAP = {
@@ -48,19 +54,61 @@ def run_lark_cli(args):
     cmd = ["lark-cli"] + args + ["--format", "json"]
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
     output = result.stdout + result.stderr
-    try:
-        idx = output.index('{')
-        return json.loads(output[idx:])
-    except (ValueError, json.JSONDecodeError) as e:
-        print(f"ERROR parsing lark-cli output: {e}", file=sys.stderr)
-        print(f"Output: {output[:500]}", file=sys.stderr)
+    
+    first_brace = output.find('{')
+    last_brace = output.rfind('}')
+    if first_brace != -1 and last_brace != -1:
+        try:
+            return json.loads(output[first_brace:last_brace+1])
+        except json.JSONDecodeError as e:
+            print(f"ERROR parsing lark-cli output: {e}", file=sys.stderr)
+            print(f"Output: {output[:1000]}", file=sys.stderr)
+            return None
+    else:
+        print(f"ERROR: No JSON block found in output", file=sys.stderr)
+        print(f"Output: {output[:1000]}", file=sys.stderr)
         return None
 
 
-def download_and_upload_image(message_id, image_key):
-    """Download an image from Lark message and upload it to Drive Media to get a file_token."""
+def clean_filename(name):
+    """Clean Vietnamese text to English lowercase words separated by hyphens (max 60 chars)."""
+    name = name.lower()
+    name = re.sub(r'[àáạảãâầấậẩẫăằắặẳẵ]', 'a', name)
+    name = re.sub(r'[èéẹẻẽêềếệểễ]', 'e', name)
+    name = re.sub(r'[ìíịỉĩ]', 'i', name)
+    name = re.sub(r'[òóọỏõôồốộổỗơờớợởỡ]', 'o', name)
+    name = re.sub(r'[ùúụủũưừứựửữ]', 'u', name)
+    name = re.sub(r'[ỳýỵỷỹ]', 'y', name)
+    name = re.sub(r'đ', 'd', name)
+    name = re.sub(r'[^a-z0-9\s_\-]', '', name)
+    name = re.sub(r'[\s_\-]+', '-', name).strip('-')
+    return name[:60] if name else "hinh-anh"
+
+
+def create_daily_folder(target_date):
+    """Create a subfolder for the target date inside the KTX report images folder."""
+    folder_name = f"Báo cáo KTX {target_date}"
+    args = [
+        "drive", "+create-folder",
+        "--name", folder_name,
+        "--folder-token", DRIVE_FOLDER_TOKEN,
+        "--as", "user"
+    ]
+    print(f"  -> Creating Drive folder '{folder_name}'...")
+    res = run_lark_cli(args)
+    if res and res.get("ok"):
+        folder_token = res["data"].get("folder_token")
+        url = res["data"].get("url")
+        print(f"  ✅ Created subfolder. Token: {folder_token}, URL: {url}")
+        return folder_token, url
+    else:
+        print(f"  ❌ Failed to create subfolder, using root folder token instead. Error: {res}", file=sys.stderr)
+        return DRIVE_FOLDER_TOKEN, None
+
+
+def download_and_upload_image_to_drive(message_id, image_key, target_folder_token, new_name):
+    """Download image from Lark message and upload it to specific Drive folder with a clean name."""
     temp_filename = f"temp_{message_id}_{image_key}.png"
-    # use relative path since lark-cli only allows relative paths for --output
     temp_filepath = temp_filename
     
     # 1. Download image from message
@@ -72,10 +120,9 @@ def download_and_upload_image(message_id, image_key):
         "--output", temp_filepath,
         "--as", "user"
     ]
-    print(f"  -> Downloading image {image_key} from message {message_id}...")
     dl_res = run_lark_cli(dl_args)
     if not dl_res or not dl_res.get("ok"):
-        print(f"  ❌ Failed to download image {image_key}: {dl_res}", file=sys.stderr)
+        print(f"  ❌ Failed to download image {image_key}", file=sys.stderr)
         if os.path.exists(temp_filepath):
             try: os.remove(temp_filepath)
             except: pass
@@ -88,20 +135,15 @@ def download_and_upload_image(message_id, image_key):
             print(f"  ❌ Downloaded file not found at {actual_path}", file=sys.stderr)
             return None
             
-    # 2. Upload image to Lark Drive DocxMedia
-    file_size = os.path.getsize(actual_path)
+    # 2. Upload image to Lark Drive folder with new name
     upload_args = [
-        "api", "POST", "/open-apis/drive/v1/medias/upload_all",
-        "--file", f"file={temp_filepath}",
-        "--data", json.dumps({
-            "file_name": os.path.basename(actual_path),
-            "parent_type": "docx_image",
-            "parent_node": DOC_ID,
-            "size": file_size
-        }),
+        "drive", "+upload",
+        "--file", temp_filepath,
+        "--name", f"{new_name}.png",
+        "--folder-token", target_folder_token,
         "--as", "user"
     ]
-    print(f"  -> Uploading image {image_key} to Lark Drive (size: {file_size} bytes)...")
+    print(f"  -> Uploading to Drive: {new_name}.png ...")
     up_res = run_lark_cli(upload_args)
     
     # Clean up temp file
@@ -109,20 +151,18 @@ def download_and_upload_image(message_id, image_key):
         try: os.remove(actual_path)
         except: pass
         
-    if up_res and up_res.get("code") == 0:
-        file_token = up_res["data"].get("file_token")
-        print(f"  ✅ Uploaded image. File token: {file_token}")
-        return file_token
+    if up_res and up_res.get("ok"):
+        print(f"  ✅ Uploaded image successfully: {new_name}.png")
+        return True
     else:
-        print(f"  ❌ Failed to upload image {image_key}: {up_res}", file=sys.stderr)
-        return None
+        print(f"  ❌ Failed to upload image {image_key} to Drive: {up_res}", file=sys.stderr)
+        return False
 
 
 def get_thread_messages_with_images(target_date):
     """
     Get all messages from KTX thread for a specific date.
     Groups images with their corresponding preceding text messages.
-    Concurrently downloads and uploads images.
     """
     all_msgs = []
     page_token = ""
@@ -184,7 +224,7 @@ def get_thread_messages_with_images(target_date):
                 "content": content,
                 "msg_id": msg_id,
                 "thread_pos": thread_pos,
-                "image_tokens": []
+                "images": []
             }
             reports.append(current_report)
         elif mtype == "image":
@@ -204,7 +244,7 @@ def get_thread_messages_with_images(target_date):
                         "content": "[Hình ảnh hiện trường]",
                         "msg_id": msg_id,
                         "thread_pos": thread_pos,
-                        "image_tokens": []
+                        "images": []
                     }
                     reports.append(current_report)
                     report_idx = len(reports) - 1
@@ -215,25 +255,63 @@ def get_thread_messages_with_images(target_date):
                     "report_idx": report_idx
                 })
 
-    all_image_count = len(images_to_process)
+    return reports, images_to_process
+
+
+def process_images_concurrently(images_to_process, reports, target_date, target_folder_token):
+    """Concurrently downloads, renames and uploads images to Drive folder."""
+    if not images_to_process:
+        return 0
+
+    print(f"  -> Renaming and uploading {len(images_to_process)} images concurrently...")
     
-    # Concurrently download and upload all images using ThreadPoolExecutor
-    if images_to_process:
-        print(f"  -> Processing {all_image_count} images concurrently...")
+    # We will build image filenames like yyyy-mm-dd-noidung-index.png
+    # Let's count how many images are under each report index to add sequence numbers
+    report_img_counts = {}
+    for idx, img_info in enumerate(images_to_process):
+        r_idx = img_info["report_idx"]
+        report_img_counts[r_idx] = report_img_counts.get(r_idx, 0) + 1
+        img_info["seq"] = report_img_counts[r_idx]
+
+    def process_single_image(img_info):
+        r_idx = img_info["report_idx"]
+        report = reports[r_idx]
+        seq = img_info["seq"]
         
-        def process_single_image(img_info):
-            file_token = download_and_upload_image(img_info["msg_id"], img_info["image_key"])
-            return img_info["report_idx"], file_token
-
-        # Use up to 8 threads to balance speed and api rate limits
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            results = executor.map(process_single_image, images_to_process)
+        # Determine descriptive name based on report content
+        desc = report["content"]
+        # Skip generic text placeholder
+        if desc == "[Hình ảnh hiện trường]":
+            desc = f"{report['sender']}-hinh-anh"
+        
+        clean_desc = clean_filename(desc)
+        # Final name structure: yyyy-mm-dd-noidung-index (no accents)
+        # e.g., 2026-06-06-tien-do-ong-am-1
+        new_name = f"{target_date}-{clean_desc}"
+        if report_img_counts[r_idx] > 1:
+            new_name += f"-{seq}"
             
-        for report_idx, file_token in results:
-            if file_token:
-                reports[report_idx]["image_tokens"].append(file_token)
+        success = download_and_upload_image_to_drive(
+            img_info["msg_id"], 
+            img_info["image_key"], 
+            target_folder_token, 
+            new_name
+        )
+        return success
 
-    return reports, all_image_count
+    # Use ThreadPoolExecutor to upload concurrently
+    # Rate limit from Lark API for image upload is strict: use max_workers=2 and add minor delay to prevent rate limiting.
+    import time
+    def process_single_image_with_delay(img_info):
+        # Add a tiny delay between starts to prevent simultaneous burst
+        time.sleep(1.0)
+        return process_single_image(img_info)
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(process_single_image_with_delay, images_to_process))
+        
+    uploaded_count = sum(1 for r in results if r)
+    return uploaded_count
 
 
 def classify_system(content):
@@ -277,104 +355,114 @@ def extract_zone_floor(content):
     return zone, floor
 
 
-def generate_daily_xml(target_date, reports, image_count):
-    """Generate XML content for the daily report section."""
-    # Group messages by system
+def extract_quansobuoc(content):
+    """Extract worker count (quân số) if mentioned."""
+    # Match pattern "quân số 12" or "12 người"
+    qs_match = re.search(r'(?:qu\u00e2n s\u1ed1|quan so)(?:\s*:|\s+l\u00e0)?\s*(\d+)|(\d+)\s*(?:ng\u01b0\u1eddi|nh\u00e2n s\u1ef1)', content, re.IGNORECASE)
+    if qs_match:
+        val = qs_match.group(1) or qs_match.group(2)
+        try:
+            return int(val)
+        except:
+            pass
+    return None
+
+
+def generate_daily_xml(target_date, reports, folder_url):
+    """
+    Generate XML content for the daily report section.
+    Requirements:
+    - 1 row per system (no hourly log table).
+    - Summarizes all reports of each system into that single row.
+    - Reports total worker count (quân số) if available.
+    - Embeds link to the Lark Drive folder containing photos.
+    """
+    date_display = datetime.strptime(target_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+    
+    # 1. Group data and extract summaries
     systems = {
-        "bao_chay": {"name": "🔴 Hệ Báo cháy", "emoji": "🔴", "reports": []},
-        "chua_chay": {"name": "🔵 Hệ Chữa cháy", "emoji": "🔵", "reports": []},
-        "thong_gio": {"name": "🟢 Hệ Thông gió", "emoji": "🟢", "reports": []},
-        "dien": {"name": "🟡 Hệ Điện", "emoji": "🟡", "reports": []},
+        "bao_chay": {"name": "🔴 Hệ Báo cháy", "reports": [], "zones": set(), "senders": set(), "text_summaries": [], "workers": 0},
+        "chua_chay": {"name": "🔵 Hệ Chữa cháy", "reports": [], "zones": set(), "senders": set(), "text_summaries": [], "workers": 0},
+        "thong_gio": {"name": "🟢 Hệ Thông gió", "reports": [], "zones": set(), "senders": set(), "text_summaries": [], "workers": 0},
+        "dien": {"name": "🟡 Hệ Điện", "reports": [], "zones": set(), "senders": set(), "text_summaries": [], "workers": 0},
     }
 
+    total_workers_found = 0
+    
     for r in reports:
         sys_key = classify_system(r["content"])
+        if sys_key not in systems:
+            continue
+            
+        sys_data = systems[sys_key]
+        sys_data["reports"].append(r)
+        
+        # Extract zone/floor
         zone, floor = extract_zone_floor(r["content"])
-        if sys_key in systems:
-            systems[sys_key]["reports"].append({
-                **r,
-                "zone": zone,
-                "floor": floor,
-            })
+        loc = f"{zone} {floor}".strip()
+        if loc:
+            sys_data["zones"].add(loc)
+            
+        sys_data["senders"].add(r["sender"])
+        
+        # Clean text content to add to summary
+        txt = r["content"].strip()
+        # Avoid placeholder images text
+        if txt and txt != "[Hình ảnh hiện trường]" and not txt.startswith("[Image:"):
+            # Escape XML special chars
+            txt_safe = txt.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            sys_data["text_summaries"].append(f"- {r['sender']}: {txt_safe}")
+            
+        # Extract workers
+        workers = extract_quansobuoc(r["content"])
+        if workers:
+            sys_data["workers"] = max(sys_data["workers"], workers)
+
+    # Calculate total workers
+    total_workers_found = sum(s["workers"] for s in systems.values())
 
     # Build XML
-    date_display = datetime.strptime(target_date, "%Y-%m-%d").strftime("%d/%m/%Y")
     xml_parts = []
     xml_parts.append(f'<h1>📅 Báo cáo ngày {date_display}</h1>')
 
-    for sys_key, sys_data in systems.items():
-        sys_reports = sys_data["reports"]
-        xml_parts.append(f'<h2>{sys_data["name"]}</h2>')
+    # Add Callout for summary overview
+    xml_parts.append('<callout emoji="📊" background-color="light-gray" border-color="light-blue">')
+    if total_workers_found > 0:
+        xml_parts.append(f'<p><b>Tổng quân số KTX:</b> {total_workers_found} người</p>')
+    else:
+        xml_parts.append('<p><b>Tổng quân số KTX:</b> Không ghi nhận báo cáo quân số cụ thể</p>')
+        
+    if folder_url:
+        xml_parts.append(f'<p><b>Folder hình ảnh hiện trường:</b> <a href="{folder_url}">Xem trên Lark Drive</a></p>')
+    else:
+        xml_parts.append(f'<p><b>Folder hình ảnh hiện trường:</b> <a href="https://pccctruongan.sg.larksuite.com/drive/folder/{DRIVE_FOLDER_TOKEN}">Xem trên Lark Drive</a></p>')
+    xml_parts.append('</callout>')
 
-        if not sys_reports:
-            xml_parts.append(f'<callout emoji="ℹ️" background-color="light-gray"><p>Chưa có báo cáo trong ngày {date_display}.</p></callout>')
-        else:
-            # Sender summary
-            sys_senders = set(r["sender"] for r in sys_reports)
-            xml_parts.append(f'<callout emoji="ℹ️" background-color="light-gray">')
-            xml_parts.append(f'<p>Người gửi: <b>{", ".join(sys_senders)}</b> | Số báo cáo: {len(sys_reports)}</p>')
-            xml_parts.append(f'</callout>')
-
-            # Table
-            xml_parts.append('<table>')
-            # Column widths: Time, Area, Sender, Content (including images if any)
-            xml_parts.append('<colgroup><col span="1" width="80"/><col span="1" width="130"/><col span="1" width="130"/><col span="1" width="460"/></colgroup>')
-            xml_parts.append('<thead><tr><th background-color="light-gray">Giờ</th><th background-color="light-gray">Khu vực</th><th background-color="light-gray">Người gửi</th><th background-color="light-gray">Nội dung</th></tr></thead>')
-            xml_parts.append('<tbody>')
-            for r in sys_reports:
-                time_short = r["time"].split(" ")[1][:5] if " " in r["time"] else r["time"]
-                area = f'{r["zone"]}, {r["floor"]}' if r["zone"] and r["floor"] else (r["zone"] or r["floor"] or "—")
-                
-                # Escape XML special chars in content
-                content_safe = r["content"].replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-                
-                # Append images directly under the text inside the table cell (if images exist)
-                # Form: <img src="TOKEN" width="120" /> or standard format for layout
-                if r["image_tokens"]:
-                    img_tags = ""
-                    for token in r["image_tokens"]:
-                        img_tags += f'<br/><img src="{token}" width="200" />'
-                    content_cell = f'<p>{content_safe}{img_tags}</p>'
-                else:
-                    content_cell = f'<p>{content_safe}</p>'
-                    
-                xml_parts.append(f'<tr><td>{time_short}</td><td>{area}</td><td>{r["sender"]}</td><td>{content_cell}</td></tr>')
-            xml_parts.append('</tbody></table>')
-
-        xml_parts.append('<hr/>')
-
-    # Summary table
-    xml_parts.append(f'<h2>📊 Tổng kết ngày {date_display}</h2>')
+    # Table: 1 row per system
     xml_parts.append('<table>')
-    xml_parts.append('<colgroup><col span="1" width="180"/><col span="1" width="100"/><col span="1" width="120"/><col span="1" width="120"/></colgroup>')
-    xml_parts.append('<thead><tr><th background-color="light-gray">Hệ thống</th><th background-color="light-gray">Số báo cáo</th><th background-color="light-gray">Khu vực</th><th background-color="light-gray">Trạng thái</th></tr></thead>')
+    # Column widths: System, Area, Details / Senders, Workers
+    xml_parts.append('<colgroup><col span="1" width="180"/><col span="1" width="180"/><col span="1" width="360"/><col span="1" width="80"/></colgroup>')
+    xml_parts.append('<thead><tr><th background-color="light-gray">Hệ thống</th><th background-color="light-gray">Khu vực</th><th background-color="light-gray">Nội dung báo cáo chi tiết</th><th background-color="light-gray">Quân số</th></tr></thead>')
     xml_parts.append('<tbody>')
 
-    sys_labels = {
-        "bao_chay": "🔴 Báo cháy",
-        "chua_chay": "🔵 Chữa cháy",
-        "thong_gio": "🟢 Thông gió",
-        "dien": "🟡 Điện",
-    }
-
-    issues = []
     for sys_key, sys_data in systems.items():
-        sys_reports = sys_data["reports"]
-        zones = set(r["zone"] for r in sys_reports if r["zone"])
-        if sys_reports:
-            status = '<span text-color="green">Đang thi công</span>'
+        if sys_data["reports"]:
+            area_str = ", ".join(sorted(sys_data["zones"])) if sys_data["zones"] else "Tại công trường"
+            
+            # Form detailed report list
+            if sys_data["text_summaries"]:
+                details_str = "<br/>".join(sys_data["text_summaries"])
+            else:
+                details_str = "Gửi hình ảnh hiện trường thi công."
+                
+            workers_str = str(sys_data["workers"]) if sys_data["workers"] > 0 else "Có"
+            
+            xml_parts.append(f'<tr><td><b>{sys_data["name"]}</b></td><td>{area_str}</td><td>{details_str}</td><td>{workers_str}</td></tr>')
         else:
-            status = "—"
-            issues.append(sys_labels[sys_key])
-
-        xml_parts.append(f'<tr><td>{sys_labels[sys_key]}</td><td>{len(sys_reports) or "—"}</td><td>{", ".join(sorted(zones)) or "—"}</td><td>{status}</td></tr>')
+            xml_parts.append(f'<tr><td>{sys_data["name"]}</td><td>—</td><td>Chưa có báo cáo.</td><td>—</td></tr>')
 
     xml_parts.append('</tbody></table>')
-
-    if issues:
-        xml_parts.append('<callout emoji="⚠️" background-color="light-yellow" border-color="yellow">')
-        xml_parts.append(f'<p><b>Vấn đề / Ghi chú:</b> Chưa có báo cáo cho {", ".join(issues)} trong ngày.</p>')
-        xml_parts.append('</callout>')
+    xml_parts.append('<hr/>')
 
     return "\n".join(xml_parts)
 
@@ -393,28 +481,39 @@ def main():
     print(f"Target date: {target_date}")
 
     # Step 1: Get messages and images from thread
-    print("\n[1/3] Fetching thread messages & uploading images...")
-    reports, image_count = get_thread_messages_with_images(target_date)
-    print(f"  Found {len(reports)} grouped report entries, {image_count} total images downloaded & uploaded")
+    print("\n[1/4] Fetching thread messages & image metadata...")
+    reports, images_to_process = get_thread_messages_with_images(target_date)
+    print(f"  Found {len(reports)} grouped report entries, {len(images_to_process)} images to download")
 
     # If no report found at all, skip writing to Doc (silent mode)
-    if not reports and image_count == 0:
+    if not reports and len(images_to_process) == 0:
         print("\nNo messages or images found for today. Exiting silently (Silent mode).")
         # Return [SILENT] token for cron job to identify and skip notification
         print("[SILENT]")
         sys.exit(0)
 
-    # Step 2: Generate XML
-    print("\n[2/3] Generating report XML...")
-    xml_content = generate_daily_xml(target_date, reports, image_count)
+    # Step 2: Create subfolder for today's images
+    print("\n[2/4] Creating Lark Drive subfolder...")
+    folder_token, folder_url = create_daily_folder(target_date)
+
+    # Step 3: Process and upload images to the folder
+    uploaded_image_count = 0
+    if images_to_process:
+        print("\n[3/4] Downloading, renaming and uploading images to Drive folder...")
+        uploaded_image_count = process_images_concurrently(images_to_process, reports, target_date, folder_token)
+        print(f"  Successfully renamed & uploaded {uploaded_image_count}/{len(images_to_process)} images to Lark Drive")
+    else:
+        print("\n[3/4] No images to upload today.")
+
+    # Step 4: Generate XML and append to Lark Doc
+    print("\n[4/4] Generating report XML & Appending to Lark Doc...")
+    xml_content = generate_daily_xml(target_date, reports, folder_url)
 
     # Save to temp file for debugging
     with open("/tmp/ktx_daily_report_latest.xml", "w") as f:
         f.write(xml_content)
     print(f"  XML saved to /tmp/ktx_daily_report_latest.xml ({len(xml_content)} bytes)")
 
-    # Step 3: Append to Lark Doc
-    print("\n[3/3] Appending to Lark Doc...")
     append_result = run_lark_cli([
         "docs", "+update", "--api-version", "v2",
         "--doc", DOC_ID,
@@ -427,8 +526,9 @@ def main():
         doc_url = f"https://pccctruongan.sg.larksuite.com/docx/{DOC_ID}"
         print(f"\n📝 Doc URL: {doc_url}")
         print(f"\n📅 Date: {date_display}")
-        print(f"📊 Summary: {len(reports)} entries, {image_count} images")
-        print(f"🔗 URL: {doc_url}")
+        print(f"📊 Summary: {len(reports)} entries processed, {uploaded_image_count} images renamed & uploaded")
+        if folder_url:
+            print(f"📂 Drive Folder: {folder_url}")
     else:
         print(f"  ❌ Failed to append report: {append_result}")
         sys.exit(1)

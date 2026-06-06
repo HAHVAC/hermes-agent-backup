@@ -11,6 +11,8 @@
 | `ou_3c2f50cddac87e6945fe5f8f751fed77` | TA Nguyễn Sinh Hùng | Giám sát (Supervision) |
 | `ou_6601b14e9cc7b9af394e6f2ab44c4621` | Phùng Xuân Quang | QA/QC |
 
+- **Thư mục gốc chứa ảnh:** `RgFvfLbrlllgSsdg7VzlZz59ggg` (URL: https://pccctruongan.sg.larksuite.com/drive/folder/RgFvfLbrlllgSsdg7VzlZz59ggg)
+
 - **Cron Job ID**: `865fd3e18751`
 - **Delivery Target**: `feishu:oc_e6167ab9a7424fab1a2db2442fd98581` (Chat ID cá nhân của Boss để nhận duyệt báo cáo)
 
@@ -53,12 +55,12 @@ Theo thread info từ Boss:
 
 **Path:** `/root/.hermes/scripts/ktx_daily_report.py`
 
-**Tính năng tải & chèn hình ảnh hiện trường (Phương án 1):**
+**Tính năng tải & quản lý hình ảnh hiện trường:**
 - Script tự động quét các tin nhắn dạng hình ảnh (`msg_type == "image"`) trong thread.
-- Nếu tin nhắn ảnh được gửi bởi cùng một người ngay sau tin nhắn báo cáo (text), ảnh đó sẽ được nhóm trực tiếp vào báo cáo đó.
-- Các ảnh được tải về máy (relative path) bằng API `messages-resources-download` và upload lên Lark Drive bằng Drive Media API (`parent_type="docx_image"`).
-- Việc tải và upload ảnh được thực hiện **đồng thời (concurrently)** sử dụng `ThreadPoolExecutor` (mặc định 8 workers) để tối ưu hóa thời gian xử lý (hoàn thành 32 ảnh trong vòng ~16 giây thay vì hơn 1 phút nếu chạy tuần tự).
-- Các ảnh sau khi upload lấy được `file_token` sẽ được chèn trực tiếp dưới dòng text báo cáo bên trong bảng XML bằng thẻ `<img src="TOKEN" width="200" />`.
+- Nếu tin nhắn ảnh được gửi bởi cùng một người ngay sau tin nhắn báo cáo (text), ảnh đó sẽ được nhóm vào báo cáo đó để lấy thông tin nội dung mô tả phục vụ cho việc đặt tên.
+- Các ảnh được tải về máy (relative path) bằng API `messages-resources-download` và đổi tên theo chuẩn `yyyy-mm-dd-noidung.png` (bỏ tiếng Việt có dấu, khoảng trắng đổi thành `-`, viết thường).
+- Toàn bộ ảnh được upload lên một thư mục Lark Drive con tự động tạo theo ngày dạng `Báo cáo KTX yyyy-mm-dd`. Link folder này được nhúng ở đầu báo cáo trong Lark Doc để người dùng tiện tra cứu.
+- Việc tải và upload ảnh được thực hiện **song song với số lượng luồng vừa phải (max_workers=2) và có delay 1 giây** giữa các luồng để tránh đụng trần giới hạn tần suất API (Rate Limit `99991400: request trigger frequency limit` của Lark).
 
 **Usage:**
 ```bash
@@ -66,30 +68,43 @@ Theo thread info từ Boss:
 python3 /root/.hermes/scripts/ktx_daily_report.py
 
 # Báo cáo ngày cụ thể
-python3 /root/.hermes/scripts/ktx_daily_report.py 2026-06-04
+python3 /root/.hermes/scripts/ktx_daily_report.py 2026-06-06
 ```
 
 **Output:**
-- Append XML vào Lark Doc `KD8Xd3KUjouzhzxq2xolyWAmgkI`
+- Append XML (1 dòng tổng hợp cho mỗi hệ) vào Lark Doc `KD8Xd3KUjouzhzxq2xolyWAmgkI`
 - Save XML debug copy tại `/tmp/ktx_daily_report_latest.xml`
-- Print tóm tắt ra stdout (số báo cáo, số ảnh, URL doc)
+- Print tóm tắt ra stdout (số báo cáo, số ảnh, URL doc, URL Drive folder)
 
-## Lark Doc XML Structure
+## Lark Doc XML Structure (Cấu trúc mới rút gọn)
 
 Doc XML được tạo theo format:
 ```xml
-<title>Báo cáo tiến độ thi công KTX GOERTEK</title>
-<callout emoji="📌">Mô tả doc</callout>
-
-<!-- Mỗi ngày append thêm 1 section -->
 <h1>📅 Báo cáo ngày DD/MM/YYYY</h1>
-<h2>🔴 Hệ Báo cháy</h2>
-  <callout>Tóm tắt sender + số báo cáo</callout>
-  <table>Chi tiết từng báo cáo (Giờ | Khu vực | Người gửi | Nội dung)</table>
-<h2>🔵 Hệ Chữa cháy</h2>
-<h2>🟢 Hệ Thông gió</h2>
-<h2>🟡 Hệ Điện</h2>
-<h2>📊 Tổng kết ngày</h2>
-  <table>Summary 4 hệ (Số báo cáo | Khu vực | Trạng thái)</table>
-  <callout>Vấn đề / Ghi chú</callout>
+<callout emoji="📊" background-color="light-gray" border-color="light-blue">
+  <p><b>Tổng quân số KTX:</b> X người</p>
+  <p><b>Folder hình ảnh hiện trường:</b> <a href="DRIVE_URL">Xem trên Lark Drive</a></p>
+</callout>
+<table>
+  <colgroup>...</colgroup>
+  <thead>
+    <tr>
+      <th background-color="light-gray">Hệ thống</th>
+      <th background-color="light-gray">Khu vực</th>
+      <th background-color="light-gray">Nội dung báo cáo chi tiết</th>
+      <th background-color="light-gray">Quân số</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Mỗi ngày tối đa 4 dòng tương ứng với 4 hệ kỹ thuật chính -->
+    <tr>
+      <td><b>🔴 Hệ Báo cháy</b></td>
+      <td>Khu vực thi công (ví dụ: Zone 1, Zone 4 Tầng 3)</td>
+      <td>Các gạch đầu dòng tổng hợp tin nhắn chữ của hệ này</td>
+      <td>Quân số (nếu có) hoặc "Có"/"—"</td>
+    </tr>
+    ...
+  </tbody>
+</table>
+<hr/>
 ```

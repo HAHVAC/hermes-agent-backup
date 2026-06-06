@@ -89,7 +89,7 @@ Nhóm external (`"external": true`, cross-tenant) có các hạn chế API:
   - `--text` thay vì `--content` (content yêu cầu JSON hợp lệ)
 - PATH cần có: `/root/.nvm/versions/node/v24.13.0/bin`
 
-## KTX Daily Report (Báo cáo tiến độ thi công KTX)
+### KTX Daily Report (Báo cáo tiến độ thi công KTX)
 
 Tự động tổng hợp tin nhắn từ thread KTX-Báo cáo, phân loại theo 4 hệ thống (Báo cháy, Chữa cháy, Thông gió, Điện), và cập nhật vào 1 Lark Doc duy nhất mỗi ngày.
 
@@ -100,6 +100,7 @@ Xem chi tiết sender mapping, từ khóa phân loại hệ thống, và hướn
 | Thread KTX | `omt_196c1eaf68cf1981` (trong nhóm GOERTEK_BÁO CÁO CÔNG VIỆC) |
 | Lark Doc ID | `KD8Xd3KUjouzhzxq2xolyWAmgkI` |
 | Doc URL | https://pccctruongan.sg.larksuite.com/docx/KD8Xd3KUjouzhzxq2xolyWAmgkI |
+| Thư mục ảnh tổng | `RgFvfLbrlllgSsdg7VzlZz59ggg` |
 | Script | `/root/.hermes/scripts/ktx_daily_report.py` |
 | Cron | `0 13 * * *` (UTC) = 20:00 VN |
 | Cron Job ID | `865fd3e18751` |
@@ -107,6 +108,15 @@ Xem chi tiết sender mapping, từ khóa phân loại hệ thống, và hướn
 ### ⚠️ Quan trọng: Tránh lỗi phân phối tin nhắn và tin rác từ Cron Job
 - **Cấu hình `deliver` cho KTX Daily Report:** Phải sử dụng Feishu chat ID cụ thể (ví dụ cá nhân của Boss: `feishu:oc_e6167ab9a7424fab1a2db2442fd98581`) thay vì các phương thức chung chung hay bare channel khi chạy cron, nhằm tránh lỗi `delivery error: Feishu send failed: [99992402] field validation failed`.
 - **Tránh spam tin rác:** Prompt của cron job cần quy định rõ điều kiện: "Nếu ngày hôm đó không có bất kỳ báo cáo mới nào (0 báo cáo, 0 ảnh), trả về chính xác chuỗi `[SILENT]`". Điều này giúp hệ thống tự động lọc bỏ và không gửi tin nhắn rác cho Boss.
+
+### Quy chuẩn cấu trúc báo cáo mới (Đã điều chỉnh theo yêu cầu của Boss)
+1. **Không add ảnh vào trực tiếp Lark Doc:** Gom toàn bộ ảnh trong ngày vào 1 thư mục Lark Drive con tự động tạo theo ngày (`Báo cáo KTX yyyy-mm-dd`) nằm trong thư mục gốc.
+2. **Đổi tên ảnh đồng bộ:** Toàn bộ ảnh tải lên được đổi tên theo cấu trúc `yyyy-mm-dd-noidung.png` (loại bỏ tiếng Việt có dấu, thay khoảng trắng bằng dấu gạch ngang, viết thường, có số thứ tự tăng dần ở cuối nếu một tin nhắn có nhiều ảnh).
+3. **Mỗi hệ chỉ 1 dòng tổng hợp:**
+   - Không báo theo giờ chi tiết nữa.
+   - Mỗi hệ thống hiển thị đúng 1 dòng trong bảng tổng hợp ngày của Doc.
+   - Cột nội dung tự động gom các báo cáo chữ thành list gạch đầu dòng.
+4. **Báo cáo quân số:** Tự động trích xuất quân số thi công từ nội dung tin nhắn và hiển thị tại cột Quân số hoặc Callout tổng.
 
 ### Cách đọc thread messages
 

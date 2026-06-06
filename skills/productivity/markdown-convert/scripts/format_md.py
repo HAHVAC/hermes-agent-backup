@@ -262,8 +262,7 @@ def format_markdown(text: str, source_type: str = "pdf") -> str:
 
     if source_type == "pdf":
         text = remove_page_artifacts(text)
-
-    text = join_paragraphs(text)
+        text = join_paragraphs(text)
     text = collapse_blank_lines(text)
     text = add_structure(text)
     text = final_cleanup(text)
