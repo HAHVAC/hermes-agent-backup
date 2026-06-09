@@ -160,13 +160,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-06-08T13:01:29.171493+00:00",
-    "last_viewed_at": "2026-06-08T13:01:29.148895+00:00",
+    "last_used_at": "2026-06-09T13:01:45.622830+00:00",
+    "last_viewed_at": "2026-06-09T13:01:45.604439+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 15,
-    "view_count": 15
+    "use_count": 16,
+    "view_count": 16
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
@@ -329,13 +329,13 @@
     "created_at": "2026-05-31T06:49:14.059328+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-05-31T06:49:39.454885+00:00",
-    "last_used_at": null,
-    "last_viewed_at": null,
+    "last_used_at": "2026-06-09T10:46:41.761012+00:00",
+    "last_viewed_at": "2026-06-09T10:46:41.745050+00:00",
     "patch_count": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 0,
-    "view_count": 0
+    "use_count": 2,
+    "view_count": 2
   },
   "google-my-maps-scraper": {
     "archived_at": null,
@@ -355,26 +355,26 @@
     "created_at": "2026-06-07T07:32:08.973154+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": null,
-    "last_viewed_at": null,
+    "last_used_at": "2026-06-09T14:01:32.004720+00:00",
+    "last_viewed_at": "2026-06-09T14:01:31.979107+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 0,
-    "view_count": 0
+    "use_count": 3,
+    "view_count": 3
   },
   "hermes-agent": {
     "archived_at": null,
     "created_at": "2026-06-03T04:42:14.095398+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-06-03T04:42:14.109199+00:00",
-    "last_viewed_at": "2026-06-03T04:42:14.095445+00:00",
+    "last_used_at": "2026-06-09T14:01:29.006476+00:00",
+    "last_viewed_at": "2026-06-09T14:01:28.969601+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 3,
+    "view_count": 3
   },
   "hermes-agent-skill-authoring": {
     "archived_at": null,
