@@ -4,28 +4,154 @@ description: Use this skill whenever the user wants to do anything with PDF file
 license: Proprietary. LICENSE.txt has complete terms
 ---
 
-# PDF Processing Guide
+---
+name: pdf
+description: Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, performing OCR on scanned PDFs (via pymupdf, marker-pdf, pytesseract, or vision), or extracting papers/metadata from Arxiv.
+license: Proprietary. LICENSE.txt has complete terms
+---
+
+# PDF Processing & Extraction Guide
 
 ## Overview
 
-This guide covers essential PDF processing operations using Python libraries and command-line tools. For advanced features, JavaScript libraries, and detailed examples, see REFERENCE.md. If you need to fill out a PDF form, read FORMS.md and follow its instructions.
+This guide covers PDF processing operations using Python libraries and command-line tools. If you need to fill out a PDF form, read FORMS.md and follow its instructions. For advanced features or JS tools, see REFERENCE.md.
 
-## Quick Start
+---
 
+## PDF & Document Text Extraction Flow
+
+For DOCX: use `python-docx` (parses actual document structure, far better than OCR).
+For PPTX: see the `powerpoint` skill (uses `python-pptx` with full slide/notes support).
+
+### Step 1: Remote URL Available?
+
+If the document has a URL, **always try `web_extract` first**:
 ```python
-from pypdf import PdfReader, PdfWriter
+web_extract(urls=["https://arxiv.org/pdf/2402.03300"])
+web_extract(urls=["https://example.com/report.pdf"])
+```
+This handles PDF-to-markdown conversion via Firecrawl with no local dependencies.
+Only use local extraction when: the file is local, web_extract fails, or you need batch processing.
 
-# Read a PDF
-reader = PdfReader("document.pdf")
-print(f"Pages: {len(reader.pages)}")
+### Step 2: Choose Local Extractor
 
-# Extract text
-text = ""
-for page in reader.pages:
-    text += page.extract_text()
+| Feature | pymupdf (~25MB) | marker-pdf (~3-5GB) |
+|---------|-----------------|---------------------|
+| **Text-based PDF** | ✅ | ✅ |
+| **Scanned PDF (OCR)** | ❌ | ✅ (90+ languages) |
+| **Tables** | ✅ (basic) | ✅ (high accuracy) |
+| **Equations / LaTeX** | ❌ | ✅ |
+| **Markdown output** | ✅ (via pymupdf4llm) | ✅ (native, higher quality) |
+| **Install size** | ~25MB | ~3-5GB (PyTorch + models) |
+| **Speed** | Instant | ~1-14s/page (CPU), ~0.2s/page (GPU) |
+
+**Decision**: Use pymupdf unless you need OCR, equations, forms, or complex layout analysis.
+
+---
+
+## Local Text Extraction Tools
+
+### 1. pymupdf (lightweight, safe default)
+Install in the active venv environment:
+```bash
+python3 -m pip install pymupdf pymupdf4llm
 ```
 
-## Python Libraries
+**Via helper script**:
+```bash
+python3 /root/.hermes/skills/pdf/scripts/extract_pymupdf.py document.pdf              # Plain text
+python3 /root/.hermes/skills/pdf/scripts/extract_pymupdf.py document.pdf --markdown    # Markdown
+python3 /root/.hermes/skills/pdf/scripts/extract_pymupdf.py document.pdf --tables      # Tables
+python3 /root/.hermes/skills/pdf/scripts/extract_pymupdf.py document.pdf --images out/ # Extract images
+python3 /root/.hermes/skills/pdf/scripts/extract_pymupdf.py document.pdf --metadata    # Title, author, pages
+python3 /root/.hermes/skills/pdf/scripts/extract_pymupdf.py document.pdf --pages 0-4   # Specific pages
+```
+
+**Inline Python**:
+```python
+import pymupdf
+doc = pymupdf.open('document.pdf')
+for page in doc:
+    print(page.get_text())
+```
+
+### 2. marker-pdf (high-quality layout & OCR)
+For scanned PDFs, equations, code blocks, or complex forms. Note: marker downloads ~2.5GB of models to `~/.cache/huggingface/` on first use.
+```bash
+python3 -m pip install marker-pdf
+```
+
+**Via helper script**:
+```bash
+python3 /root/.hermes/skills/pdf/scripts/extract_marker.py document.pdf                # Markdown
+python3 /root/.hermes/skills/pdf/scripts/extract_marker.py document.pdf --json         # JSON with metadata
+python3 /root/.hermes/skills/pdf/scripts/extract_marker.py document.pdf --output_dir out/  # Save images
+```
+
+**CLI**:
+```bash
+marker_single document.pdf --output_dir ./output
+```
+
+### 3. Tesseract OCR (Fallback for scanned PDF pages)
+```python
+# Requires: pip install pytesseract pdf2image
+import pytesseract
+from pdf2image import convert_from_path
+
+images = convert_from_path('scanned.pdf')
+text = ""
+for i, image in enumerate(images):
+    text += f"Page {i+1}:\n{pytesseract.image_to_string(image)}\n\n"
+```
+
+### 4. Vision-Based Table / Visual Review (when text extraction is blank)
+Render PDF pages to images and analyze visually:
+```bash
+mkdir -p /tmp/pdf_pages
+pdftoppm -png -r 200 input.pdf /tmp/pdf_pages/page
+# outputs /tmp/pdf_pages/page-1.png, page-2.png, ...
+```
+Then use `vision_analyze(image_url="/tmp/pdf_pages/page-1.png", question="...")`.
+
+---
+
+## Split, Merge & Basic Python Operations
+
+Use `pypdf` or `pymupdf` (fitz) natively inside Python code:
+
+### Merge PDFs (pymupdf)
+```python
+import fitz
+result = fitz.open()
+for path in ["a.pdf", "b.pdf"]:
+    result.insert_pdf(fitz.open(path))
+result.save("merged.pdf")
+```
+
+### Split PDF (pymupdf)
+```python
+import fitz
+doc = fitz.open("input.pdf")
+# Extract pages 1-5 (0-indexed 0 to 4)
+new_doc = fitz.open()
+new_doc.insert_pdf(doc, from_page=0, to_page=4)
+new_doc.save("split_1_5.pdf")
+```
+
+### Search Text across Pages
+```python
+import fitz
+doc = fitz.open("document.pdf")
+for i, page in enumerate(doc):
+    rects = page.search_for("keyword")
+    if rects:
+        print(f"Page {i+1} has {len(rects)} matches")
+```
+
+---
+
+## Python Libraries Reference
 
 ### pypdf - Basic Operations
 

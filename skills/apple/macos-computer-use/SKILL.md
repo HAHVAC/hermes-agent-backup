@@ -199,3 +199,84 @@ your conversation context.
 - File edits — use `read_file` / `write_file` / `patch`, not `type` into
   an editor window.
 - Shell commands — use `terminal`, not `type` into Terminal.app.
+
+# Apple/macOS Integrations (CLI & Scripts)
+
+When on macOS, you can interact with native Apple applications using CLI tools and UI scripting.
+
+## Apple Notes
+
+Use `memo` to manage Apple Notes directly from the terminal. Notes sync across all Apple devices via iCloud.
+
+### Prerequisites (Apple Notes)
+- Install: `brew tap antoniorodr/memo && brew install antoniorodr/memo/memo`
+- Grant Automation access to Notes.app when prompted (System Settings → Privacy → Automation)
+
+### Quick Reference (Apple Notes)
+- List all notes: `memo notes`
+- Filter by folder: `memo notes -f "Folder Name"`
+- Search notes (fuzzy): `memo notes -s "query"`
+- Create note: `memo notes -a "Note Title"`
+- Edit note (interactive): `memo notes -e`
+- Delete note (interactive): `memo notes -d`
+- Move note (interactive): `memo notes -m`
+- Export to HTML/Markdown: `memo notes -ex`
+
+---
+
+## Apple Reminders
+
+Use `remindctl` to manage Apple Reminders directly from the terminal. Tasks sync across all Apple devices via iCloud.
+
+### Prerequisites (Reminders)
+- Install: `brew install steipete/tap/remindctl`
+- Grant Reminders permission when prompted
+- Check status: `remindctl status`
+
+### Quick Reference (Reminders)
+- Show today's reminders: `remindctl` or `remindctl today`
+- Create reminder: `remindctl add "Task Title"`
+- Create reminder with due date and list: `remindctl add --title "Call mom" --list Personal --due tomorrow`
+- Complete reminder by ID: `remindctl complete <ID>`
+- Delete reminder by ID: `remindctl delete <ID> --force`
+
+---
+
+## Find My (Device & AirTag Tracking)
+
+Track Apple devices and AirTags via the FindMy.app on macOS. Since Apple doesn't provide a CLI for FindMy, this uses AppleScript or Peekaboo UI automation.
+
+### AppleScript + Screenshot Method
+```bash
+# Open Find My app and capture screenshot
+osascript -e 'tell application "FindMy" to activate'
+sleep 3
+screencapture -w -o /tmp/findmy.png
+```
+Then use `vision_analyze(image_url="/tmp/findmy.png", question="...")` to read location.
+
+### Switch tabs via AppleScript
+```bash
+# Switch to Devices tab
+osascript -e 'tell application "System Events" to tell process "FindMy" to click button "Devices" of toolbar 1 of window 1'
+
+# Switch to Items tab (AirTags)
+osascript -e 'tell application "System Events" to tell process "FindMy" to click button "Items" of toolbar 1 of window 1'
+```
+
+---
+
+## iMessage
+
+Use `imsg` to read and send iMessage/SMS via macOS Messages.app.
+
+### Prerequisites (iMessage)
+- Install: `brew install steipete/tap/imsg`
+- Grant Full Disk Access for terminal
+
+### Quick Reference (iMessage)
+- List recent chats: `imsg chats --limit 10 --json`
+- View history: `imsg history --chat-id 1 --limit 20 --json`
+- Send message: `imsg send --to "+141****2671" --text "Hello!"`
+- Send message with attachment: `imsg send --to "+141****2671" --text "Check this out" --file /path/to/image.jpg`
+```

@@ -102,6 +102,25 @@ mcp_servers:
 
 Note: A server config must have either `command` (stdio) or `url` (HTTP), not both.
 
+---
+
+# CLI-based MCP Tooling (mcporter)
+
+You can also use the `mcporter` CLI to interact with, discover, call, and manage MCP servers directly from the terminal.
+
+## Prerequisites (mcporter)
+No install needed (runs via `npx`). Or install globally: `npm install -g mcporter`.
+
+## Quick Reference (mcporter)
+- List MCP servers: `mcporter list`
+- List tools for server with schema: `mcporter list <server> --schema`
+- Call tool with arguments: `mcporter call <server.tool> key=value`
+- OAuth login for a server: `mcporter auth <server | url>`
+- Generate CLI wrapper for a server: `mcporter generate-cli --server <name>`
+- Connect to server on the fly: `mcporter call --stdio "bun run ./server.ts" scrape url=https://example.com`
+
+---
+
 ## How It Works
 
 ### Startup Discovery

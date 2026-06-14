@@ -1,9 +1,9 @@
 {
-  "last_report_path": "/root/.hermes/logs/curator/20260607-073206",
-  "last_run_at": "2026-06-07T07:32:06.571714+00:00",
-  "last_run_duration_seconds": 471.144879,
-  "last_run_summary": "auto: no changes; llm: An analysis of the system's current skill tree structure shows that the consolidation of the previously identified narrow skills (`chuyen-file-sang-md`, `pptx`, `excel-workbook-analysis`, and `lark-cli-setup`) has been successfully integrat…",
+  "last_report_path": "/root/.hermes/logs/curator/20260614-081204",
+  "last_run_at": "2026-06-14T08:12:04.147823+00:00",
+  "last_run_duration_seconds": 825.032117,
+  "last_run_summary": "auto: no changes; llm: @ CURATOR: Performing skills collection consolidation and umbrella-ification.\n\nAfter scanning the candidate list and reviewing the details of various playbooks, several major consolidation opportunities have been executed to merge narrow, o…\narchived 7 skill(s):\n  • apple-notes → macos-computer-use\n  • apple-reminders → macos-computer-use\n  • findmy → macos-computer-use\n  • imessage → macos-computer-use\n  • kanban-codex-lane → kanban-worker\n  • nano-pdf — pruned (stale)\n  • ocr-and-documents — pruned (stale)\nfull report: hermes curator status\nkeep an umbrella stable: hermes curator pin kanban-worker",
   "last_run_summary_shown_at": "2026-05-31T06:36:46.403247+00:00",
   "paused": false,
-  "run_count": 5
+  "run_count": 6
 }

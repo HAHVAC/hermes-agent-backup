@@ -7,19 +7,91 @@ description: Read, search, create, and edit notes in the Obsidian vault.
 
 Use this skill for filesystem-first Obsidian vault work: reading notes, listing notes, searching note files, creating notes, appending content, and adding wikilinks.
 
-## Related sub-skills (load for specialized tasks)
+---
+name: obsidian
+description: Read, search, create, and edit notes in the Obsidian vault. Load this whenever the user wants to work with Obsidian, read/create/edit notes, search files/content, or use Obsidian Flavored Markdown (wikilinks, callouts, properties, embeds) or Obsidian Bases (.base database views).
+---
 
-These are installed under the `obsidian` skill category and provide deep Obsidian-specific knowledge:
+# Obsidian Vault
 
-- **`obsidian-markdown`** — Full Obsidian Flavored Markdown syntax: wikilinks, embeds, callouts, properties, comments, highlights. Load when creating/editing `.md` files with Obsidian-specific features. Has references: CALLOUTS.md, PROPERTIES.md, EMBEDS.md.
-- **`obsidian-bases`** — Obsidian Bases (`.base` files): database views with filters, formulas, summaries (table/cards/list/map). Load when creating `.base` files or the user mentions Bases. Has reference: FUNCTIONS_REFERENCE.md.
-- **`defuddle`** — Extract clean markdown from web pages via `defuddle parse <url> --md`. Prefer over generic web fetch for articles/docs. CLI installed globally (v0.18.1+).
+Use this skill for Obsidian vault work: reading notes, listing notes, searching note files, creating notes, appending content, adding wikilinks, formatting markdown, or managing databases.
 
-## Reference files
+## References
 
-- `references/100-ai-agents-enterprise.md` — Index of 100 AI Agent use cases (10 categories × 10 agents) with full workflow details. Useful when user asks about AI automation strategy, agent workflows, or enterprise AI planning.
+These reference files provide Obsidian-specific syntax and database guidelines:
+- `references/CALLOUTS.md` — Callout blocks format guide (`> [!type]`)
+- `references/PROPERTIES.md` — Frontmatter note properties specifications (text, list, number, boolean, date/time)
+- `references/EMBEDS.md` — Wikilink embedding syntax guide (`![[Embed]]`)
+- `references/FUNCTIONS_REFERENCE.md` — Formulas and view configurations for Obsidian Bases (`.base` database files)
+- `references/100-ai-agents-enterprise.md` — Reference list of 100 enterprise AI Agent workflows
 
-## Vault path
+## Obsidian Flavored Markdown Syntax
+
+Obsidian extends CommonMark and GFM. This covers Obsidian-specific extensions:
+
+### Internal Links (Wikilinks)
+```markdown
+[[Note Name]]                          Link to note
+[[Note Name|Display Text]]             Custom display text
+[[Note Name#Heading]]                  Link to heading
+[[Note Name#^block-id]]                Link to block
+[[#Heading in same note]]              Same-note heading link
+```
+Define a block ID by appending ` ^block-id` (with a leading space) to any paragraph:
+```markdown
+This paragraph can be linked to. ^my-block-id
+```
+
+### Callouts, Embeds, and Properties
+- For callout types (e.g. `> [!info]`, `> [!tip]`), see `references/CALLOUTS.md`.
+- For metadata frontmatter schemas, see `references/PROPERTIES.md`.
+- For note/image/PDF transclusion embeds (`![[Embed]]`), see `references/EMBEDS.md`.
+
+---
+
+## Obsidian Bases (.base Database Views)
+
+Bases files use the `.base` extension and contain YAML mapping filters, properties, formulas, and views.
+
+### Workflow
+1. **Create the file**: Create a `.base` file in the vault with valid YAML content.
+2. **Define scope**: Add `filters` to select notes (by tag, folder, property, or date).
+3. **Add formulas** (optional): Define computed properties in `formulas`. For expression syntax, see `references/FUNCTIONS_REFERENCE.md`.
+4. **Configure views**: Add one or more views (`table`, `cards`, `list`, or `map`).
+
+### Example Schema
+```yaml
+filters:
+  and:
+    - "tag = #project"
+    - "property.status = active"
+
+formulas:
+  progress: "completed_tasks / total_tasks * 100"
+
+properties:
+  property.status:
+    displayName: "Status"
+  formula.progress:
+    displayName: "Progress %"
+
+views:
+  active_projects:
+    type: table
+    order: [file.link, property.status, formula.progress]
+```
+
+---
+
+## Web Content Extraction (defuddle)
+
+Use the `defuddle` tool to clean and convert web pages to Markdown before saving/reading them in the vault.
+- CLI syntax: `defuddle parse <url> --md`
+- Save directly: `defuddle parse <url> --md -o content.md`
+
+---
+
+## Vault Path
 
 Use a known or resolved vault path before calling file tools.
 
