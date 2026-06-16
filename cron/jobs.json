@@ -18,15 +18,15 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 66
+        "completed": 67
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-19T00:54:55.103138+00:00",
-      "next_run_at": "2026-06-16T13:00:00+00:00",
-      "last_run_at": "2026-06-15T13:02:06.727704+00:00",
+      "next_run_at": "2026-06-17T13:00:00+00:00",
+      "last_run_at": "2026-06-16T13:02:27.397862+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -96,15 +96,15 @@
       "schedule_display": "0 19 * * *",
       "repeat": {
         "times": null,
-        "completed": 36
+        "completed": 37
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-05-11T14:15:45.794520+00:00",
-      "next_run_at": "2026-06-16T19:00:00+00:00",
-      "last_run_at": "2026-06-14T19:00:48.555202+00:00",
+      "next_run_at": "2026-06-17T19:00:00+00:00",
+      "last_run_at": "2026-06-15T19:00:53.528048+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -138,15 +138,15 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 14
+        "completed": 15
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-05T06:54:37.279157+00:00",
-      "next_run_at": "2026-06-16T13:00:00+00:00",
-      "last_run_at": "2026-06-15T13:01:28.935252+00:00",
+      "next_run_at": "2026-06-17T13:00:00+00:00",
+      "last_run_at": "2026-06-16T13:01:32.354971+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -166,5 +166,5 @@
       "profile": null
     }
   ],
-  "updated_at": "2026-06-15T19:00:45.149909+00:00"
+  "updated_at": "2026-06-16T19:00:44.164774+00:00"
 }
