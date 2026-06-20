@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-19T18:59:34.715453",
+  "updated_at": "2026-06-20T18:58:41.703930",
   "platforms": {
     "slack": [
       {
@@ -595,6 +595,12 @@
         "name": "C0AKCBL3CR4 / topic 1781873290.360429",
         "type": "group",
         "thread_id": "1781873290.360429"
+      },
+      {
+        "id": "C0B25QXMR8Q:1781966164.186099",
+        "name": "C0B25QXMR8Q / topic 1781966164.186099",
+        "type": "group",
+        "thread_id": "1781966164.186099"
       }
     ],
     "telegram": [

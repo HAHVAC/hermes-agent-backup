@@ -18,17 +18,17 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 70
+        "completed": 71
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-19T00:54:55.103138+00:00",
-      "next_run_at": "2026-06-20T13:00:00+00:00",
-      "last_run_at": "2026-06-19T13:02:57.763045+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-06-21T13:00:00+00:00",
+      "last_run_at": "2026-06-20T13:02:03.422273+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 429: Insufficient balance or no resource package. Please recharge.",
       "last_delivery_error": null,
       "deliver": "feishu:oc_909e2f33b96a2bfd5da948caf8563d95",
       "origin": {
@@ -96,15 +96,15 @@
       "schedule_display": "0 19 * * *",
       "repeat": {
         "times": null,
-        "completed": 40
+        "completed": 41
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-05-11T14:15:45.794520+00:00",
-      "next_run_at": "2026-06-20T19:00:00+00:00",
-      "last_run_at": "2026-06-18T19:00:09.532097+00:00",
+      "next_run_at": "2026-06-21T19:00:00+00:00",
+      "last_run_at": "2026-06-19T19:00:41.549150+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -138,15 +138,15 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 18
+        "completed": 19
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-05T06:54:37.279157+00:00",
-      "next_run_at": "2026-06-20T13:00:00+00:00",
-      "last_run_at": "2026-06-19T13:01:25.508261+00:00",
+      "next_run_at": "2026-06-21T13:00:00+00:00",
+      "last_run_at": "2026-06-20T13:00:39.322572+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -166,5 +166,5 @@
       "profile": null
     }
   ],
-  "updated_at": "2026-06-19T19:00:34.733922+00:00"
+  "updated_at": "2026-06-20T19:00:41.724937+00:00"
 }
