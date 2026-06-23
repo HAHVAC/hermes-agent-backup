@@ -160,13 +160,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-06-22T13:02:03.844495+00:00",
-    "last_viewed_at": "2026-06-22T13:02:03.828607+00:00",
+    "last_used_at": "2026-06-23T13:00:25.295400+00:00",
+    "last_viewed_at": "2026-06-23T13:00:25.275566+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 30,
-    "view_count": 30
+    "use_count": 31,
+    "view_count": 31
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
@@ -532,6 +532,19 @@
     "use_count": 4,
     "view_count": 4
   },
+  "lark-minutes": {
+    "archived_at": null,
+    "created_at": "2026-06-23T02:32:51.558702+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-06-23T02:32:51.573017+00:00",
+    "last_viewed_at": "2026-06-23T02:32:51.558755+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
+  },
   "lark-shared": {
     "archived_at": null,
     "created_at": "2026-06-21T08:55:38.300286+00:00",
@@ -539,6 +552,19 @@
     "last_patched_at": null,
     "last_used_at": "2026-06-21T08:55:44.786324+00:00",
     "last_viewed_at": "2026-06-21T08:55:44.766649+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 2,
+    "view_count": 2
+  },
+  "lark-vc": {
+    "archived_at": null,
+    "created_at": "2026-06-23T02:33:00.710868+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-06-23T02:33:02.847152+00:00",
+    "last_viewed_at": "2026-06-23T02:33:02.832727+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
@@ -809,13 +835,13 @@
     "created_at": "2026-06-18T15:06:56.464988+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-06-21T08:53:57.167884+00:00",
-    "last_viewed_at": "2026-06-21T08:53:57.153647+00:00",
+    "last_used_at": "2026-06-22T23:32:44.446243+00:00",
+    "last_viewed_at": "2026-06-22T23:32:44.432038+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 9,
-    "view_count": 9
+    "use_count": 10,
+    "view_count": 10
   },
   "python-debugpy": {
     "archived_at": null,

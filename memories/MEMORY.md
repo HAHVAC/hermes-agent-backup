@@ -15,3 +15,5 @@ gdown reliable download pattern: `gdown 'https://drive.google.com/uc?id={FILE_ID
 Vision analysis for infographics/charts/lists should ask specifically to "read every line of text"; generic description prompts miss text content.
 §
 Google Workspace/gws OAuth on this Hermes instance is tied to pcccthanglong.tlc@gmail.com; use that account context for Drive/Gmail/Sheets unless changed.
+§
+Local LiteLLM proxy runs on port 4000 with master key 'doremon-proxy-2026' and username/password 'doremon' / 'doremon2026'.
