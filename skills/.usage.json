@@ -160,13 +160,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-06-26T13:00:41.883953+00:00",
-    "last_viewed_at": "2026-06-26T13:00:41.865937+00:00",
+    "last_used_at": "2026-06-27T13:00:58.175844+00:00",
+    "last_viewed_at": "2026-06-27T13:00:58.160545+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 34,
-    "view_count": 34
+    "use_count": 35,
+    "view_count": 35
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
@@ -316,13 +316,13 @@
     "created_at": "2026-05-31T06:49:14.059328+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-06-18T15:59:59.068306+00:00",
-    "last_used_at": "2026-06-22T04:49:10.155430+00:00",
-    "last_viewed_at": "2026-06-22T04:49:10.137398+00:00",
+    "last_used_at": "2026-06-27T00:53:03.180662+00:00",
+    "last_viewed_at": "2026-06-27T00:53:03.166048+00:00",
     "patch_count": 4,
     "pinned": false,
     "state": "active",
-    "use_count": 12,
-    "view_count": 12
+    "use_count": 13,
+    "view_count": 13
   },
   "google-my-maps-scraper": {
     "archived_at": null,
