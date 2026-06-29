@@ -324,3 +324,4 @@ Khi Anh nói "tổng hợp tình hình" hoặc "review pipeline", tự động:
 - `references/project-tracker-template.md` — Mẫu theo dõi dự án PCCC
 - `references/debt-collection-template.md` — Mẫu công văn nhắc nợ, email thu hồi công nợ
 - `references/inspection-checklist-template.md` — Mẫu checklist nghiệm thu đầy đủ theo TCVN
+- `references/construction-cost-management-2026.md` — Hướng Dẫn Pháp Lý và Quản Lý Chi Phí Đầu Tư Xây Dựng 2026 (Áp Dụng Từ 01/07/2026)

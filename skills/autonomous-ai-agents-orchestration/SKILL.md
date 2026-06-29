@@ -6,11 +6,17 @@ category: autonomous-ai-agents
 
 # Autonomous AI Agents & Orchestration
 
-This skill covers the configuration, runtime orchestration, and debugging patterns of developer-focused AI command-line interfaces (`claude-code`, `codex`, `opencode`) inside terminal environments.
+This skill covers the configuration, runtime orchestration, and debugging patterns of developer-focused AI command-line interfaces (`claude-code`, `codex`, `opencode`) inside terminal environments, as well as installing and leveraging specialized multi-tool agent community rosters like **The Agency (`msitarzewski/agency-agents`)**.
 
 ## Supported Agents & Integration Guides
 
-### 1. Claude Code CLI (`claude-code`)
+### 1. The Agency Roster (`msitarzewski/agency-agents`)
+- **Core Concept**: A repository containing 230+ specialized, role-playing AI agent specifications (Markdown frontmatter format) representing various disciplines (Engineering, Design, Testing, Support, etc.).
+- **Multi-Tool Conversion**: It includes a `./scripts/convert.sh` pipeline which renders these Markdown profiles into target formats for other developer tools (e.g. `.mdc` files for Cursor, custom TOML configs for Codex, skill directories for Antigravity, `.windsurfrules` for Windsurf, or plugins for Hermes).
+- **CLI Installer**: Run `./scripts/install.sh --tool <tool>` or `./scripts/install.sh --tool <tool> --division <engineering|security>` to deploy specific subsets. Use the `--dry-run` flag to inspect targets before copying files.
+- **Reference**: High-value specialist profiles (e.g., `engineering-feishu-integration-developer.md`) can serve as starting points or templates when crafting custom skills for specific integrations.
+
+### 2. Claude Code CLI (`claude-code`) (claude-code)
 - **Execution Mode**: Prefer running single tasks via pipe/print mode:
   ```bash
   claude -p "Your single-shot instruction"
