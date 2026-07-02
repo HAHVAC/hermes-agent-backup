@@ -26,6 +26,8 @@ Use this whenever you want to:
 
 For ad-hoc, one-off MCP tool calls from the terminal without configuring anything, see the `mcporter` skill instead.
 
+To index and query a codebase efficiently, refer to the high-performance local indexing tool described in [references/codebase-memory-mcp.md](references/codebase-memory-mcp.md).
+
 ## Prerequisites
 
 - **mcp Python package** -- optional dependency; install with `pip install mcp`. If not installed, MCP support is silently disabled.

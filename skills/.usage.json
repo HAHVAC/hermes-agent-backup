@@ -186,13 +186,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-07-01T13:00:54.626736+00:00",
-    "last_viewed_at": "2026-07-01T13:00:54.607474+00:00",
+    "last_used_at": "2026-07-02T13:00:28.365078+00:00",
+    "last_viewed_at": "2026-07-02T13:00:28.347172+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 40,
-    "view_count": 40
+    "use_count": 41,
+    "view_count": 41
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
@@ -691,14 +691,14 @@
     "archived_at": null,
     "created_at": "2026-06-07T07:32:09.206016+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-14T08:20:52.838384+00:00",
-    "last_used_at": "2026-06-28T09:09:05.513098+00:00",
-    "last_viewed_at": "2026-06-28T09:09:05.498203+00:00",
-    "patch_count": 1,
+    "last_patched_at": "2026-07-02T15:10:24.021432+00:00",
+    "last_used_at": "2026-07-02T15:10:19.381178+00:00",
+    "last_viewed_at": "2026-07-02T15:10:19.329512+00:00",
+    "patch_count": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 2,
+    "view_count": 2
   },
   "news-aggregator-skill": {
     "archived_at": null,
