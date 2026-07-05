@@ -17,7 +17,81 @@ Use this skill when the user asks for design work that would normally fit Claude
 
 The goal is to preserve Claude Design's useful design behavior and taste while removing hosted-tool plumbing that does not exist in normal agent environments.
 
-**Before starting, check for other web-design skills like `popular-web-designs` (ready-to-paste design systems for Stripe, Linear, Vercel, Notion, etc.) and `design-md` (Google's DESIGN.md token spec format).** If the user wants a known brand's look, load `popular-web-designs` alongside this one and let it supply the visual vocabulary. If the deliverable is a token spec file rather than a rendered artifact, use `design-md` instead. Full decision table below.
+**This is a class-level design/creative umbrella skill. It integrates and supersedes the following sub-skills:**
+- **`excalidraw`** — Hand-drawn JSON diagramming (absorbed into [Excalidraw Diagramming](#excalidraw-diagramming) below).
+- **`design-md`** — Token specification file creation & verification (absorbed into [DESIGN.md Authoring](#designmd-authoring) below).
+- **`architecture-diagram`** — Dark-themed SVG infrastructure layout (absorbed into [Architecture Diagramming](#architecture-diagramming) below).
+- **`ideation`** — Constraint-driven creative concept generation (absorbed into [Creative Ideation](#creative-ideation) below).
+
+## Related design skills
+- **`popular-web-designs`** — 54 ready-to-paste design systems (Stripe, Linear, Vercel). Keep standalone for catalog reference.
+
+---
+
+## Excalidraw Diagramming
+
+Create hand-drawn diagrams by writing standard Excalidraw element JSON and saving as `.excalidraw` files. Drag-and-drop onto [excalidraw.com](https://excalidraw.com) for viewing/editing.
+
+### Saving a Diagram
+Save with `write_file` using this envelope:
+```json
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "hermes-agent",
+  "elements": [ ...elements... ],
+  "appState": { "viewBackgroundColor": "#ffffff" }
+}
+```
+
+### Element Formats & Colors
+- **Defaults:** `roughness: 1` (hand-drawn), `strokeWidth: 2`, `strokeColor: "#1e1e1e"`.
+- **Z-Order:** Array order is rendering order (first = back). Emit in logical rendering sequence.
+- **Container Text Binding:** Do NOT use `"label": {"text": "..."}` on shapes. Bind a `text` element to the container using `containerId` and `boundElements`.
+- **References:** Refer to `references/excalidraw/colors.md` for specific semantic colors, `references/excalidraw/dark-mode.md` for dark mode setups, and `references/excalidraw/examples.md` for large examples.
+- **Upload Tool:** Upload diagrams using `python3 /root/.hermes/skills/creative/claude-design/scripts/excalidraw_upload.py <path>`.
+
+---
+
+## DESIGN.md Authoring
+
+Author, validate, and export Google's open DESIGN.md token specification files (`npx @google/design.md`).
+
+### File Anatomy
+Contains YAML front matter (normative token values like `colors`, `typography`, `rounded`, `spacing`, `components`) and a Markdown body using canonical section order (Overview, Colors, Typography, Layout, Elevation, Shapes, Components, Do's and Don'ts).
+- Hex colors and negative dimensions must be quoted.
+- Token references use dotted path format: `{colors.primary}`.
+
+### CLI Operations
+- **Lint:** `npx -y @google/design.md lint DESIGN.md`
+- **Export to Tailwind:** `npx -y @google/design.md export --format tailwind DESIGN.md > tailwind.theme.json`
+- **Starter Template:** See `templates/design-md-starter.md`.
+
+---
+
+## Architecture Diagramming
+
+Generate dark-themed technical architecture diagrams as standalone HTML files with inline SVG.
+
+### Spacing & Style Rules
+- **Color Codes:** Frontend (`#22d3ee` cyan), Backend (`#34d399` emerald), Database (`#a78bfa` violet), Cloud (`#fbbf24` amber), Security (`#fb7185` rose).
+- **Double-Rect Masking:** Opaque background rect (`#0f172a`) behind a semi-transparent styled rect to hide connector lines.
+- **Legend:** Place outside all boundary boxes, at least 20px below the lowest Y-coordinate.
+- **Playwright Preview:** Playwright is pre-installed. Save full-page viewport screenshots using `page.screenshot(path="/tmp/output.png", full_page=True)`.
+- **Template:** Use `templates/architecture-diagram-template.html`.
+
+---
+
+## Creative Ideation
+
+Generate project ideas through constraint-driven project generation.
+
+- **Developer Constraints:** Solve your own itch (under 50 lines), automate the annoying thing, custom CLI tools (e.g., `git undo-that-thing`), nothing new except glue (API connects), subtract (minimize existing codebase), Frankenstein week (taking X to make Y).
+- **Makers/Artists:** Blatantly copy something, one million of something, make something that dies (decaying features), do a lot of math.
+- **Communication/Scale:** Hostile UI, start at the punchline, text-only interface.
+- **Full Library:** See `references/ideation-prompt-library.md`.
+
+---
 
 ## When To Use This Skill vs `popular-web-designs` vs `design-md`
 
