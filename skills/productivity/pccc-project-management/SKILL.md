@@ -294,6 +294,7 @@ Khi Anh nói "tổng hợp tình hình" hoặc "review pipeline", tự động:
 ### #2 — Phát sinh chưa ký bổ sung hợp đồng
 - Phạm vi phát sinh thực tế mà chưa ký补充协议 = rủi ro không được thanh toán
 - Flag ngay khi phát hiện scope change chưa có giấy tờ
+- Ví dụ điển hình: Khi di dời họng cứu hỏa, sửa lỗi điện nhẹ tại hiện trường không khớp với bản vẽ, cần yêu cầu ghi nhận bằng biên bản hiện trường/bản vẽ hoàn công và đưa chi phí phát sinh thẳng vào quyết toán (như chỉ đạo của Goertek).
 
 ### #3 — Công nợ 90+ ngày
 - Cảnh báo mạnh nếu công nợ quá 90 ngày — cân nhắc ngưng thi công phần chưa thi công
@@ -306,6 +307,12 @@ Khi Anh nói "tổng hợp tình hình" hoặc "review pipeline", tự động:
 ### #5 — Lark vs Feishu domain
 - Công ty dùng **Lark international** (larksuite.com), không phải Feishu China
 - Lark CLI link phải dùng domain đúng
+
+### #6 — Báo cáo trình duyệt tiến độ thi công và xử lý chậm trễ
+- Khi lập phương án/báo cáo trình duyệt khắc phục chậm tiến độ, đặc biệt là với đối tác nước ngoài lớn như Goertek:
+  1. Phải trình duyệt sớm ít nhất 1 tuần trước thời hạn yêu cầu để đảm bảo tính chủ động.
+  2. Báo cáo cần chia nhỏ các mốc thời gian hoàn thành (Milestones) theo tuần/nửa tuần, chỉ rõ nguồn lực bổ sung (tăng ca, đội kỹ sư phụ trách).
+  3. Cần làm rõ ranh giới trách nhiệm và đề xuất nghiệm thu cuốn chiếu để tháo gỡ điểm nghẽn.
 
 ---
 

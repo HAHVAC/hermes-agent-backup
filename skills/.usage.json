@@ -173,13 +173,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-07-05T13:00:52.751525+00:00",
-    "last_viewed_at": "2026-07-05T13:00:52.734469+00:00",
+    "last_used_at": "2026-07-07T13:01:06.042171+00:00",
+    "last_viewed_at": "2026-07-07T13:01:06.012865+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 45,
-    "view_count": 45
+    "use_count": 46,
+    "view_count": 46
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
@@ -381,13 +381,13 @@
     "created_at": "2026-06-03T04:42:14.095398+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-07-06T14:55:24.162607+00:00",
-    "last_viewed_at": "2026-07-06T14:55:24.138195+00:00",
+    "last_used_at": "2026-07-07T05:16:12.439108+00:00",
+    "last_viewed_at": "2026-07-07T05:16:12.418589+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 8,
-    "view_count": 8
+    "use_count": 9,
+    "view_count": 9
   },
   "hermes-agent-skill-authoring": {
     "archived_at": null,
@@ -401,6 +401,19 @@
     "state": "active",
     "use_count": 1,
     "view_count": 1
+  },
+  "hermes-agent-update-troubleshooting": {
+    "archived_at": null,
+    "created_at": "2026-07-07T05:22:42.205153+00:00",
+    "created_by": "agent",
+    "last_patched_at": null,
+    "last_used_at": null,
+    "last_viewed_at": null,
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 0,
+    "view_count": 0
   },
   "hermes-provider-debug": {
     "archived_at": null,
@@ -691,14 +704,14 @@
     "archived_at": null,
     "created_at": "2026-06-07T07:32:09.206016+00:00",
     "created_by": null,
-    "last_patched_at": "2026-07-02T15:10:24.021432+00:00",
-    "last_used_at": "2026-07-05T09:31:25.655209+00:00",
-    "last_viewed_at": "2026-07-05T09:31:25.641927+00:00",
-    "patch_count": 3,
+    "last_patched_at": "2026-07-07T08:39:49.927915+00:00",
+    "last_used_at": "2026-07-07T08:39:46.491105+00:00",
+    "last_viewed_at": "2026-07-07T08:39:46.479573+00:00",
+    "patch_count": 6,
     "pinned": false,
     "state": "active",
-    "use_count": 3,
-    "view_count": 3
+    "use_count": 6,
+    "view_count": 6
   },
   "news-aggregator-skill": {
     "archived_at": null,
@@ -782,14 +795,14 @@
     "archived_at": null,
     "created_at": "2026-05-23T08:03:55.046286+00:00",
     "created_by": null,
-    "last_patched_at": "2026-06-29T01:07:47.363651+00:00",
-    "last_used_at": "2026-06-29T01:07:39.871986+00:00",
-    "last_viewed_at": "2026-06-29T01:07:39.857280+00:00",
-    "patch_count": 5,
+    "last_patched_at": "2026-07-07T15:05:07.956087+00:00",
+    "last_used_at": "2026-07-07T15:05:05.257073+00:00",
+    "last_viewed_at": "2026-07-07T15:05:05.237529+00:00",
+    "patch_count": 6,
     "pinned": false,
     "state": "active",
-    "use_count": 7,
-    "view_count": 7
+    "use_count": 8,
+    "view_count": 8
   },
   "pccc-sales": {
     "archived_at": null,

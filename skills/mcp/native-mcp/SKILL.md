@@ -28,6 +28,8 @@ For ad-hoc, one-off MCP tool calls from the terminal without configuring anythin
 
 To index and query a codebase efficiently, refer to the high-performance local indexing tool described in [references/codebase-memory-mcp.md](references/codebase-memory-mcp.md).
 
+For CAD (AutoCAD, ZWCAD, BricsCAD) integration details, requirements, and headless alternatives, consult [references/cad-mcp.md](references/cad-mcp.md).
+
 ## Prerequisites
 
 - **mcp Python package** -- optional dependency; install with `pip install mcp`. If not installed, MCP support is silently disabled.
