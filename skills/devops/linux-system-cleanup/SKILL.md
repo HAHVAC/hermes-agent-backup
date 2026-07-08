@@ -42,6 +42,10 @@ du -sh ~/.hermes/*/ 2>/dev/null | sort -rh | head -15
 # Docker
 docker system df 2>/dev/null || true
 
+# Systemd journal logs
+journalctl --disk-usage 2>/dev/null || true
+du -sh /var/log/journal 2>/dev/null || true
+
 # Pip cache
 pip cache info 2>/dev/null
 ```
@@ -69,13 +73,25 @@ rm -rf /tmp/easy-vibe /tmp/camoufox-* /tmp/node-compile-cache \
 > ⚠️ **Pitfall:** Không `rm -rf /tmp/*` — socket file của X11/systemd/dbus nằm trong /tmp.
 > Xóa từng thư mục rõ tên là an toàn nhất.
 
-**2b. Pip và uv cache**
+**2b. Systemd Journal logs**
+```bash
+# Xem dung lượng hiện tại
+journalctl --disk-usage
+
+# Thu dọn log cũ chỉ giữ lại dung lượng tối đa mong muốn (ví dụ 200M)
+journalctl --vacuum-size=200M
+
+# Hoặc thu dọn log theo thời gian (ví dụ giữ lại 7 ngày gần nhất)
+journalctl --vacuum-time=7d
+```
+
+**2c. Pip và uv cache**
 ```bash
 pip cache purge
 uv cache clean 2>/dev/null || true
 ```
 
-**2c. Hermes state-snapshots cũ**
+**2d. Hermes state-snapshots cũ**
 ```bash
 # Xem bản nào có
 ls -lh ~/.hermes/state-snapshots/
@@ -88,7 +104,7 @@ rm -rf ~/.hermes/state-snapshots/<tên-snapshot-cũ>
 
 #### 🟡 Ưu tiên trung bình
 
-**2d. Docker — KIỂM TRA TRƯỚC**
+**2e. Docker — KIỂM TRA TRƯỚC**
 ```bash
 docker ps -a          # Xem container nào đang chạy
 docker images         # Xem image nào đang dùng
@@ -97,7 +113,7 @@ docker images         # Xem image nào đang dùng
 - **KHÔNG** xóa image của container đang chạy (vd: n8n, nginx)
 - Volumes: kiểm tra kỹ trước khi `docker volume prune`
 
-**2e. Hermes email_attachments cũ**
+**2f. Hermes email_attachments cũ**
 ```bash
 # Xem thư mục nào >30 ngày
 find ~/.hermes/email_attachments/ -maxdepth 1 -type d -mtime +30
@@ -106,7 +122,7 @@ find ~/.hermes/email_attachments/ -maxdepth 1 -type d -mtime +30
 rm -rf ~/.hermes/email_attachments/YYYY-MM-DD/
 ```
 
-**2f. audio_cache TTS cũ**
+**2g. audio_cache TTS cũ**
 ```bash
 # Xóa file cũ hơn 7 ngày
 find ~/.hermes/audio_cache/ -type f -mtime +7 -delete
@@ -116,7 +132,7 @@ find ~/.hermes/audio_cache/ -type f -mtime +7 -delete
 
 #### 🟢 Ưu tiên thấp
 
-**2g. Git GC nén repo lớn**
+**2h. Git GC nén repo lớn**
 ```bash
 cd /path/to/repo
 du -sh .git
@@ -127,12 +143,12 @@ git gc --prune=now 2>&1 | tail -5
 > ⚠️ **Pitfall:** `git gc --aggressive` trên repo >200MB thường timeout >120s trong terminal foreground.
 > Dùng `git gc --prune=now` (không `--aggressive`) hoặc chạy background với `notify_on_complete=true`.
 
-**2h. npm/node cache**
+**2i. npm/node cache**
 ```bash
 npm cache clean --force 2>/dev/null || true
 ```
 
-**2i. 9router backups cũ**
+**2j. 9router backups cũ**
 ```bash
 # Xem các bản backup nâng cấp phiên bản 9router
 du -sh /root/.9router/db/backups/*
@@ -191,4 +207,6 @@ Các thư mục hay tích lũy nhiều nhất (thứ tự ưu tiên dọn):
 ## References
 - `references/cleanup-session-2026-05-25.md` — kết quả session dọn dẹp thực tế, giải phóng ~3GB
 - `references/cleanup-session-2026-05-27.md` — kết quả session dọn dẹp thực tế (Python rm workaround), giải phóng ~6.45GB
+- `references/cleanup-session-2026-07-08.md` — kết quả dọn dẹp hệ thống thực tế giải phóng ~4.3GB chủ yếu từ journalctl log và root cache.
 - `references/cleanup-session-2026-05-27.md` — phân tích hệ thống hiện tại, đề xuất dọn dẹp uv/npm/9router giải phóng ~5.3GB
+- `references/cleanup-session-2026-07-08.md` — nhật ký dọn dẹp thực tế (dọn 3.6GB Journal logs + cache), giải phóng ~4.3GB, đưa ổ đĩa từ 87% về 76% an toàn.
