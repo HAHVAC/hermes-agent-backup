@@ -173,13 +173,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-07-10T13:00:39.111781+00:00",
-    "last_viewed_at": "2026-07-10T13:00:39.080906+00:00",
+    "last_used_at": "2026-07-11T13:00:43.723934+00:00",
+    "last_viewed_at": "2026-07-11T13:00:43.709025+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 49,
-    "view_count": 49
+    "use_count": 50,
+    "view_count": 50
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
