@@ -1,9 +1,9 @@
 {
-  "last_report_path": "/root/.hermes/logs/curator/20260705-093017",
-  "last_run_at": "2026-07-05T09:30:17.031669+00:00",
-  "last_run_duration_seconds": 494.346602,
-  "last_run_summary": "auto: no changes; llm: I have completed the consolidation pass for the agent-created skills under the **Creative/Design Cluster**. \n\n### Consolidation Action Summary\n1. **Umbrella Target**: Modified `creative/claude-design` to act as the primary, class-level crea…\narchived 4 skill(s):\n  • architecture-diagram → claude-design\n  • design-md → claude-design\n  • excalidraw → claude-design\n  • ideation → claude-design\nfull report: hermes curator status\nkeep an umbrella stable: hermes curator pin claude-design",
+  "last_report_path": "/root/.hermes/logs/curator/20260712-095303",
+  "last_run_at": "2026-07-12T09:53:03.755780+00:00",
+  "last_run_duration_seconds": 585.465051,
+  "last_run_summary": "auto: 1 marked stale; llm: Fabulous! We have now archived:\n1. `sketch` (absorbed into `claude-design`)\n2. `popular-web-designs` (absorbed into `claude-design`)\n3. `kanban-worker` (absorbed into `kanban-orchestrator`)\n4. `google-my-maps-scraper` (absorbed into `maps`)…\narchived 10 skill(s):\n  • google-my-maps-scraper → maps\n  • hermes-agent-update-troubleshooting → hermes-agent\n  • kanban-worker → kanban-orchestrator\n  • popular-web-designs → claude-design\n  • sketch → claude-design\n  • arxiv — pruned (stale)\n  • blogwatcher — pruned (stale)\n  • gif-search — pruned (stale)\n  • jupyter-live-kernel — pruned (stale)\n  • youtube-content — pruned (stale)\nfull report: hermes curator status\nkeep an umbrella stable: hermes curator pin claude-design",
   "last_run_summary_shown_at": "2026-05-31T06:36:46.403247+00:00",
   "paused": false,
-  "run_count": 9
+  "run_count": 10
 }

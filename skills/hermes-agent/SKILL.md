@@ -841,3 +841,38 @@ Types: `fix:`, `feat:`, `refactor:`, `docs:`, `chore:`
 - Use `get_hermes_home()` from `hermes_constants` for all paths (profile-safe)
 - Config values go in `config.yaml`, secrets go in `.env`
 - New tools need a `check_fn` so they only appear when requirements are met
+
+---
+
+## Troubleshooting Update Issues (Sửa lỗi cập nhật)
+
+When updating Hermes Agent (`hermes update`), you might encounter local Git conflicts, outdated Node.js dependencies, or missing Python packages. Use these steps to resolve them:
+
+### 1. Resolve Git conflicts
+If `hermes update` fails due to local modifications in the repository:
+```bash
+cd ~/.hermes/hermes-agent
+git reset --hard origin/main
+git pull
+```
+
+### 2. UI/TUI Node.js build errors
+If the TUI fails to launch or displays errors after an update, rebuild the UI components:
+```bash
+cd ~/.hermes/hermes-agent/ui-tui
+npm install
+npm run clean
+npm run build
+```
+If Node.js is missing or outdated, run the postinstall script:
+```bash
+hermes postinstall
+```
+
+### 3. Missing Python dependencies
+If you encounter import errors or missing dependencies:
+```bash
+cd ~/.hermes/hermes-agent
+source venv/bin/activate
+uv pip install -r requirements.txt  # Or: pip install -r requirements.txt
+```

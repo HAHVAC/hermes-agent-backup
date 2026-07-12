@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Map Offline Viewer</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', sans-serif; background:#1a1a2e; color:#eee; }
+#map { width:100vw; height:100vh; }
+#sidebar {
+  position:fixed; top:10px; left:10px; width:280px; max-height:90vh;
+  background:rgba(10,10,30,0.92); border:1px solid #333; border-radius:8px;
+  padding:12px; z-index:1000; overflow-y:auto;
+}
+h2 { font-size:14px; color:#e94560; margin-bottom:10px; }
+.legend-item { display:flex; align-items:center; gap:6px; margin:4px 0; font-size:12px; cursor:pointer; }
+.legend-item:hover { color:#e94560; }
+.dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+#info {
+  position:fixed; top:10px; right:10px; width:260px; max-height:80vh;
+  background:rgba(10,10,30,0.95); border:1px solid #e94560; border-radius:8px;
+  padding:12px; z-index:1000; display:none; overflow-y:auto;
+}
+#info h3 { color:#e94560; font-size:13px; margin-bottom:6px; }
+#info p { font-size:11px; line-height:1.6; }
+#info .close { float:right; cursor:pointer; color:#888; }
+#stats { background:rgba(20,20,40,0.9); border:1px solid #333; border-radius:6px; padding:8px; margin-top:10px; font-size:11px; }
+.layer-count { color:#888; }
+</style>
+</head>
+<body>
+<div id="sidebar">
+  <!-- EDIT THIS TITLE -->
+  <h2>🗺 MAP OFFLINE VIEWER</h2>
+  <div id="legend"></div>
+  <div id="stats"><b id="feat-count">Loading...</b></div>
+</div>
+<div id="map"></div>
+<div id="info">
+  <span class="close" onclick="document.getElementById('info').style.display='none'">✕</span>
+  <h3 id="info-title"></h3>
+  <p id="info-body"></p>
+</div>
+
+<script>
+// EDIT: set map center and initial zoom
+const MAP_CENTER = [21.02, 105.78];
+const MAP_ZOOM = 12;
+
+// EDIT: customize layer colors (layer name → hex color)
+const LAYER_COLORS = {
+  // Add your layer names here, or leave empty for auto-colors
+};
+
+// Auto-color palette for layers not in LAYER_COLORS
+const AUTO_PALETTE = ['#e94560','#f5a623','#1b8a5a','#9b59b6','#3498db','#1abc9c','#e67e22','#e74c3c','#2980b9'];
+
+function layerColor(name) {
+  if (LAYER_COLORS[name]) return LAYER_COLORS[name];
+  // Stable hash → palette index
+  let h = 0; for (const c of name) h = (h * 31 + c.charCodeAt(0)) & 0xFFFFFF;
+  return AUTO_PALETTE[Math.abs(h) % AUTO_PALETTE.length];
+}
+
+const map = L.map('map', { center: MAP_CENTER, zoom: MAP_ZOOM });
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19, attribution: '© OpenStreetMap'
+}).addTo(map);
+
+// EDIT: change 'data.geojson' to your GeoJSON filename
+fetch('data.geojson')
+  .then(r => r.json())
+  .then(gj => {
+    const layerGroups = {};
+    let total = 0;
+
+    gj.features.forEach(f => {
+      const lname = f.properties.layer;
+      const color = layerColor(lname);
+      if (!layerGroups[lname]) layerGroups[lname] = L.layerGroup().addTo(map);
+
+      const geom = f.geometry;
+      let marker;
+      if (geom.type === 'Point') {
+        const [lng, lat] = geom.coordinates;
+        marker = L.circleMarker([lat, lng], { radius:6, fillColor:color, color:'#fff', weight:1, opacity:0.9, fillOpacity:0.85 });
+      } else if (geom.type === 'LineString') {
+        const ll = geom.coordinates.map(([lng,lat]) => [lat,lng]);
+        marker = L.polyline(ll, {color, weight:2.5, opacity:0.8});
+      } else if (geom.type === 'Polygon') {
+        const ll = geom.coordinates[0].map(([lng,lat]) => [lat,lng]);
+        marker = L.polygon(ll, {color, fillColor:color, fillOpacity:0.25, weight:1.5});
+      }
+      if (marker) {
+        marker.on('click', () => {
+          document.getElementById('info-title').textContent = f.properties.name || '(no name)';
+          document.getElementById('info-body').innerHTML =
+            `<b>Layer:</b> ${lname}<br><b>Desc:</b> ${f.properties.description||'—'}<br><b>Type:</b> ${geom.type}`;
+          document.getElementById('info').style.display='block';
+        });
+        layerGroups[lname].addLayer(marker);
+        total++;
+      }
+    });
+
+    // Build legend with toggle
+    const legend = document.getElementById('legend');
+    Object.entries(layerGroups).forEach(([name, grp]) => {
+      const color = layerColor(name);
+      const count = grp.getLayers().length;
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      item.innerHTML = `<div class="dot" style="background:${color}"></div><span>${name} <span class="layer-count">(${count})</span></span>`;
+      item.onclick = () => {
+        if (map.hasLayer(grp)) map.removeLayer(grp); else map.addLayer(grp);
+        item.style.opacity = map.hasLayer(grp) ? 1 : 0.4;
+      };
+      legend.appendChild(item);
+    });
+
+    document.getElementById('feat-count').textContent =
+      `✅ ${total} features • ${Object.keys(layerGroups).length} layers`;
+  })
+  .catch(() => {
+    document.getElementById('feat-count').textContent = '❌ data.geojson not found — place both files in same folder';
+  });
+</script>
+</body>
+</html>

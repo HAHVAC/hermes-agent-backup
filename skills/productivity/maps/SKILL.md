@@ -1,19 +1,19 @@
 ---
 name: maps
-description: "Geocode, POIs, routes, timezones via OpenStreetMap/OSRM."
-version: 1.2.0
+description: "Geocode, POIs, routes, timezones via OpenStreetMap/OSRM, and Google My Maps scraping."
+version: 1.3.0
 author: Mibayy
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
   hermes:
-    tags: [maps, geocoding, places, routing, distance, directions, nearby, location, openstreetmap, nominatim, overpass, osrm]
+    tags: [maps, geocoding, places, routing, distance, directions, nearby, location, openstreetmap, nominatim, overpass, osrm, google-my-maps, scraper]
     category: productivity
     requires_toolsets: [terminal]
-    supersedes: [find-nearby]
+    supersedes: [find-nearby, google-my-maps-scraper]
 ---
 
-# Maps Skill
+# Maps & Location Intelligence Skill
 
 Location intelligence using free, open data sources. 8 commands, 44 POI
 categories, zero dependencies (Python stdlib only), no API key required.
@@ -183,13 +183,41 @@ current.
   falls back between mirrors (overpass-api.de → overpass.kumi.systems)
 - `distance` and `directions` use `--to` flag for the destination (not positional)
 - If a zip code alone gives ambiguous results globally, include country/state
+- Google My Maps: Public maps must have viewer access enabled, otherwise KML export fails.
+
+---
+
+## Google My Maps Scraping
+
+Extract geographic features (markers, lines, polygons) from a public Google My Maps URL/mid.
+
+### Usage
+
+Use the python scraper tool:
+```bash
+python3 ~/.hermes/skills/productivity/maps/scripts/scrape_my_maps.py "https://www.google.com/maps/d/viewer?mid=1a2b3c4d5e" --output output.json
+```
+
+Or download KML directly:
+```bash
+python3 ~/.hermes/skills/productivity/maps/scripts/scrape_my_maps.py "1a2b3c4d5e" --format kml --output output.kml
+```
+
+### Supporting files
+- `references/pagedata-structure.md` details how `_pageData` is structured within Google My Maps HTML.
+- `templates/offline_viewer.html` is an interactive Leaflet-based offline viewer for the scraped JSON.
+
+---
 
 ## Verification
 
 ```bash
-python3 ~/.hermes/skills/maps/scripts/maps_client.py search "Statue of Liberty"
+python3 ~/.hermes/skills/productivity/maps/scripts/maps_client.py search "Statue of Liberty"
 # Should return lat ~40.689, lon ~-74.044
 
-python3 ~/.hermes/skills/maps/scripts/maps_client.py nearby --near "Times Square" --category restaurant --limit 3
+python3 ~/.hermes/skills/productivity/maps/scripts/maps_client.py nearby --near "Times Square" --category restaurant --limit 3
 # Should return a list of restaurants within ~500m of Times Square
+
+python3 ~/.hermes/skills/productivity/maps/scripts/scrape_my_maps.py --help
+# Should print the help message for the maps scraper
 ```

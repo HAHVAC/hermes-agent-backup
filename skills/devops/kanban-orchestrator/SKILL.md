@@ -1,17 +1,17 @@
 ---
 name: kanban-orchestrator
-description: Decomposition playbook + anti-temptation rules for an orchestrator profile routing work through Kanban. The "don't do the work yourself" rule and the basic lifecycle are auto-injected into every kanban worker's system prompt; this skill is the deeper playbook when you're specifically playing the orchestrator role.
-version: 3.0.0
+description: Decomposition playbook + worker guidance + anti-temptation rules for profiles routing or executing work through Kanban.
+version: 3.1.0
 platforms: [linux, macos, windows]
 metadata:
   hermes:
-    tags: [kanban, multi-agent, orchestration, routing]
-    related_skills: [kanban-worker]
+    tags: [kanban, multi-agent, orchestration, routing, worker]
+    related_skills: []
 ---
 
-# Kanban Orchestrator — Decomposition Playbook
+# Kanban System — Orchestrator & Worker Playbook
 
-> The **core worker lifecycle** (including the `kanban_create` fan-out pattern and the "decompose, don't execute" rule) is auto-injected into every kanban process via the `KANBAN_GUIDANCE` system-prompt block. This skill is the deeper playbook when you're an orchestrator profile whose whole job is routing.
+> The **core worker lifecycle** (including the `kanban_create` fan-out pattern and the "decompose, don't execute" rule) is auto-injected into every kanban process via the `KANBAN_GUIDANCE` system-prompt block. This skill is the unified playbook for both orchestrators planning graphs and workers executing tasks.
 
 ## Profiles are user-configured — not a fixed roster
 
@@ -211,3 +211,27 @@ When a worker profile keeps crashing, hallucinating, or getting blocked by its o
 3. **Change profile model** — the dashboard prints a copy-paste hint for `hermes -p <profile> model` since profile config lives on disk; edit it in a terminal, then Reclaim to retry with the new model.
 
 Hallucination warnings appear on tasks where a worker's `kanban_complete(created_cards=[...])` claim included card ids that don't exist or weren't created by the worker's profile (the gate blocks the completion), or where the free-form summary references `t_<hex>` ids that don't resolve (advisory prose scan, non-blocking). Both produce audit events that persist even after recovery actions — the trail stays for debugging.
+
+---
+
+## Worker Execution Playbook
+
+This section contains the playbook for workers executing assigned Kanban tasks.
+
+### Quick Start Checklist
+
+1. **Orient yourself.** Call `kanban_show()` (no args — it defaults to the current task ID in `$HERMES_KANBAN_TASK`).
+2. **Move to the task workspace.** `cd $HERMES_KANBAN_WORKSPACE` before running commands or scripts.
+3. **Do the work.** Build, modify, or verify code in the workspace.
+4. **Handoff and transition.** Call `kanban_complete()` or `kanban_block()`.
+
+### Heartbeat Requirements
+
+On long operations, you MUST call `kanban_heartbeat(note=...)` at least once an hour — the dispatcher reclaims tasks running past `kanban.dispatch_stale_timeout_seconds` if they show no activity.
+
+### Pitfalls & Best Practices
+
+- **Never invent card IDs.** Only list actual created cards from `kanban_create` in `kanban_complete(created_cards=[...])`.
+- **Do not shell out to CLI.** Avoid executing `hermes kanban complete` or similar commands. Always use the provided `kanban_*` tools.
+- **Provide clear summaries.** In your completion/blocking calls, write a concise summary of results and next steps for the next worker.
+- **Git Worktree hygiene.** For `worktree` workspaces, run commands within the checked-out worktree directory (`${HERMES_KANBAN_BRANCH:-wt/$HERMES_KANBAN_TASK}`). Do not mess with other worktrees or branches.

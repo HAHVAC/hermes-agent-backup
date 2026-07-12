@@ -22,6 +22,8 @@ The goal is to preserve Claude Design's useful design behavior and taste while r
 - **`design-md`** — Token specification file creation & verification (absorbed into [DESIGN.md Authoring](#designmd-authoring) below).
 - **`architecture-diagram`** — Dark-themed SVG infrastructure layout (absorbed into [Architecture Diagramming](#architecture-diagramming) below).
 - **`ideation`** — Constraint-driven creative concept generation (absorbed into [Creative Ideation](#creative-ideation) below).
+- **`sketch`** — Disposable interactive HTML mockups for comparing visual directions side-by-side (absorbed into [Interactive Mockups (Sketch)](#interactive-mockups-sketch) below).
+- **`popular-web-designs`** — 54 real-world design systems (Stripe, Linear, Vercel) cataloged for layout reference (absorbed into the `templates/` folder under this skill).
 
 ## Related design skills
 - **`popular-web-designs`** — 54 ready-to-paste design systems (Stripe, Linear, Vercel). Keep standalone for catalog reference.
@@ -93,23 +95,46 @@ Generate project ideas through constraint-driven project generation.
 
 ---
 
-## When To Use This Skill vs `popular-web-designs` vs `design-md`
+## Interactive Mockups (Sketch)
 
-Hermes has three design-related skills under `skills/creative/`. They do different jobs — load the right one (or combine them):
+Use this when you want to **see a design direction before committing** to one — exploring a UI/UX idea as disposable HTML mockups. Generate 2-3 interactive variants so the user can compare visual directions side-by-side.
+
+### Core method
+```
+intake  →  variants  →  head-to-head  →  pick winner (or iterate)
+```
+
+1. **Intake:** Ask for:
+   - **Feel:** Adjectives, emotions, or vibes (e.g. "calm, editorial, like Linear").
+   - **References:** What apps, sites, or products capture the feel you're imagining?
+   - **Core action:** What is the single most important thing a user does on this screen?
+2. **Variants:** Produce 2-3 variants in one go as standalone HTML files. Stances should differ significantly (e.g. Density: compact vs airy; Emphasis: content vs action; Aesthetic: editorial vs utilitarian; Layout: sidebar vs split-pane).
+3. **Fidelity and Interactivity:**
+   - Single self-contained HTML file (Tailwind CDN is fine, inline `<style>`).
+   - Default reset + system font stack for fast starts.
+   - Realistic fake content (no "Lorem Ipsum").
+   - Clickable actions, hovers, and at least one state transition (open/close, filter, toggle).
+   - Verify visually using `browser_navigate` + `browser_vision` (screenshot layout verification).
+4. **README & Comparison:**
+   - Include a short `README.md` for each variant (Design stance, key choices, trade-offs, best for).
+   - Present a head-to-head comparison table analyzing dimensions, scan-ability, feel, and your recommendation.
+
+---
+
+## When To Use This Skill vs design-md
+
+Hermes has integrated the visual design skills under `skills/creative/`. They do different jobs:
 
 | Skill | What it gives you | Use when the user wants... |
 |---|---|---|
-| **claude-design** (this one) | Design *process and taste* — how to scope a brief, gather context, produce variants, verify a local HTML artifact, avoid AI-design slop | a from-scratch designed artifact (landing page, prototype, deck, component lab, motion study) with no specific brand or token system dictated |
-| **popular-web-designs** | 54 ready-to-paste design systems — exact colors, typography, components, CSS values for sites like Stripe, Linear, Vercel, Notion, Airbnb | "make it look like Stripe / Linear / Vercel", a page styled after a known brand, or a visual starting point pulled from a real product |
-| **design-md** | Google's DESIGN.md spec format — author/validate/diff/export design-token files, WCAG contrast checking, Tailwind/DTCG export | a formal, persistent, machine-readable design-system *spec file* (tokens + rationale) that lives in a repo and gets consumed by agents over time |
+| **claude-design** (this one) | Design *process and taste* — how to scope a brief, gather context, produce variants, verify a local HTML artifact, avoid AI-design slop. Includes **54 ready-to-paste design systems** (Stripe, Linear, Vercel, Notion, Airbnb) cataloged in the `templates/` folder for matching known brand looks. | a from-scratch designed artifact (landing page, prototype, deck, component lab, motion study), or a page styled after a known brand (consult the `templates/` folder). |
+| **design-md** | Google's DESIGN.md spec format — author/validate/diff/export design-token files, WCAG contrast checking, Tailwind/DTCG export. | a formal, persistent, machine-readable design-system *spec file* (tokens + rationale) that lives in a repo and gets consumed by agents over time. |
 
 Rule of thumb:
-
-- **Process + taste, one-off artifact** → claude-design
-- **Match a known brand's look** → popular-web-designs (and let claude-design drive the process)
+- **Process + taste, one-off artifact, or matching a known brand's look** → claude-design (use `templates/` for brand lookups)
 - **Author the tokens spec itself** → design-md
 
-These compose: use `popular-web-designs` for the visual vocabulary, `claude-design` for how to turn a brief into a thoughtful local HTML file, and `design-md` when the output is the token file rather than a rendered artifact.
+These compose: use `claude-design` to drive the process and write the HTML/CSS using the brand templates, and `design-md` when the output is the token file rather than a rendered artifact.
 
 ## Runtime Mode
 
