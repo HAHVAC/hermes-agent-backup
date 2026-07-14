@@ -332,3 +332,4 @@ Khi Anh nói "tổng hợp tình hình" hoặc "review pipeline", tự động:
 - `references/debt-collection-template.md` — Mẫu công văn nhắc nợ, email thu hồi công nợ
 - `references/inspection-checklist-template.md` — Mẫu checklist nghiệm thu đầy đủ theo TCVN
 - `references/construction-cost-management-2026.md` — Hướng Dẫn Pháp Lý và Quản Lý Chi Phí Đầu Tư Xây Dựng 2026 (Áp Dụng Từ 01/07/2026)
+- `references/construction-grade-determination.md` — Hướng dẫn xác định cấp công trình và các quy chuẩn phân cấp PCCC thiết kế xây dựng.

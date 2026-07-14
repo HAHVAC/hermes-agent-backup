@@ -70,9 +70,13 @@ Script dùng heuristic lọc các dòng chứa: `unsubscribe`, `https://`, `www.
 ## Tệp đính kèm (cập nhật 26/04/2026)
 
 Script `/root/.hermes/scripts/daily_email_report.py` hiện xử lý attachment như sau:
-- **KHÔNG tải, KHÔNG lưu local, KHÔNG upload Drive, KHÔNG đọc PDF** (đã bỏ để tránh timeout)
+- **KHÔNG tải, KHÔNG lưu local, KHÔNG upload Drive, KHÔNG đọc PDF** (đã bỏ để tránh timeout và soft guard chặn vì cần xác nhận của người dùng)
 - Chỉ liệt kê metadata: `filename`, `mime_type`, `size_bytes`
 - Prompt AI phải dịch nghĩa tên file sang tiếng Việt trong báo cáo, nhưng vẫn giữ tên file gốc
+
+## Gmail Search & Slashes Pitfall
+- **Symptom**: Gmail search matches alphanumeric terms but fails or drops messages when query contains slashes or complex special characters (e.g. searching exact file/reference IDs like `"3604/TD-PCCC"` or `"29/TD"`).
+- **Fix**: Search for the alphanumeric fragments separately (e.g., query `"3604"` AND `"TD-PCCC"`, or search for broader keywords like `"Thái Bình"` / `"thẩm duyệt"`) and then parse and filter the returned messages in Python code to match the exact string.
 
 ## Cập nhật cron job
 

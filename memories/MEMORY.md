@@ -19,3 +19,5 @@ Google Workspace/gws OAuth on this Hermes instance is tied to pcccthanglong.tlc@
 Local LiteLLM proxy runs on port 4000 with master key 'doremon-proxy-2026' and username/password 'doremon' / 'doremon2026'.
 §
 Luật Xây dựng 2025 (135/2025/QH15) và Nghị định 206/2026/NĐ-CP (thay thế NĐ 10/2021/NĐ-CP) có hiệu lực từ 01/07/2026, cải cách lớn về phân cấp quản lý chi phí, bãi bỏ thẩm định thiết kế triển khai sau thiết kế cơ sở và miễn giấy phép xây dựng cho công trình đã thẩm định thiết kế.
+§
+Quy định xác định cấp công trình xây dựng (nhà công nghiệp/nhà xưởng/nhà kho) phục vụ PCCC được tra cứu theo Thông tư 06/2021/TT-BXD (chiều cao, số tầng, nhịp cột).
