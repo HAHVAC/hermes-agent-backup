@@ -147,13 +147,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-14T11:57:43.655089+00:00",
-    "last_used_at": "2026-07-14T13:01:04.900489+00:00",
-    "last_viewed_at": "2026-07-14T13:01:04.882733+00:00",
+    "last_used_at": "2026-07-15T13:00:27.833154+00:00",
+    "last_viewed_at": "2026-07-15T13:00:27.815783+00:00",
     "patch_count": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 54,
-    "view_count": 54
+    "use_count": 55,
+    "view_count": 55
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
@@ -679,13 +679,13 @@
     "created_at": "2026-06-07T07:32:09.251622+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-14T08:21:15.459931+00:00",
-    "last_used_at": "2026-07-12T09:54:09.377315+00:00",
-    "last_viewed_at": "2026-07-12T09:54:09.354895+00:00",
+    "last_used_at": "2026-07-15T06:04:50.635913+00:00",
+    "last_viewed_at": "2026-07-15T06:04:50.619608+00:00",
     "patch_count": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 5,
-    "view_count": 5
+    "use_count": 6,
+    "view_count": 6
   },
   "opencode": {
     "archived_at": null,
