@@ -18,15 +18,15 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 101
+        "completed": 99
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-19T00:54:55.103138+00:00",
-      "next_run_at": "2026-07-21T13:00:00+00:00",
-      "last_run_at": "2026-07-20T13:01:09.520571+00:00",
+      "next_run_at": "2026-07-19T13:00:00+00:00",
+      "last_run_at": "2026-07-18T13:01:31.916948+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -97,17 +97,17 @@
       "schedule_display": "0 19 * * *",
       "repeat": {
         "times": null,
-        "completed": 71
+        "completed": 70
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-05-11T14:15:45.794520+00:00",
-      "next_run_at": "2026-07-21T19:00:00+00:00",
-      "last_run_at": "2026-07-19T19:00:58.119906+00:00",
-      "last_status": "error",
-      "last_error": "Script exited with code 24\nstderr:\nfile has vanished: \"/root/.hermes/cron/.hb_ay6dpsal.tmp\"\nrsync warning: some files vanished before they could be transferred (code 24) at main.c(1356) [sender=3.2.7]\nstdout:\n[2026-07-19 19:00:56] \u25b6 Hermes backup b\u1eaft \u0111\u1ea7u...\n[2026-07-19 19:00:56] Mode: incremental t\u1eebng file, ch\u1ec9 copy file m\u1edbi/c\u1eadp nh\u1eadt.\n[2026-07-19 19:00:56] Max file size: 95MB.\n[2026-07-19 19:00:56] Syncing changed files...\n.d..t...... ./\n>f..t...... channel_directory.json\n.d..t...... cron/\n>f.st...... cron/jobs.json\n>f.st...... cron/ticker_heartbeat\n>f.st...... cron/ticker_last_success\n.d..t...... skills/\n>f.st...... skills/.curator_state\n>f.st...... skills/.usage.json\n.d..t...... skills/.curator_backups/\ncd+++++++++ skills/.curator_backups/2026-07-19T10-46-42Z/\n>f+++++++++ skills/.curator_backups/2026-07-19T10-46-42Z/cron-jobs.json\n>f+++++++++ skills/.curator_backups/2026-07-19T10-46-42Z/manifest.json\n>f+++++++++ skills/.curator_backups/2026-07-19T10-46-42Z/skills.tar.gz",
+      "next_run_at": "2026-07-19T19:00:00+00:00",
+      "last_run_at": "2026-07-18T19:00:20.308021+00:00",
+      "last_status": "ok",
+      "last_error": null,
       "last_delivery_error": null,
       "deliver": "local",
       "origin": {
@@ -168,5 +168,5 @@
       "profile": null
     }
   ],
-  "updated_at": "2026-07-20T19:00:46.273925+00:00"
+  "updated_at": "2026-07-18T19:00:20.309456+00:00"
 }
