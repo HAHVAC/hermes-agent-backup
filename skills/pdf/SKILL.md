@@ -530,6 +530,8 @@ For multi-hundred-page Vietnamese government documents (quy hoạch, dự án, e
    - Pass 3: Extract full project entries around confirmed matches
 
 3. **Vietnamese-specific pitfalls:**
+   - Filenames with Vietnamese diacritics may fail in CLI commands or python strings due to Unicode normalization (NFC vs NFD). Use wildcard globs in terminal (e.g. `/root/.hermes/cache/documents/*.pdf`) or `os.listdir()` in Python to target the file safely.
+   - For multi-chapter legal draft documents (dự thảo Luật/Nghị định), dump text using `pdftotext` to `/tmp/out.txt`, then use `search_files` with regex `^Chương |^Điều |Phương án` to map out chapter structures and legislative options quickly.
    - District names can appear as references in other districts' entries (e.g., "huyện Thanh Oai" mentioned in an Ứng Hòa project). Always verify the project's actual location via the "Đơn vị đăng ký" (registering organization) field.
    - Commune names may overlap with non-geographic names (e.g., "Bình Minh" can be a housing project name, not xã Bình Minh). Verify with context.
    - Search for `UBND xã <tên>` or `UBND huyện <tên>` for authoritative matches.
