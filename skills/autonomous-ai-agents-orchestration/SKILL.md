@@ -34,6 +34,10 @@ This skill covers the configuration, runtime orchestration, and debugging patter
 - **TUI Management**: When managing an interactive TUI session, exit gracefully using `Ctrl+C` (`\x03`) or `process(action="kill")`. Avoid typing `/exit` directly in the script, as it triggers a feedback prompt.
 - **Commands**: Read the integration patterns at `references/opencode.md`.
 
+### 4. Matt Pocock Skills (`mattpocock/skills`)
+- **Core Concept**: A workflow framework of 20+ specialized user-invoked and model-invoked agent skills designed to transition from "vibe coding" to structured "real engineering" via step-by-step interviews, domain glossary creation (`CONTEXT.md` / ADRs), vertical-slice ticket generation (`/to-tickets`), test-driven implementation (`/tdd`), and rigorous debugging loops (`/diagnosing-bugs`).
+- **Reference**: Read the detailed workflow patterns, installation methods, and spec/ticket structures at `references/mattpocock-skills.md`.
+
 ---
 
 ## Shared Best Practices
