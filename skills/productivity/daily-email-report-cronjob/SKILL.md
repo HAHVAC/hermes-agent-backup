@@ -43,25 +43,36 @@ Lý do:
 
 ## I. 📥 Hộp thư đến ({inbox_count} email)
 
-**1. [Tiêu đề dịch tiếng Việt]**
+**1. [Tiêu đề — dịch sang tiếng Việt nếu là tiếng Anh/Trung]**
 - **Từ:** ...
 - **Thời gian:** ...
-- **Nội dung:** [tóm tắt, dịch VN]
+- **Nội dung:** [Tóm tắt/trích nội dung chính — nếu là tiếng Anh hoặc tiếng Trung thì dịch sang tiếng Việt. Bỏ qua link, chữ ký, footer]
+- **Tệp đính kèm:**
+  - `[Tên file gốc]` → **[Dịch nghĩa tên file sang tiếng Việt]** · **Lưu Drive:** [Đã lưu: link Drive / hoặc Chưa lưu được: lý do ngắn gọn / hoặc Đã lưu cục bộ, chưa tải lên Drive được: lý do ngắn gọn]
+  - [Nếu là PDF]: **Tóm tắt PDF:** [3-5 gạch đầu dòng nội dung chính bằng tiếng Việt / hoặc "Không trích xuất được nội dung PDF" nếu không có thông tin]
 
 ---
 
 ## II. 📤 Thư đã gửi ({sent_count} email)
 
-**1. [Tiêu đề dịch tiếng Việt]**
+**1. [Tiêu đề — dịch sang tiếng Việt nếu là tiếng Anh/Trung]**
 - **Đến:** ...
 - **Thời gian:** ...
-- **Nội dung:** [tóm tắt, dịch VN]
+- **Nội dung:** [Tóm tắt/trích nội dung chính — nếu là tiếng Anh hoặc tiếng Trung thì dịch sang tiếng Việt. Bỏ qua link, chữ ký, footer]
+- **Tệp đính kèm:**
+  - `[Tên file gốc]` → **[Dịch nghĩa tên file sang tiếng Việt]** · **Lưu Drive:** [Đã lưu: link Drive / hoặc Chưa lưu được: lý do ngắn gọn / hoặc Đã lưu cục bộ, chưa tải lên Drive được: lý do ngắn gọn]
+  - [Nếu là PDF]: **Tóm tắt PDF:** [3-5 gạch đầu dòng nội dung chính bằng tiếng Việt / hoặc "Không trích xuất được nội dung PDF" nếu không có thông tin]
 ```
 
 **Quy tắc format:**
-- Tiêu đề + nội dung PHẢI dịch sang tiếng Việt nếu là tiếng Anh/Trung
-- KHÔNG hiển thị URL, link, chữ ký, footer, cuống thư
-- Nội dung tóm tắt ngắn gọn, tối đa 3-4 dòng/email
+- Tiêu đề email, nội dung email, và tên file đính kèm PHẢI dịch sang tiếng Việt nếu là tiếng Anh hoặc tiếng Trung.
+- Với mỗi tệp đính kèm: luôn nêu tên file gốc + bản dịch nghĩa tiếng Việt của tên file.
+- Với file PDF: tóm tắt nội dung chính của PDF (nếu có trường dữ liệu text); nếu không trích xuất được text thì ghi ngắn gọn: "Không trích xuất được nội dung PDF".
+- Với Drive: nếu trạng thái là `uploaded`, ghi "Đã lưu" kèm `drive_link`; nếu upload lỗi, ghi "Đã lưu cục bộ, chưa tải lên Drive được" và lý do ngắn gọn (không hiển thị đường dẫn cục bộ).
+- KHÔNG hiển thị URL/link trong nội dung email; chỉ được hiển thị link Drive của tệp đính kèm khi upload thành công.
+- KHÔNG hiển thị chữ ký, footer, cuống thư.
+- Nội dung tóm tắt email ngắn gọn, đủ ý, tối đa 3-4 dòng mỗi email.
+- Nếu không có email nào: ghi "✅ Không có email trong 24h qua".
 
 ## Script: clean_body() — lọc footer
 
