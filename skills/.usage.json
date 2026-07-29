@@ -42,14 +42,14 @@
     "archived_at": null,
     "created_at": "2026-05-12T14:16:08.777122+00:00",
     "created_by": null,
-    "last_patched_at": "2026-05-13T05:05:29.680448+00:00",
-    "last_used_at": "2026-07-12T09:53:34.319061+00:00",
-    "last_viewed_at": "2026-07-12T09:53:34.302476+00:00",
-    "patch_count": 3,
+    "last_patched_at": "2026-07-29T15:05:27.552295+00:00",
+    "last_used_at": "2026-07-29T15:05:24.108398+00:00",
+    "last_viewed_at": "2026-07-29T15:05:24.089930+00:00",
+    "patch_count": 4,
     "pinned": false,
     "state": "active",
-    "use_count": 8,
-    "view_count": 8
+    "use_count": 9,
+    "view_count": 9
   },
   "autonomous-ai-agents-orchestration": {
     "archived_at": null,
@@ -160,13 +160,13 @@
     "created_at": "2026-05-12T13:01:05.024280+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-26T13:02:01.016714+00:00",
-    "last_used_at": "2026-07-28T13:00:33.428649+00:00",
-    "last_viewed_at": "2026-07-28T13:00:33.407519+00:00",
+    "last_used_at": "2026-07-29T13:00:21.183025+00:00",
+    "last_viewed_at": "2026-07-29T13:00:21.161675+00:00",
     "patch_count": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 69,
-    "view_count": 69
+    "use_count": 70,
+    "view_count": 70
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
@@ -622,6 +622,19 @@
     "use_count": 4,
     "view_count": 4
   },
+  "media": {
+    "archived_at": null,
+    "created_at": "2026-07-29T15:05:20.314746+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": "2026-07-29T15:05:20.337328+00:00",
+    "last_viewed_at": "2026-07-29T15:05:20.314798+00:00",
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
+  },
   "nano-pdf": {
     "archived_at": null,
     "created_at": "2026-06-07T07:32:09.192062+00:00",
@@ -770,13 +783,13 @@
     "created_at": "2026-05-09T14:17:26.662913+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-21T13:15:42.630660+00:00",
-    "last_used_at": "2026-07-21T13:15:39.519970+00:00",
-    "last_viewed_at": "2026-07-21T13:15:39.502910+00:00",
+    "last_used_at": "2026-07-29T14:26:03.191461+00:00",
+    "last_viewed_at": "2026-07-29T14:26:03.165923+00:00",
     "patch_count": 11,
     "pinned": false,
     "state": "active",
-    "use_count": 18,
-    "view_count": 18
+    "use_count": 19,
+    "view_count": 19
   },
   "petdex": {
     "archived_at": null,

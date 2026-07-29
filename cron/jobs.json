@@ -18,15 +18,15 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 109
+        "completed": 110
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-19T00:54:55.103138+00:00",
-      "next_run_at": "2026-07-29T13:00:00+00:00",
-      "last_run_at": "2026-07-28T13:00:50.002176+00:00",
+      "next_run_at": "2026-07-30T13:00:00+00:00",
+      "last_run_at": "2026-07-29T13:00:34.489857+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -97,17 +97,17 @@
       "schedule_display": "0 19 * * *",
       "repeat": {
         "times": null,
-        "completed": 79
+        "completed": 80
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-05-11T14:15:45.794520+00:00",
-      "next_run_at": "2026-07-29T19:00:00+00:00",
-      "last_run_at": "2026-07-27T19:00:32.775189+00:00",
-      "last_status": "error",
-      "last_error": "Script exited with code 24\nstderr:\nfile has vanished: \"/root/.hermes/cron/.hb_2luazzmb.tmp\"\nrsync warning: some files vanished before they could be transferred (code 24) at main.c(1356) [sender=3.2.7]\nstdout:\n[2026-07-27 19:00:30] \u25b6 Hermes backup b\u1eaft \u0111\u1ea7u...\n[2026-07-27 19:00:30] Mode: incremental t\u1eebng file, ch\u1ec9 copy file m\u1edbi/c\u1eadp nh\u1eadt.\n[2026-07-27 19:00:30] Max file size: 95MB.\n[2026-07-27 19:00:30] Syncing changed files...\n.d..t...... ./\n>f..t...... .skills_prompt_snapshot.json\n>f.st...... channel_directory.json\n>f..t...... gateway_state.json\n.d..t...... cron/\n>f..t...... cron/jobs.json\n>f..t...... cron/ticker_heartbeat\n>f.st...... cron/ticker_last_success\n.d..t...... skills/\n>f..t...... skills/.usage.json",
+      "next_run_at": "2026-07-30T19:00:00+00:00",
+      "last_run_at": "2026-07-28T19:00:31.244463+00:00",
+      "last_status": "ok",
+      "last_error": null,
       "last_delivery_error": null,
       "deliver": "local",
       "origin": {
@@ -168,5 +168,5 @@
       "profile": null
     }
   ],
-  "updated_at": "2026-07-28T19:00:23.390872+00:00"
+  "updated_at": "2026-07-29T19:00:17.251003+00:00"
 }

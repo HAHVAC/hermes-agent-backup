@@ -64,6 +64,10 @@ MEDIA:/root/.hermes/audio_cache/report_vi.mp3
 ## Pitfalls
 
 - **Vietnamese text with English voice is still wrong.** The user may describe this as “ngôn ngữ vẫn là tiếng Anh”. Regenerate using `vi-VN-*` voice explicitly.
+- **Edge-TTS Vietnamese Voice Connection Issues & Workarounds:**
+  When converting large texts in Vietnamese via `edge-tts` (or using the `vi-VN-NamMinhNeural`/`vi-VN-HoaiMyNeural` voices), Microsoft Edge TTS servers often throttle connections or return `TimeoutError` / `NoAudioReceived` for blocks exceeding a few hundred characters. 
+  - *Workaround:* Clean all special characters (dashes, quotes, parentheses) first, replacing them with simple commas or spaces.
+  - *Fallback:* If TimeoutErrors persist, split the text into micro-chunks (sentences/phrases under 100 characters or ~15 words) before sending to `edge-tts`. In case of repeated failures, fall back to OpenAI TTS API (e.g. `alloy`, `onyx` voices) or other configured local Vietnamese TTS APIs.
 - **TTS reads English technical names awkwardly.** For spoken Vietnamese, rewrite names phonetically where useful, e.g. “mattpocock slash skills”, “context chấm em đi”, or explain once in Vietnamese.
 - **Slack direct playback matters.** Use `MEDIA:` with an absolute path; do not only mention the path.
 - **Avoid overlong audio.** For executive briefings, aim 2–5 minutes unless the user asks for full detail.
