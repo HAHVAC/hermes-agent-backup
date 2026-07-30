@@ -9,6 +9,9 @@ Use this workflow for Vietnamese route/planning questions such as “Vành đai 
 
 ## Workflow
 
+0. **Check Reference Material for Province Mergers**
+   - Refer to `references/bac-giang-bac-ninh-merger-2025.md` for specific details regarding the large-scale merger of Bắc Giang and Bắc Ninh (especially Huyện Hiệp Hòa changes).
+
 1. **Clarify current vs old administrative units when needed**
    - Vietnamese infrastructure articles often use old province/district/commune names.
    - If the user says a merged/new province name (e.g. “Bắc Ninh” after Bắc Giang/Bắc Ninh changes), search both the current and historical province names.

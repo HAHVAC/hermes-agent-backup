@@ -43,6 +43,7 @@ Common legal sources to consider:
 - Quy định PCCC liên quan thiết kế, thẩm duyệt, nghiệm thu, trách nhiệm thi công/bảo trì khi hợp đồng có PCCC.
 - Quy định thuế, hóa đơn, GTGT, TNDN, TNCN khi điều khoản thanh toán/nhân công ảnh hưởng nghĩa vụ thuế.
 - Luật Trọng tài thương mại / Bộ luật Tố tụng dân sự cho giải quyết tranh chấp.
+- Luật Kinh doanh bất động sản và Luật Nhà ở mới nhất (Luật Kinh doanh bất động sản 2023, Luật Nhà ở 2023, và các Nghị định hướng dẫn như Nghị định 96/2024/NĐ-CP, Nghị định 95/2024/NĐ-CP, Nghị định 100/2024/NĐ-CP, được sửa đổi bổ sung bởi Nghị định 54/2026/NĐ-CP): quan trọng đối với các hợp đồng mua bán, thuê mua nhà ở hình thành trong tương lai, chuyển nhượng hợp đồng mua bán/thuê mua bất động sản, và quy định về điều kiện/thủ tục NOXH, quản lý vận hành chung cư. (Xem chi tiết hướng dẫn tại `references/nghi-dinh-54-2026-bds.md`).
 
 ## Review workflow
 
