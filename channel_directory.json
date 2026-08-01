@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-31T18:56:46.062833",
+  "updated_at": "2026-08-01T18:57:51.031712",
   "platforms": {
     "slack": [
       {
@@ -31,6 +31,18 @@
         "id": "C0B33N47F8D",
         "name": "công-việc",
         "type": "channel"
+      },
+      {
+        "id": "C0BMEHBAG9X",
+        "name": "hermes-agent_pc",
+        "type": "group",
+        "thread_id": null
+      },
+      {
+        "id": "D0ADCTTQK1C",
+        "name": "D0ADCTTQK1C",
+        "type": "dm",
+        "thread_id": null
       },
       {
         "id": "C0B25QXMR8Q:1785454007.199479",
