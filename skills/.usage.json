@@ -216,7 +216,7 @@
     "last_viewed_at": "2026-06-28T09:09:41.067422+00:00",
     "patch_count": 1,
     "pinned": false,
-    "state": "active",
+    "state": "stale",
     "use_count": 4,
     "view_count": 4
   },
@@ -440,6 +440,19 @@
     "state": "active",
     "use_count": 5,
     "view_count": 5
+  },
+  "inspecting-hermes-desktop-dom": {
+    "archived_at": null,
+    "created_at": "2026-08-02T11:32:58.965612+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_used_at": null,
+    "last_viewed_at": null,
+    "patch_count": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 0,
+    "view_count": 0
   },
   "kanban-orchestrator": {
     "archived_at": null,
