@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T18:59:54.129971",
+  "updated_at": "2026-08-04T18:55:28.000740",
   "platforms": {
     "slack": [
       {
@@ -37,6 +37,12 @@
         "name": "hermes-agent_pc",
         "type": "group",
         "thread_id": null
+      },
+      {
+        "id": "C0B25QXMR8Q:1785851871.843299",
+        "name": "C0B25QXMR8Q / topic 1785851871.843299",
+        "type": "group",
+        "thread_id": "1785851871.843299"
       },
       {
         "id": "D0ADCTTQK1C",
