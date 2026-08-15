@@ -79,6 +79,7 @@ terminal:
   singularity_image: docker://nikolaik/python-nodejs:python3.11-nodejs20
   modal_image: nikolaik/python-nodejs:python3.11-nodejs20
   daytona_image: nikolaik/python-nodejs:python3.11-nodejs20
+  vercel_runtime: node24
   container_cpu: 1
   container_memory: 5120
   container_disk: 51200
@@ -88,7 +89,6 @@ terminal:
   docker_extra_args: []
   docker_run_as_host_user: false
   persistent_shell: true
-  vercel_runtime: node24
   lifetime_seconds: 300
 web:
   backend: firecrawl
@@ -121,8 +121,8 @@ checkpoints:
   max_file_size_mb: 10
   auto_prune: false
   retention_days: 7
-  delete_orphans: true
   min_interval_hours: 24
+  delete_orphans: true
 file_read_max_chars: 100000
 tool_output:
   max_bytes: 50000
@@ -147,17 +147,6 @@ compression:
   hygiene_hard_message_limit: 400
   protect_first_n: 3
   abort_on_summary_failure: false
-kanban:
-  dispatch_in_gateway: true
-  dispatch_interval_seconds: 60
-  failure_limit: 2
-  worker_log_rotate_bytes: 2097152
-  worker_log_backup_count: 1
-  orchestrator_profile: ''
-  default_assignee: ''
-  auto_decompose: true
-  auto_decompose_per_tick: 3
-  dispatch_stale_timeout_seconds: 14400
 prompt_caching:
   cache_ttl: 5m
 openrouter:
@@ -455,6 +444,7 @@ approvals:
   destructive_slash_confirm: false
 command_allowlist:
   - script execution via -e/-c flag
+  - script execution via heredoc
 hooks_auto_accept: false
 security:
   allow_private_urls: false
@@ -471,6 +461,17 @@ security:
   allow_lazy_installs: true
 cron:
   wrap_response: true
+kanban:
+  dispatch_in_gateway: true
+  dispatch_interval_seconds: 60
+  failure_limit: 2
+  worker_log_rotate_bytes: 2097152
+  worker_log_backup_count: 1
+  orchestrator_profile: ''
+  default_assignee: ''
+  auto_decompose: true
+  auto_decompose_per_tick: 3
+  dispatch_stale_timeout_seconds: 14400
 code_execution:
   mode: project
   timeout: 300

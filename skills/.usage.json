@@ -640,13 +640,13 @@
     "created_at": "2026-07-29T15:05:20.314746+00:00",
     "created_by": null,
     "last_patched_at": null,
-    "last_used_at": "2026-07-30T15:34:32.154916+00:00",
-    "last_viewed_at": "2026-07-30T15:34:32.025844+00:00",
+    "last_used_at": "2026-08-15T08:42:17.996302+00:00",
+    "last_viewed_at": "2026-08-15T08:42:17.977918+00:00",
     "patch_count": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 2,
-    "view_count": 2
+    "use_count": 4,
+    "view_count": 4
   },
   "nano-pdf": {
     "archived_at": null,
