@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-18T18:58:48.375803",
+  "updated_at": "2026-08-19T18:59:50.769809",
   "platforms": {
     "slack": [
       {
@@ -31,6 +31,24 @@
         "id": "C0B33N47F8D",
         "name": "công-việc",
         "type": "channel"
+      },
+      {
+        "id": "C0AKCBL3CR4:1787155068.445179",
+        "name": "C0AKCBL3CR4 / topic 1787155068.445179",
+        "type": "group",
+        "thread_id": "1787155068.445179"
+      },
+      {
+        "id": "C0AKCBL3CR4:1787151656.985029",
+        "name": "C0AKCBL3CR4 / topic 1787151656.985029",
+        "type": "group",
+        "thread_id": "1787151656.985029"
+      },
+      {
+        "id": "C0AKCBL3CR4:1787147180.785519",
+        "name": "C0AKCBL3CR4 / topic 1787147180.785519",
+        "type": "group",
+        "thread_id": "1787147180.785519"
       },
       {
         "id": "C0AKCBL3CR4:1786875439.828409",
