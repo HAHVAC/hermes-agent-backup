@@ -18,15 +18,15 @@
       "schedule_display": "0 13 * * *",
       "repeat": {
         "times": null,
-        "completed": 142
+        "completed": 143
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-04-19T00:54:55.103138+00:00",
-      "next_run_at": "2026-08-31T13:00:00+00:00",
-      "last_run_at": "2026-08-30T13:01:21.908915+00:00",
+      "next_run_at": "2026-09-01T13:00:00+00:00",
+      "last_run_at": "2026-08-31T13:01:04.961957+00:00",
       "last_status": "error",
       "last_error": "RuntimeError: HTTP 429: Insufficient balance or no resource package. Please recharge.",
       "last_delivery_error": null,
@@ -97,15 +97,15 @@
       "schedule_display": "0 19 * * *",
       "repeat": {
         "times": null,
-        "completed": 112
+        "completed": 113
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-05-11T14:15:45.794520+00:00",
-      "next_run_at": "2026-08-31T19:00:00+00:00",
-      "last_run_at": "2026-08-29T19:01:03.226185+00:00",
+      "next_run_at": "2026-09-01T19:00:00+00:00",
+      "last_run_at": "2026-08-30T19:00:52.705978+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -168,5 +168,5 @@
       "profile": null
     }
   ],
-  "updated_at": "2026-08-30T19:00:43.662276+00:00"
+  "updated_at": "2026-08-31T19:00:20.524746+00:00"
 }
