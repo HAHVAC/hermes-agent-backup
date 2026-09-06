@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-05T18:56:58.199956",
+  "updated_at": "2026-09-06T18:58:05.867154",
   "platforms": {
     "slack": [
       {
@@ -31,6 +31,12 @@
         "id": "C0B33N47F8D",
         "name": "công-việc",
         "type": "channel"
+      },
+      {
+        "id": "C0B25QXMR8Q:1788690454.432309",
+        "name": "C0B25QXMR8Q / topic 1788690454.432309",
+        "type": "group",
+        "thread_id": "1788690454.432309"
       },
       {
         "id": "C0B25QXMR8Q:1788441036.835249",
